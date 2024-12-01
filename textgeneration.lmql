@@ -1,0 +1,70 @@
+import openai
+import lmql
+import asyncio
+import nest_asyncio
+
+nest_asyncio.apply()
+
+@lmql.query
+def constrained_length():
+    '''lmql 
+    "Tell me just a joke, do not tell me the punchline:\n\n"
+    "[JOKE]\n" where len(TOKENS(JOKE)) < 10
+    "Now tell me the punchline.\n"
+    "A:[PUNCHLINE]\n" where len(TOKENS(PUNCHLINE)) > 1
+    return JOKE, PUNCHLINE
+    '''
+    
+#print(constrained_length())
+
+@lmql.query
+def choice_from_set():
+    '''lmql
+    # top level strings are prompts
+    "My packing list for the trip:"
+    list = []
+    for i in range(4):
+        "-[THING]" where THING in ["Volleyball", "Sunscreen", "Bathing Suit", "Book", "Towel"]
+        list.append(THING.strip())
+    return list
+    '''
+
+#print(choice_from_set())
+
+@lmql.query
+def stops_at():
+    '''lmql 
+    "Tell me a story. It should be 3 setences and include the phrases 'Once upon a time' and 'The end'\n\n"
+    "[STORY]" where STOPS_AT(STORY, "The end.")
+    return STORY
+    '''
+#print(stops_at())
+
+@lmql.query
+def stops_before():
+    '''lmql 
+    "Tell me a story. It should be 3 setences and include the phrases 'Once upon a time' and 'The end'\n\n"
+    "[STORY]" where STOPS_BEFORE(STORY, " The end.")
+    return STORY
+    '''
+#print(stops_before())
+
+@lmql.query()
+def num_constraints():
+    '''lmql
+    "Q: Give me a number between 1 and 100:\n\n"
+    "[N]" where INT(N)
+    return N
+    '''
+#print(num_constraints())
+
+@lmql.query()
+def regex_constraints():
+    '''lmql
+    "Today is Christmas in 2024. What is the date?\n\n"
+    "[DATE1]" where REGEX(DATE1, r"[0-9]{2}/[0-9]{2}")
+    "What will the date be on new year's day?\n\n"
+    "[DATE2]" where REGEX(DATE2, r"[0-9]{2}/[0-9]{2}")
+    return DATE1, DATE2
+    '''
+print(regex_constraints())
