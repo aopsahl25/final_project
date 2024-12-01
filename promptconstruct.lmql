@@ -7,16 +7,90 @@ import re
 nest_asyncio.apply()
 
 @lmql.query
-def chain_of_thought(question):
+def chain_of_thought(question): 
     '''lmql
     # Q&A prompt template
     "Q: {question}\n"
-    "A: Let's think step by step.\n"
-    "[REASONING]"
-    "Thus, the answer is:[ANSWER]."
+    "A: Let's find the answer by thinking step by step. \n\n"
+    "[REASONED_ANSWER]"
+    return REASONED_ANSWER
+    '''
 
-    # return just the ANSWER to the caller
+#print(chain_of_thought("How many tennis balls fit in the Empire State Building?"))
+
+@lmql.query
+def structured_framework(question): 
+    '''lmql
+    # Q&A prompt template
+    "Q: {question}\n"
+    "A: [ANSWER]"
+    "Here is my reasoning for this answer: \n\n"
+    "[REASONING]"
+    return ANSWER, "I say this because", REASONING
+    '''
+
+#print(structured_framework("How many tennis balls fit in the Empire State Building?"))
+
+@lmql.query
+def iterative_improvement(question): 
+    '''lmql
+    # Q&A prompt template
+    "Q: {question}\n"
+    "A: [ANSWER]"
+    "Explain that to me in simpler terms\n\n"
+    "[BETTER_ANSWER]"
+    return ANSWER, BETTER_ANSWER
+    '''
+#print(iterative_improvement("Why do tigers have stripes?"))
+
+@lmql.query
+def recursive_questioning(question): 
+    '''lmql
+    # Q&A prompt template
+    "Q: {question}\n"
+    "A: [ANSWER]"
+    "Why is that your answer?\n\n"
+    "[EXPLANATION]"
+    return ANSWER, EXPLANATION
+    '''
+#print(recursive_questioning("What is the capital of France?"))
+
+
+@lmql.query
+def world_issues(issue): 
+    '''lmql
+    "Define the {issue}, explain why the {issue} is a problem, and propose a solution to the {issue}. Your answer should be 7 sentences:\n\n"
+    "[ANSWER]"
     return ANSWER
     '''
 
-print(chain_of_thought('Today is the 12th of June, what day was it 1 week ago?'))
+#print(world_issues("world hunger"))
+
+@lmql.query
+def scripted_prompting():
+    '''lmql
+    "A list of things not to forget when going to school. Each thing should only be one word: \n"
+    backpack = []
+    for i in range(5):
+        "-[THING]" where STOPS_AT(THING, "\n") 
+        backpack.append(THING.strip())
+    "What is the most import thing on the list?\n\n"
+    "[ESSENTIAL_THING]"
+    return backpack, ESSENTIAL_THING
+    '''
+#print(scripted_prompting())
+
+@lmql.query
+def multi_part_program():
+    '''lmql 
+    "Q: What is the last color of the rainbow?"
+    "Answer Choices: (A) red (B) orange (C) yellow (D) green (E) blue (F) purple"
+    "A: Let's think step by step. Your reasoning should only be 3 sentences.\n\n"
+    "[REASONING]"
+    "Therefore, the answer is [ANSWER]" where \
+    ANSWER in ["A", "B", "C", "D", "E", "F"]
+    return REASONING, ANSWER
+    '''
+
+#print(multi_part_program())
+
