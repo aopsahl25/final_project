@@ -1,0 +1,22 @@
+import openai
+import lmql
+import asyncio
+import nest_asyncio
+import re
+
+nest_asyncio.apply()
+
+@lmql.query
+def chain_of_thought(question):
+    '''lmql
+    # Q&A prompt template
+    "Q: {question}\n"
+    "A: Let's think step by step.\n"
+    "[REASONING]"
+    "Thus, the answer is:[ANSWER]."
+
+    # return just the ANSWER to the caller
+    return ANSWER
+    '''
+
+print(chain_of_thought('Today is the 12th of June, what day was it 1 week ago?'))
