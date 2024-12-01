@@ -69,16 +69,16 @@ def world_issues(issue):
 @lmql.query
 def scripted_prompting():
     '''lmql
-    "A list of things not to forget when going to school. Each thing should only be one word: \n"
-    backpack = []
+    "A list of things not to forget when going to school. Each thing should be one word: \n"
+    list = []
     for i in range(5):
         "-[THING]" where STOPS_AT(THING, "\n") 
-        backpack.append(THING.strip())
-    "What is the most import thing on the list?\n\n"
-    "[ESSENTIAL_THING]"
-    return backpack, ESSENTIAL_THING
+        list.append(THING.strip())
+    "What is the most important thing in that list of things? Tell me what you believe in just one word. \n\n"
+    "[TOP_THING]"
+    return list, TOP_THING
     '''
-#print(scripted_prompting())
+print(scripted_prompting())
 
 @lmql.query
 def multi_part_program():
