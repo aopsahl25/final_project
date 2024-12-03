@@ -1,0 +1,36 @@
+import openai
+import lmql
+import asyncio
+import nest_asyncio
+import re
+
+nest_asyncio.apply()
+
+@lmql.query
+def function_call():
+    '''lmql
+    "Output a simple math expression for addition. Use real numbers, not variables. \n\n" 
+    "[MATH]" where STOPS_BEFORE(MATH, "=")
+    return MATH, eval(MATH)
+    '''
+#print(function_call())
+
+@lmql.query
+def wikipedia():
+    '''lmql
+    '''
+print(wikipedia())
+
+@lmql.query
+def key_value():
+    '''lmql
+    '''
+print(key_value())
+
+
+@lmql.query
+def other():
+    '''lmql
+    '''
+print(other())
+
