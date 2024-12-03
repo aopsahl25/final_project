@@ -1,0 +1,48 @@
+import httpx
+import nest_asyncio
+import asyncio
+import lmql
+
+nest_asyncio.apply()
+
+storage = {}
+def assign(key, value): 
+    storage[key] = value; return f'{{{key}: "{value}"}}'
+def get(key): 
+    return storage.get(key)
+
+
+@lmql.query
+def keyval():
+    '''lmql 
+    "Let's store information about someone. First, choose a name:\n\n\n"
+    "[ANYNAME]"
+    thename = ANYNAME
+    assign("name", thename)
+    "Now, let's choose which city they live in.\n"
+    "[ANYCITY]"
+    assign("city", ANYCITY)
+    "Decide an age for the person. Give only their age as a number.\n\n"
+    "[ANYAGE]"
+    assign("age", ANYAGE)
+    learnname = get("name")
+    learncity = get("city")
+    learnage = get("age")
+    "Now, tell me about their name, where they live, and how old they are\n\n"
+    "[DESCRIPTION]"
+    return learnname, learncity, learnage, DESCRIPTION
+    '''
+#print(keyval())
+
+@lmql.query
+def keyvalcomplex():
+    '''lmql
+    "Let's store information about someone using the assign and get functions. First, make up information to store in the assign function\n\n"
+    "[INFO]"
+    "return all of the stored keys and values. Return just the words stored in this form: KEYS: key1, key2, key3, VALUES: value1, value2, value3.Only return these words, do not return any information that explains how to get to these words (e.g., do not output any functions) \n\n"
+    "[KEYSANDVALUES]"
+    return KEYSANDVALUES
+    '''
+
+#print(keyvalcomplex())
+
