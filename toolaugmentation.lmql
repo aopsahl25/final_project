@@ -2,7 +2,6 @@ import openai
 import lmql
 import asyncio
 import nest_asyncio
-import re
 
 nest_asyncio.apply()
 
@@ -15,22 +14,35 @@ def function_call():
     '''
 #print(function_call())
 
-@lmql.query
-def wikipedia():
-    '''lmql
-    '''
-print(wikipedia())
 
 @lmql.query
-def key_value():
+def sorting():
     '''lmql
+    "Give me a sentence with as many words including x as possible.\n\n"
+    "[SENTENCE]" 
+    "How many times does the letter x appear?\n\n"
+    COUNT = SENTENCE.count("x")
+    return SENTENCE, COUNT
     '''
-print(key_value())
-
+#print(sorting())
 
 @lmql.query
-def other():
+def counting():
     '''lmql
+    "Give me a sentence with as many words including x as possible.\n\n"
+    "[SENTENCE]" 
+    "How many times does the letter x appear?\n\n"
+    COUNT = SENTENCE.count("x")
+    return SENTENCE, COUNT
     '''
-print(other())
+#print(counting())
+
+@lmql.query
+def replacing():
+    '''lmql
+    "Give me a sentence about how it is the year 2024"
+    "[SENTENCE]"
+    return SENTENCE.replace("2024", "2025")
+    '''
+#print(replacing())
 
