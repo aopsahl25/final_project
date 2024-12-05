@@ -12,11 +12,15 @@ def chatbot():
     '''lmql
     print("Chatbot is ready. Type 'Thanks! Goodbye' to exit.")
     argmax 
+        "{:system} You are a chatbot serving highly educated people. your ansers can be complicated."
         while True:
-            "{await input()}"
-            "[@message ANSWER]"
+            print("User:")
+            "{:user} {await input()}"
+            "{:assistant} Think step by step to develop your answer:[REASONING]"
+            "{:assistant} External Answer: [@message ANSWER]"
             if "Goodbye!" in ANSWER:
                 break
+            print("Assistant:")
             print(ANSWER)
     from "chatgpt"
     '''
