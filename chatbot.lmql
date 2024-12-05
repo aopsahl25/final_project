@@ -1,0 +1,19 @@
+import openai
+import lmql
+import asyncio
+import nest_asyncio
+
+nest_asyncio.apply()
+
+from lmql.lib.chat import message
+
+@lmql.query()
+def chatbot():
+    '''lmql
+    argmax 
+    "{await input()}"
+    "[@message ANSWER]"
+    from "chatgpt"
+    '''
+result = chatbot()
+print(result.variables["ANSWER"])
