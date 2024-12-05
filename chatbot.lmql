@@ -10,10 +10,14 @@ from lmql.lib.chat import message
 @lmql.query()
 def chatbot():
     '''lmql
+    print("Chatbot is ready. Type '^d' to exit.")
     argmax 
-    "{await input()}"
-    "[@message ANSWER]"
+        while True:
+            "{await input()}"
+            "[@message ANSWER]"
+            print(ANSWER)
     from "chatgpt"
     '''
+
 result = chatbot()
 print(result.variables["ANSWER"])
