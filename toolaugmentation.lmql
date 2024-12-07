@@ -16,17 +16,6 @@ def function_call():
 
 
 @lmql.query
-def sorting():
-    '''lmql
-    "Give me a sentence with as many words including x as possible.\n\n"
-    "[SENTENCE]" 
-    "How many times does the letter x appear?\n\n"
-    COUNT = SENTENCE.count("x")
-    return SENTENCE, COUNT
-    '''
-#print(sorting())
-
-@lmql.query
 def counting():
     '''lmql
     "Give me a sentence with as many words including x as possible.\n\n"
