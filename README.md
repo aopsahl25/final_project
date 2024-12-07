@@ -9,11 +9,45 @@ The Language Model Query Language, or LMQL, is a programming language that was d
 
 > <span style="color:gray; opacity:0.7;">For more information on LMQL from its developpers, users can visit the [LMQL website](https://lmql.ai/) or the SRI Lab's [GitHub repository](https://github.com/eth-sri/lmql) on LMQL.</span>
 
-This tutorial walks through how to how to get started with LMQL, explores its main features, and evaluates the efectiveness and efficiency of those features in comparison to an LLM used without LMQL. For follow-up questions about the tutorial or suggestions for improvement, please contact the author, [Amelia Opsahl](mailto:aopsahl25@cmc.edu).
+This tutorial gives a more detailed overview of LMQL works, walks through how to get started with LMQL, explores its main features, and evaluates the efectiveness and efficiency of those features in comparison to those of an LLM used without LMQL. For follow-up questions about the tutorial or suggestions for improvement, please contact the author, [Amelia Opsahl](mailto:aopsahl25@cmc.edu).
+
+## Understanding LMQL
+
+An LMQL query is formatted very similary to a standard Python program. However, in an LMQL query the top-level strings are interpreted as query strings that are passed to an LLM. For example:
+'''
+@lmql.query
+def example():
+    '''lmql 
+    "Q:How tall is the empire state building?"
+    "A: [ANSWER]"
+    return ANSWER
+    '''
+print(example())
+'''
+Program Output: 
+'''
+The Empire State Building is 1,454 feet (443.2 meters) tall.
+'''
+This scenario shows how an LMQL program containing both traditional algorithmic logic and LLM calls can automatically complete template variables like [ANSWER]. Moreover, LMQL also allows users to prompt an LLM on program variables using natural language prompting, thus allowing for more personalzied outputs and enhanced model reasoning capabilitie. For example:
+'''
+@lmql.query
+def example():
+    '''lmql 
+    "Q:How tall is the empire state building? Give me just the height in feet without any other informaiton."
+    "A: [ANSWER]"
+    return ANSWER
+    '''
+print(example())
+'''
+Program Output: 
+'''
+1,454 feet.
+'''
+
 
 ## Getting started
 
-
+Users can install LMQL locally or use the web-based Playground IDE.
 
 
 
