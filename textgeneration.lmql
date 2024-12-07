@@ -31,14 +31,6 @@ def choice_from_set():
 
 #print(choice_from_set())
 
-@lmql.query
-def stops_at():
-    '''lmql 
-    "Tell me a story. It should be 3 setences and include the phrases 'Once upon a time' and 'The end'\n\n"
-    "[STORY]" where STOPS_AT(STORY, "The end.")
-    return STORY
-    '''
-#print(stops_at())
 
 @lmql.query
 def stops_before():
