@@ -1,1 +1,1 @@
-![Alt text](images/lmql1.png "lmql")
+![Alt text](https://lmql.ai/) "Optional Title")
