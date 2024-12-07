@@ -1,0 +1,193 @@
+import openai
+import lmql
+import asyncio
+import nest_asyncio
+
+nest_asyncio.apply()
+
+#model confidence in prompt predictions
+#prompt construction - multi-part prompts
+@lmql.query
+def multi_part_program():
+    '''lmql 
+    "Q: How many U.S. Presidents have there been?"
+    "Answer Choices: (A) 25 (B) 46 (C) 83 (D) 40 (E) 15 (F) 60"
+    "A: Let's think step by step. Your reasoning should only be 3 sentences.\n\n"
+    "[REASONING]"
+    "what is the final answer?"
+    "[ANSWER]" where ANSWER in ["A", "B", "C", "D", "E", "F"]
+    "How percent confident are you in your answer?\n\n"
+    "[CONFIDENCE]"
+    return REASONING, ANSWER, CONFIDENCE
+    '''
+
+#print(multi_part_program())
+
+#prompt construction - repeating prompts
+@lmql.query
+def scripted_prompting():
+    '''lmql
+    "A list of things not to forget when going on a trip. Each thing should be one word: \n"
+    list = []
+    for i in range(5):
+        "-[THING]" where STOPS_AT(THING, "\n") 
+        list.append(THING.strip())
+    "What is the most important thing in that list of things? Tell me what you believe in just one word. \n\n"
+    "[TOP_THING]"
+    "What precent confident are you in the quality of this list and your choice of the most important thing in the list?\n\n"
+    "[CONFIDENCE]"
+    return list, TOP_THING, CONFIDENCE
+    '''
+#print(scripted_prompting())
+
+#prompt construction - multi-step reasoning 
+@lmql.query
+def recursive_questioning(question): 
+    '''lmql
+    # Q&A prompt template
+    "Q: {question}\n"
+    "A: [ANSWER]"
+    "Why is that your answer?\n\n"
+    "[EXPLANATION]"
+    "What percent confident are you in your answer?"
+    "[CONFIDENCE]"
+    return ANSWER, EXPLANATION, CONFIDENCE
+    '''
+#print(recursive_questioning("How long does it take to fly a commercial plane around the world?"))
+
+#prompt construction - COT reasoning 
+@lmql.query
+def chain_of_thought(question): 
+    '''lmql
+    # Q&A prompt template
+    "Q: {question}\n"
+    "A: Let's find the answer by thinking step by step. \n\n"
+    "[REASONED_ANSWER]"
+    "What percent confident are you in that answer?\n\n"
+    "[CONFIDENCE]"
+    return REASONED_ANSWER, CONFIDENCE
+    '''
+
+#print(chain_of_thought("How long does it take to fly a commercial plane around the world?"))
+
+#prompt construction - iterative improvement
+@lmql.query
+def iterative_improvement(question): 
+    '''lmql
+    # Q&A prompt template
+    "Q: {question}\n"
+    "A: [ANSWER]"
+    "Explain that to me in simpler terms\n\n"
+    "[SIMPLE_ANSWER]"
+    "What percent confident are you in your answers?\n\n"
+    "[CONFIDENCE]"
+    return ANSWER, SIMPLE_ANSWER, CONFIDENCE
+    '''
+#print(iterative_improvement("How long does it take to fly a commercial plane around the world?"))
+
+#text generation - following integer/regex constraints
+
+@lmql.query
+def constrained_length():
+    '''lmql 
+    "Tell me just a joke, do not tell me the punchline:\n\n"
+    "[JOKE]\n" where len(TOKENS(JOKE)) < 10
+    "Now tell me the punchline.\n"
+    "A:[PUNCHLINE]\n" where len(TOKENS(PUNCHLINE)) > 1
+    return JOKE, PUNCHLINE
+    '''
+    
+#print(constrained_length())
+#successful in that the joke is 8 tokens (so less than 10 tokens) in length, and the punchline is more than one word
+
+@lmql.query
+def choice_from_set():
+    '''lmql
+    "My packing list for the trip:"
+    list = []
+    available_things = ["Volleyball", "Sunscreen", "Bathing Suit", "Book", "Towel"]
+    for i in range(4):
+        "-[THING]" where THING in available_things
+        list.append(THING.strip())
+        available_things.remove(THING)  
+    return list
+    '''
+#print(choice_from_set())
+#sucessful in that the output list contains all items that are in the given list of options and no items repreat 
+
+@lmql.query()
+def num_constraints():
+    '''lmql
+    "Q: Give me a number between 1 and 100:\n\n"
+    "[N]" where INT(N)
+    return N, type(N)
+    '''
+#print(num_constraints())
+
+#successful - class is an integer
+
+@lmql.query()
+def regex_constraints():
+    '''lmql
+    "Today is Christmas in 2024. What is the date in MM/DD format?\n\n"
+    "[DATE1]" where REGEX(DATE1, r"[0-9]{2}/[0-9]{2}")
+    "What will the date be on new year's da in MM/DD format?\n\n"
+    "[DATE2]" where REGEX(DATE2, r"[0-9]{2}/[0-9]{2}")
+    return DATE1, DATE2
+    '''
+#print(regex_constraints())
+#sucessful, in MM/DD format
+
+@lmql.query
+def stops_before():
+    '''lmql 
+    "Tell me a story. It should be 3 setences and include the phrases 'Once upon a time' and 'The end'\n\n"
+    "[STORY]" 
+    "Now give a version of the story given the following constraints:\n\n"
+    "[ENDSTORY]" where STOPS_BEFORE(ENDSTORY, " The end.")
+    return STORY, ENDSTORY
+    '''
+#print(stops_before())
+
+#sucessful- does stop before the end when the constraint is given
+
+#tool augmentation
+
+@lmql.query
+def function_call():
+    '''lmql
+    "Output a simple math expression for addition. Use real numbers, not variables. \n\n" 
+    "[MATH]" where STOPS_BEFORE(MATH, "=")
+    return MATH, eval(MATH)
+    '''
+#print(function_call())
+
+#print(eval("2+3"))
+
+#output is same as using eval outside of the lmql query
+
+@lmql.query
+def counting():
+    '''lmql
+    "Give me a sentence with as many words including x as possible.\n\n"
+    "[SENTENCE]" 
+    "How many times does the letter x appear?\n\n"
+    COUNT = SENTENCE.count("x")
+    return SENTENCE, COUNT
+    '''
+#print(counting())
+
+#print("The xylophone player expertly executed a complex melody, showcasing their exceptional dexterity and musicality".count("x"))
+
+#output is the same as the count function on the same sentence outside of the lmql query
+
+@lmql.query
+def replacing():
+    '''lmql
+    "Give me a sentence about how it is the year 2024\n\n"
+    "[SENTENCE]"
+    return SENTENCE, SENTENCE.replace("2024", "2025")
+    '''
+print(replacing())
+
+#sucessful - sentence without replace is 2024, sentence that has had replace function is 2025
