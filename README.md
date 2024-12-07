@@ -51,7 +51,36 @@ LMQL can be installed locally on a user's personal computer. This tutorial will 
 
 > <span style="color:gray; opacity:0.7;">LMQL can also be used via a local instance of a playground IDE. Using the playground instance requires the installation of Node.js, which can be done by following the instructions on the [Node.js](https://nodejs.org/en/download/package-manage) website.</span>
 
-To use LMQL in Python, users can import the `lmql` package, run query code with `lmql.run`, or use a decorator `@lmql.query` for LMQL query functions. This tutorial will use the `@lmql.query` decorator for Pyton integration. 
+To use LMQL in Python, users can import the `lmql` package, run query code with `lmql.run`, or use a decorator `@lmql.query` for LMQL query functions. This tutorial will use the `@lmql.query` decorator for Pyton integration. The `lmql.run` function is favorable in that it allows users to directly run a string of LMQL code without having to define a function first, but this tutorial uses the decorator because of its included support for accessing the surrounding Python scope.
+
+As seen earlier, the `@lmql.query` decorator uses a piece of LMQL code as a Python function, which can then be called from your existing code:
+```
+@lmql.query
+def example2(): 
+    '''lmql
+    "Q: What is the sum of 2=5? \n"
+    "A: [SUM]"
+    return SUM
+    '''
+```
+Program Output: 
+```
+7
+```
+In terms of query configuration, users can further control query execution by setting the model, decoder, logging parameters, and so on. For example, the following code would override the model and decoder specified in the query program and communicate whether to print verbose logging outputs during execution (e.g., LLM inference parameters). 
+```
+@lmql.query(model = lmql.model("chatgpt"), decoder = "argmax", verbose=False)
+def example3(): 
+    '''lmql
+    "Q: Name five bird species. \n"
+    "A: [SUM]"
+    return SUM
+    '''
+```
+
+
+
+
 
 
 
