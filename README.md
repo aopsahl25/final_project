@@ -49,9 +49,11 @@ Here, we see how algorithmic logic, LLM behavior, and prompt engineering can all
 
 LMQL can be installed locally on a user's personal computer. This tutorial will walk through example LMQL queries that are run locally from within Python. 
 
-> <span style="color:gray; opacity:0.7;">LMQL can also be used via a local instance of a playground IDE. Using the playground instance requires the installation of Node.js, which can be done by following the instructions on the [Node.js](website).</span>
+> <span style="color:gray; opacity:0.7;">LMQL can also be used via a local instance of a playground IDE. Using the playground instance requires the installation of Node.js, which can be done by following the instructions on the [Node.js](https://nodejs.org/en/download/package-manage) website.</span>
 
 To use LMQL in Python, users can import the `lmql` package, run query code with `lmql.run`, or use a decorator `@lmql.query` for LMQL query functions. This tutorial will use the `@lmql.query` decorator for Pyton integration. 
+
+
 
 
 
