@@ -58,7 +58,7 @@ As seen earlier, the `@lmql.query` decorator uses a piece of LMQL code as a Pyth
 @lmql.query
 def example2(): 
     '''lmql
-    "Q: What is the sum of 2+5? \n"
+    "Q: What is the sum of 2+5?"
     "A: [SUM]"
     return SUM
     '''
@@ -73,7 +73,7 @@ In terms of query configuration, users can further control query execution by se
 @lmql.query(model = lmql.model("chatgpt"), decoder = "argmax", verbose=False)
 def example3(): 
     '''lmql
-    "Q: Name five bird species. \n"
+    "Q: Name five bird species."
     "A: [SUM]"
     return SUM
     '''
