@@ -28,7 +28,7 @@ Program Output:
 ```
 The Empire State Building is 1,454 feet (443.2 meters) tall.
 ```
-This scenario shows how an LMQL program containing both traditional algorithmic logic and LLM calls can automatically complete template variables like [ANSWER] by using a given mdoel. Moreover, LMQL also allows users to prompt an LLM on program variables using natural language prompting, thus allowing for more personalzied answers and enhanced model reasoning capabilitie. For example:
+This scenario shows how an LMQL query containing both traditional algorithmic logic and LLM calls can be used to automatically complete template variables like `ANSWER`. Moreover, LMQL queries can leverage natural language prompting to allow for more personalzied outputs to program variables and enhanced model reasoning capabilities. For example:
 ```
 @lmql.query
 def example():
@@ -43,11 +43,16 @@ Program Output:
 ```
 1,454 feet.
 ```
+Here, we see how algorithmic logic, LLM behavior, and prompt engineering can all come together in LMQL programs to fine-tune program output and efficiently handle complex queries.
 
+## Getting started - LMQL installation
 
-## Getting started
+LMQL can be installed locally on a user's personal computer. This tutorial will walk through example LMQL queries that are run locally from within Python. 
 
-Users can install LMQL locally or use the web-based Playground IDE.
+> <span style="color:gray; opacity:0.7;">LMQL can also be used via a local instance of a playground IDE. Using the playground instance requires the installation of Node.js, which can be done by following the instructions on the [Node.js](website).</span>
+
+To use LMQL in Python, users can import the `lmql` package, run query code with `lmql.run`, or use a decorator `@lmql.query` for LMQL query functions. This tutorial will use the `@lmql.query` decorator for Pyton integration. 
+
 
 
 
