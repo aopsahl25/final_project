@@ -13,7 +13,7 @@ This tutorial gives a more detailed overview of LMQL works, walks through how to
 
 ## Understanding LMQL
 
-An LMQL query is formatted very similary to a standard Python program. However, in an LMQL query the top-level strings are interpreted as query strings that are passed to an LLM. For example:
+An LMQL query is formatted very similary to a standard Python program. However, in an LMQL query top-level strings are interpreted as query strings that are passed to an LLM. For example:
 ```
 @lmql.query
 def example():
@@ -28,7 +28,7 @@ Program Output:
 ```
 The Empire State Building is 1,454 feet (443.2 meters) tall.
 ```
-This scenario shows how an LMQL program containing both traditional algorithmic logic and LLM calls can automatically complete template variables like [ANSWER]. Moreover, LMQL also allows users to prompt an LLM on program variables using natural language prompting, thus allowing for more personalzied outputs and enhanced model reasoning capabilitie. For example:
+This scenario shows how an LMQL program containing both traditional algorithmic logic and LLM calls can automatically complete template variables like [ANSWER] by using a given mdoel. Moreover, LMQL also allows users to prompt an LLM on program variables using natural language prompting, thus allowing for more personalzied answers and enhanced model reasoning capabilitie. For example:
 ```
 @lmql.query
 def example():
