@@ -6,6 +6,7 @@ import re
 
 nest_asyncio.apply()
 
+
 @lmql.query
 def chain_of_thought(question): 
     '''lmql
@@ -78,7 +79,7 @@ def scripted_prompting():
     "[TOP_THING]"
     return list, TOP_THING
     '''
-print(scripted_prompting())
+#print(scripted_prompting())
 
 @lmql.query
 def multi_part_program():
