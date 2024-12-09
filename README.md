@@ -11,9 +11,7 @@ The Language Model Query Language, or LMQL, is a programming language that was d
 
 This tutorial gives a more detailed overview of LMQL works, walks through how to get started with LMQL, explores its main features, and evaluates the efectiveness and efficiency of those features in comparison to those of an LLM used without LMQL. For follow-up questions about the tutorial or suggestions for improvement, please contact the author, [Amelia Opsahl](mailto:aopsahl25@cmc.edu).
 
-<div align="center">
-  <h2> Understanding LMQL </h2>
-</div>
+# Understanding LMQL
 
 An LMQL query is formatted very similary to a standard Python program. However, in an LMQL query top-level strings are interpreted as query strings that are passed to an LLM. For example:
 ```
@@ -47,9 +45,9 @@ Program Output:
 ```
 Here, we see how algorithmic logic, LLM behavior, and prompt engineering can all come together in LMQL programs to fine-tune program output and efficiently handle complex queries.
 
-<div align="center">
-  <h2> Getting started - LMQL Installation </h2>
-</div>
+
+# Getting started - LMQL Installation
+
 
 LMQL can be installed locally on a user's personal computer. This tutorial will walk through example LMQL queries that are run locally from within Python. 
 
@@ -92,9 +90,7 @@ Program Output:
 5. Pigeon
 ```
 
-<div align="center">
-  <h2> Feature 1 - Prompt Construction </h2>
-</div>
+# Feature 1 - Prompt Construction
 
 ### Prompt Construction
 
@@ -151,10 +147,8 @@ The above program takes a question as an input and outputs both the answer and t
 
 There are many other ways to encourage the model to follow an intentional reasoning process within the LMQL query. For example, users could modify the internal prompt statement to ask for an answer then ask for the reasoning behind it. Similarly, a user could prompt the model to explain why it arrived at its answer, which would also motivate the model to reevaluate its initial answer and its accuracy.  
 
+# Evaluation
 
-<div align="center">
-  <h2> Evaluation </h2>
-</div>
 idea - show how chain of thought makes the prompt more accurate, how other ways of illiciting reasoning do not work as well
 
 
