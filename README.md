@@ -96,7 +96,7 @@ Program Output:
   <h2> Feature 1 - Prompt Construction </h2>
 </div>
 
-# Prompt Construction
+### Prompt Construction
 
 LMQL uses string interpolation (a technique in which variables are embedded directly into a string) and expressive Python control flows (e.g., loops, conditions, and function calls) to facilitate dynamic prompting and allow for increased structure in the model's output. 
 
@@ -120,7 +120,7 @@ Program output:
 ```
 The above program defines an LMQL query template using the `@lmql.query` decorator. The program then uses a Python control flow with a for loop to control for list length. The program also uses string interpolation to allow the user to decide the event for which the packing list is being made. In doing so, the program's prompting process is more interactive and its output increases in structure.
 
-# Multi-Part Prompting
+### Multi-Part Prompting
 
 LMQL also uses multi-part prompt programs to enable enhanced controls over the LLM reasoning process and improve the accuracy of the LLM's output.
 
