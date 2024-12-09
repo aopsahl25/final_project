@@ -89,9 +89,27 @@ Program Output:
 ```
 ## Feature 1 - Prompt Construction
 
-LMQL uses expressive Python control flows (e.g., loops, conditions, and function calls) and string interpolation to facilitate dyanmic prompt construction and allow for increased structure in the model's output. 
+LMQL uses string interpolation (a technique in which variables are embedded directly into a string) and expressive Python control flows (e.g., loops, conditions, and function calls) to facilitate dynamic prompting and allow for increased structure in the model's output. 
 
-EXAMPLE. 
+For example:
+```
+@lmql.query
+def scripted_prompting(event):
+    '''lmql
+    "Q: Output a list of things to bring to an {event}. Each 'thing' should be only one word. \n"
+    list = []
+    for i in range(5):
+        "[THING]" where STOPS_AT(THING, "\n") 
+        list.append(THING.strip())
+    return list
+    '''
+print(scripted_prompting("school"))
+```
+Program output:
+```
+['Backpack', 'Pencil', 'Notebook', 'Lunch', 'Water bottle']
+```
+The above program defines an LMQL query template using the `@lmql.query` decorator. The program then uses a Python control flow with a for loop to control for list length. The program also uses string interpolation to allow the user to decide the event for which the packing list is being made. In doing so, the program's prompting process is more interactive and its output increases in structure.
 
 LMQL also uses multi-part prompt programs to enable enhanced controls over the LLM reasoning process and improve the accuracy of the LLM's output.
 
@@ -108,18 +126,16 @@ def chain_of_thought(question):
     '''
 print(chain_of_thought("How many tennis balls fit in the Empire State Building?"))
 ```
-The above code chunk defines an LMQL query template using the `@lmql.query` decorator. The program then takes a question as an input and outputs both the answer and the reasoning behind it. The model arrives at its answer using a step-by-step reasoning process as instructed in the internal prompt statement. 
-
-An example output based on the above question would be something like this: 
+Program output: 
 ```
 First, we need to determine the volume of the Empire State Building. According to the building's official website, the volume is approximately 37 million cubic feet. 
 Next, we need to determine the volume of a standard tennis ball. According to the International Tennis Federation, the volume of a tennis ball is approximately 2.5 cubic inches. 
 Finally, we can calculate the number of tennis balls that can fit in the Empire State Building by dividing the volume of the building by the volume of a tennis ball. 
 This gives us an estimated answer of 5.9 billion tennis balls. However, this is just an estimate as the actual number may vary depending on the size and shape of the tennis balls.
 ```
-As we can see, the chain-of-thought prompting guides the LLM to think more logically about its answer and, thanks to this intentional process of reasoning, output a reasoned response based on existing data. 
+The above program takes a question as an input and outputs both the answer and the reasoning behind it. The model arrives at its answer by using a step-by-step reasoning process as instructed in the internal prompt statement. This chain-of-thought prompting guides the LLM to think more logically about its answer and, in doing so, output a reasoned response based on existing data. 
 
-There are many other ways to encourage an intentional reasoning process within the LMQL query. Users could modify the internal prompt statement to ask for an answer then ask for the reasoning behind it. Similarly, a user could prompt the model to explain why it arrived at its answer, which would also motivate the model to reevaluate its initial answer and its accuracy.  
+There are many other ways to encourage the model to follow an intentional reasoning process within the LMQL query. For example, users could modify the internal prompt statement to ask for an answer then ask for the reasoning behind it. Similarly, a user could prompt the model to explain why it arrived at its answer, which would also motivate the model to reevaluate its initial answer and its accuracy.  
 
 # Evaluation 
 
