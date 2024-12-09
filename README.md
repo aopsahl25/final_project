@@ -128,10 +128,13 @@ print(chain_of_thought("How many tennis balls fit in the Empire State Building?"
 ```
 Program output: 
 ```
-First, we need to determine the volume of the Empire State Building. According to the building's official website, the volume is approximately 37 million cubic feet. 
-Next, we need to determine the volume of a standard tennis ball. According to the International Tennis Federation, the volume of a tennis ball is approximately 2.5 cubic inches. 
-Finally, we can calculate the number of tennis balls that can fit in the Empire State Building by dividing the volume of the building by the volume of a tennis ball. 
-This gives us an estimated answer of 5.9 billion tennis balls. However, this is just an estimate as the actual number may vary depending on the size and shape of the tennis balls.
+First, we need to determine the volume of the Empire State Building.
+According to the building's official website, the volume is approximately 37 million cubic feet. 
+Next, we need to determine the volume of a standard tennis ball.
+According to the International Tennis Federation, the volume of a tennis ball is approximately 2.5 cubic inches. 
+Finally, we can calculate the number of tennis balls that can fit in the Empire State Building.
+We do this by dividing the volume of the building by the volume of a tennis ball. 
+This gives us an estimated answer of 5.9 billion tennis balls.
 ```
 The above program takes a question as an input and outputs both the answer and the reasoning behind it. The model arrives at its answer by using a step-by-step reasoning process as instructed in the internal prompt statement. This chain-of-thought prompting guides the LLM to think more logically about its answer and, in doing so, output a reasoned response based on existing data. 
 
