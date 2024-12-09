@@ -151,8 +151,10 @@ The above program takes a question as an input and outputs both the answer and t
 
 There are many other ways to encourage the model to follow an intentional reasoning process within the LMQL query. For example, users could modify the internal prompt statement to ask for an answer then ask for the reasoning behind it. Similarly, a user could prompt the model to explain why it arrived at its answer, which would also motivate the model to reevaluate its initial answer and its accuracy.  
 
-# Evaluation 
 
+<div align="center">
+  <h2> Evaluation </h2>
+</div>
 idea - show how chain of thought makes the prompt more accurate, how other ways of illiciting reasoning do not work as well
 
 
