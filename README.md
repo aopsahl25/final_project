@@ -11,7 +11,9 @@ The Language Model Query Language, or LMQL, is a programming language that was d
 
 This tutorial gives a more detailed overview of LMQL works, walks through how to get started with LMQL, explores its main features, and evaluates the efectiveness and efficiency of those features in comparison to those of an LLM used without LMQL. For follow-up questions about the tutorial or suggestions for improvement, please contact the author, [Amelia Opsahl](mailto:aopsahl25@cmc.edu).
 
-## Understanding LMQL
+<div align="center">
+  <h2> Understanding LMQL </h2>
+</div>
 
 An LMQL query is formatted very similary to a standard Python program. However, in an LMQL query top-level strings are interpreted as query strings that are passed to an LLM. For example:
 ```
@@ -45,7 +47,9 @@ Program Output:
 ```
 Here, we see how algorithmic logic, LLM behavior, and prompt engineering can all come together in LMQL programs to fine-tune program output and efficiently handle complex queries.
 
-## Getting started - LMQL Installation
+<div align="center">
+  <h2> Getting started - LMQL Installation </h2>
+</div>
 
 LMQL can be installed locally on a user's personal computer. This tutorial will walk through example LMQL queries that are run locally from within Python. 
 
@@ -87,9 +91,12 @@ Program Output:
 4. Hummingbird
 5. Pigeon
 ```
-## Feature 1 - Prompt Construction
 
-#Prompt Construction
+<div align="center">
+  <h2> Feature 1 - Prompt Construction </h2>
+</div>
+
+# Prompt Construction
 
 LMQL uses string interpolation (a technique in which variables are embedded directly into a string) and expressive Python control flows (e.g., loops, conditions, and function calls) to facilitate dynamic prompting and allow for increased structure in the model's output. 
 
