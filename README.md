@@ -352,9 +352,144 @@ CONFIDENCE: I am 95% certain about my answer.
 
 In this program, the model answers a given question and outputs what percent confident it is in its response. While this is not a statistical, evidence-based measure of accuracy compelted by user, it is still a start in guaging how reliable the response may be (e.g., users can feel more confident in an answer with a score of 95% than a score of 2%).
 
+## Tool Augmentation
+
+As mentioned, LMQL can be run locally from within Python and is a superset of the language. This means that LMQL adds new features to Python's functionality, while also maintaining the compatabilities of standard Python code. Thus, LMQL queries can incorporate arbitrary Python constructs to extend LMQL's capabilities and boost query program efficiency.  
+
+### Methods and Functions
+
+One of the simplest ways to include Python constructs in LMQL queries is through the implementation of Python methods (functions associated with an object, that can be called on that object, and that can retrieve information from the object). 
+
+For example: 
+```
+@lmql.query 
+def counting(letter): 
+    '''lmql 
+    "Give me a sentence with as many words including {letter} as possible.\n"
+    "[SENTENCE]"  
+    COUNT = SENTENCE.count(letter)  
+    return SENTENCE, COUNT  
+    '''
+print(counting("x"))
+```
+Program Output: 
+```
+SENTENCE: The xylophone player expertly executed a complex melody, showcasing their exceptional dexterity and musicality.
+COUNT: 6
+```
+
+In the above program, the LMQL query uses Python's `count()` method to count how many times a given letter appears in the generated sentence. The ability to implement the `count()` method saves time for users because it allows them to bypass writing a prompt to ask the model to do so. Moreover, it improves the accuracy of the count, as LLMs have been known to struggle with counting [how many times a given letter appears in a word](https://techcrunch.com/2024/08/27/why-ai-cant-spell-strawberry/). 
+
+LMQL's incorporation of Python constructs can also include function calls. 
+
+For example:
+```
+@lmql.query 
+def function_call(): 
+    '''lmql 
+    "Output a simple math expression for addition. Use real numbers, not variables. \n\n"  
+    "[MATH]" where STOPS_BEFORE(MATH, "=")   
+    EVAL = eval(MATH)  
+    return MATH, EVAL 
+    '''
+print(function_call())
+```
+Program Output: 
+```
+MATH: 2 + 3
+eval(MATH): 5
+```
+
+In the above program, the LMQL query leverages Python's `eval() ` function to calculate the generated expression in just one call. This increases efficiency as the function eliminates the need to write additional prompting to solve the expression. Compared to the model's output, it is also more certain that the `eval()` function will be able to solve the expression correctly, especially if the expression were more complicated.
+
+### Key-Value Stores
+
+LMQL can also access the surrounding Python interpreter. A practical application of this capability is to use functions defined outside of the LMQL query.
+
+For example: 
+```
+storage = {}
+def assign(key, value): 
+    storage[key] = value; return f'{{{key}: "{value}"}}'
+def get(key): 
+    return storage.get(key)
+
+@lmql.query
+def keyvalcomplex(key):
+    '''lmql
+    "Let's store information about a young professional using the assign and get functions.\
+    First, make up information to store information in the assign function\n"
+    "[INFO]"
+    "Return all of the stored keys and values. Return output in this form: KEYS: key1, key2, key3, VALUES: value1, value2, value3.\
+    Only return these words, do not return any information that explains how to get to these words \
+    (e.g., do not output any functions)\n"
+    "[KEYSANDVALUES]"
+    "Return just the {key} of the person in the format of {key}: Value. \
+    Only return these words, do not return any information that explains how to get to these words \
+    (e.g., do not output any functions)\n"
+    "[KEYVAL]"
+    return KEYSANDVALUES, KEYVAL
+    '''
+print(keyvalcomplex("age"))
+```
+Program Output:
+```
+KEYSANDVALUES:
+KEYS: name, age, occupation, company, salary, education, years_of_experience, skills
+VALUES: Sarah Smith, 25, Marketing Manager, XYZ Corporation, $60,000, Bachelor's degree in Marketing, 3, Social media marketing, market research, project management
+KEYVAL: Age: 25
+```
+In the above program, the LMQL query uses the assign() and get() functions, which exist in the surrounding Python interpreter, to guide the model to generate and store information about a hypothetical "young professional" (e.g., their name, age, occupation, etc.). The model is then capable of outputting the stored information, both in the form of all the keys and values, as well a given key-value pair which is decided based on user input of a given key. 
+
+### Text Retrieval
+
+Text retrieval using LMQL's `async` and `await` syntax can also be used to augment the reasoning capabilities of the model queried in LMQL programs and guide the model to extract information from specific data sets. This can be accomplished by incorporating the `asyncio` [library](https://docs.python.org/3/library/asyncio.html) into LMQL queries to run Python coroutines that enable the program to pause execution at certain points and allow other tasks to run in the meantime. In the context of text retrieval, this capability can be used to extract information from high-level API URLs and run LMQL queries specifically on that information.  
+
+For example: 
+```
+async def fetch_data(url):
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        return response.json()
+
+async def wikipedia(q):
+    try:
+        # Clean up the query string
+        q = q.strip("\n '.")
+        # Wikipedia API URL
+        url = f"https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles={q}&origin=*"
+        response = await fetch_data(url)
+        pages = response.get("query", {}).get("pages", {})
+        if pages:
+            return list(pages.values())[0].get("extract", "No extract available")[:280]
+        else:
+            return "No results"
+    except Exception as e:
+        return f"An error occurred: {str(e)}"
+
+@lmql.query
+async def main():
+    '''lmql
+    "Use wikipedia to summarize the following topic in three sentences:"
+    topic = "Python (programming language)"
+    summary = await wikipedia(topic)
+    print(summary)
+    '''
+await main()
+```
+Program Output:
+```
+Python is a high-level, general-purpose programming language.
+Its design philosophy emphasizes code readability with the use of significant indentation.
+```
+As is clear, the above program uses the `aynscio` library with `async` and `await` syntax to construct a Wikipedia API URL, asynchronously fetch data from Wikipedia using the `fetch_data()` function, process the extract, and pass the result from Wikipedia into the LMQL query engine to condense the extract into a two-sentence summary on the chosen topic. This process enables LMQLs programs to incorporate API URLs and high-level text retrieval and then run queries on the extracted information.
+
+
 ## Evaluation
 
 idea - show how chain of thought makes the prompt more accurate, how other ways of illiciting reasoning do not work as well
+
+increased accuracy - strawberry
 
 ## References
 
