@@ -207,7 +207,7 @@ For example:
 @lmql.query()
 def num_constraints():
     '''lmql
-    "Q: Give me a number between 1 and 100:\n\n"
+    "Q: Give me a number between 1 and 100:\n"
     "[N]" where INT(N)
     return N, type(N)
     '''
@@ -254,7 +254,7 @@ For example:
 @lmql.query
 def constrained_length():
     '''lmql 
-    "Tell me just a joke, do not tell me the punchline:\n\n"
+    "Tell me just a joke, do not tell me the punchline:\n"
     "[JOKE]\n" where len(TOKENS(JOKE)) < 10
     "Now tell me the punchline.\n"
     "A:[PUNCHLINE]\n" where len(TOKENS(PUNCHLINE)) > 1
@@ -264,7 +264,7 @@ print(constrained_length())
 ```
 Program Output:
 ```
-"Why couldn't the bicycle stand up by itself?", ' Because it was two-tired.'
+Why couldn't the bicycle stand up by itself?, Because it was two-tired.
 ```
 
 The above program uses the `len` function to restrict the length of the joke to be less than ten words and ensure that the punchline for the joke is more than one word. A similar program could be executed at the character level to restrict the amount of charcaters included in the output by removing `TOKENS` as an argument in the `len` function. 
@@ -280,9 +280,9 @@ For example:
 @lmql.query()
 def regex_constraints():
     '''lmql
-    "Today is Christmas in 2024. What is the date?\n\n"
+    "Today is Christmas in 2024. What is the date?\n"
     "[DATE1]" where REGEX(DATE1, r"[0-9]{2}/[0-9]{2}")
-    "What will the date be on new year's day?\n\n"
+    "What will the date be on new year's day?\n"
     "[DATE2]" where REGEX(DATE2, r"[0-9]{2}/[0-9]{2}")
     return DATE1, DATE2
     '''
@@ -290,9 +290,65 @@ print(regex_constraints())
 ```
 Program Output:
 ```
-'25/12', '01/01'
+25/12, 01/01
 ```
 This program outputs dates in DD/MM format without the user needing to explain to the model in an internal prompt what this format means and all of the nuances of its structure.
+
+## Model Measuring
+
+In addition to features involving the prompting and output of queries, LMQL also allows users to derive classification results and confidence scores from program responses. These capabilities helps to improve model decision making by guiding the program to set unstructured text in the context of structured categories, and also plays a part in evaluating the model's accuracy. 
+
+### Classification Results
+
+Classification results can provide a variety of different categorizations, from classifying career types to food groups to geographical regions. One common use case is employing classification results in sentiment analysis. 
+
+For example: 
+```
+@lmql.query
+def results_class():
+    '''lmql
+    "Generate a two-sentence review for a hotel that you recently stayed at.\n\n"
+    "[REVIEW]"
+    "Q: What is the underlying sentiment of REVIEW \n"
+    "A:[SENTIMENT]" where SENTIMENT in set(["Good", "Bad", "Neutral"])
+    "Why did you choose that sentiment?\n"
+    "[REASONING]"
+    return REVIEW, SENTIMENT, REASONING
+    '''
+print(results_class())
+```
+Program Output: 
+```
+REVIEW: I recently stayed at the Grand Hyatt in New York City and was blown away by the luxurious accommodations and impeccable service. From the stunning views of the city to the comfortable beds and delicious dining options, this hotel exceeded all of my expectations.
+SENTIMENT: Good
+REASONING: I chose the sentiment of "good" because the review highlights positive aspects of the hotel and overall had a positive experience.
+```
+
+The above program not only generates a review, but it is also able to use this information to identify the response's underlying sentiment and give a reasoned explanation for this interpretation. 
+
+### Confidence Scores
+
+In a more quantitative direction, LMQL queries can output specific measures on how sure they are about their answer. 
+
+For example: 
+```
+@lmql.query
+def confidence_percent(question):
+    '''lmql
+    "Q: {question}?\n"
+    "A: [ANSWER]"
+    "What percent confident are you in that answer?\n"
+    "[CONFIDENCE]" where INT(CONFIDENCE)
+    return ANSWER, f"I am {CONFIDENCE}% certain."
+    '''
+print(confidence_percent("What is the most populous country in the world?"))
+```
+Program Output:
+```
+As of 2021, the most populous country in the world is China, with a population of over 1.4 billion people., I am 95% certain about my answer.
+```
+
+In this program, the model answers a given question and outputs what percent confident it is in its response. While this is not a statistical, evidence-based measure of accuracy compelted by user, it is still a start in guaging how reliable the response may be (e.g., users can feel more confident in an answer with a score of 95% than a score of 2%).
 
 ## Evaluation
 
