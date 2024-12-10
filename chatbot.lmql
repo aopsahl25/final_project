@@ -21,7 +21,11 @@ nest_asyncio.apply()
 # User:
 # How long does it take to fly from Los Angeles to Paris?
 # Assistant:
-# The flight duration from Los Angeles to Paris can vary depending on factors such as the specific departure and arrival airports, the airline, and any layovers. On average, a non-stop flight can take around 10 to 11 hours. However, if there are layovers or connecting flights involved, the total travel time can be longer. It is recommended to check with airlines for the most up-to-date and accurate flight duration information.
+# The flight duration from Los Angeles to Paris can vary depending on factors 
+# such as the specific departure and arrival airports, the airline, and any layovers. 
+# On average, a non-stop flight can take around 10 to 11 hours. 
+# However, if there are layovers or connecting flights involved, the total travel time can be longer. 
+# It is recommended to check with airlines for the most up-to-date and accurate flight duration information.
 # User:
 # Thanks! Goodbye
 # Goodbye! If you have any more questions in the future, feel free to ask. Have a great day!
