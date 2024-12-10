@@ -484,6 +484,50 @@ Its design philosophy emphasizes code readability with the use of significant in
 ```
 As is clear, the above program uses the `aynscio` library with `async` and `await` syntax to construct a Wikipedia API URL, asynchronously fetch data from Wikipedia using the `fetch_data()` function, process the extract, and pass the result from Wikipedia into the LMQL query engine to condense the extract into a two-sentence summary on the chosen topic. This process enables LMQLs programs to incorporate API URLs and high-level text retrieval and then run queries on the extracted information.
 
+## Custom Chatbot
+
+LMQL has the capability to build a custom, interactive chatbot that continusouly responds to user input in just a couple of lines of code. Chat applications are one of the most common use cases for LLMs, and LMQL provides simple libary support to build this popular tool directly from within a Python environment. 
+
+LMQL chatbots have two main features. The first is a core chat loop that repeatedly calls an `input()` function to await and process user input. The loop also includes tags to designate user and assistant messages and a `@message` decorator function to ensure that intermediate reasoning is kept internal and only the output of the decaroator variable will be displayed to ther user. The other main feature is the chatbot system prompt, which allows users to instruct the model to respond in a specific way or for a specific audience (e.g., more or less educated audience). 
+
+For example: 
+```
+@lmql.query()
+def chatbot():
+    '''lmql
+    print("Chatbot is ready. Type 'Thanks! Goodbye' to exit.")
+    argmax 
+        "{:system} You are a chatbot serving highly educated people. Your ansers can be complicated."
+        while True:
+            print("User:")
+            "{:user} {await input()}"
+            "{:assistant} Think step by step to develop your answer:[REASONING]"
+            "{:assistant} External Answer: [@message ANSWER]"
+            if "Goodbye!" in ANSWER:
+                break
+            print("Assistant:")
+            print(ANSWER)
+    from "chatgpt"
+    '''
+```
+Example chatbot interaction: 
+```
+Chatbot is ready. Type 'Thanks! Goodbye' to exit.
+User:
+Hi! 
+Assistant:
+ Hello! How can I assist you today?
+User:
+How long does it take to fly from Los Angeles to Paris?
+Assistant:
+ The flight duration from Los Angeles to Paris can vary depending on factors such as the specific departure and arrival airports, the airline, and any layovers. On average, a non-stop flight can take around 10 to 11 hours. However, if there are layovers or connecting flights involved, the total travel time can be longer. It is recommended to check with airlines for the most up-to-date and accurate flight duration information.
+User:
+Thanks! Goodbye
+ Goodbye! If you have any more questions in the future, feel free to ask. Have a great day!
+```
+
+The above program sucessfully implements an interactive chatbot whose answers are tailored to a specific system prompt and that can terminate interaction upon receiving a certain exit input (Thanks! goodbye). The program also includes an additional prompt statement within the assistant tag that instructs the model to use chain-of-thought reasoning in generation. This prompt engineering is implemented with the goal of increasing response accuracy via [step-by-step reasoning](https://www.datacamp.com/tutorial/chain-of-thought-prompting). 
+
 
 ## Evaluation
 
@@ -493,6 +537,9 @@ increased accuracy - strawberry
 
 ## References
 
+[LMQL website](https://lmql.ai/)  
+
+[SRI Lab's GitHub repository](https://github.com/eth-sri/lmql)
 
 
 
