@@ -5,35 +5,47 @@ import lmql
 
 nest_asyncio.apply()
 
-async def fetch_data(url):
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url)
-        return response.json()
+# The following program uses the `aynscio` library with async and `await` syntax to construct a Wikipedia API URL,
+# asynchronously fetch data from Wikipedia using the `fetch_data()` function, process the extract, 
+# and pass the result into a LMQL query engine to condense the extract into a two-sentence summary on the chosen topic.
+# The program output is this condensed summary. 
 
-async def wikipedia(q):
+# Example output: 
+# Python is a high-level, general-purpose programming language. 
+# Its design philosophy emphasizes code readability with the use of significant indentation.
+
+async def fetch_data(url):  # Defines an asynchronous function to fetch data from a URL
+    async with httpx.AsyncClient() as client:  # Opens an asynchronous HTTP client session
+        response = await client.get(url)  # Makes an HTTP GET request to the provided URL
+        return response.json()  # Returns the JSON data from the response
+
+async def wikipedia(q):  # Defines an asynchronous function to query Wikipedia
     try:
-        # Clean up the query string
         q = q.strip("\n '.")
-        # Wikipedia API URL
+         # Cleans up the query string by removing unwanted characters (newline, space, and punctuation)
         url = f"https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles={q}&origin=*"
+        # Constructs the Wikipedia API URL to get an extract of the topic
         response = await fetch_data(url)
+        # Fetches data from Wikipedia using the fetch_data function
         pages = response.get("query", {}).get("pages", {})
-        if pages:
+        # Extracts the page content from the response, with a fallback to an empty dictionary if not found
+        if pages: # Checks if pages were found in the response
             return list(pages.values())[0].get("extract", "No extract available")[:280]
+            # Returns the first 280 characters of the page's extract or a default message if no extract is found
         else:
-            return "No results"
-    except Exception as e:
+            return "No results"  # Returns "No results" if no page data is found
+    except Exception as e:  # Catches any exceptions and returns the error message
         return f"An error occurred: {str(e)}"
 
-@lmql.query
-async def main():
+@lmql.query  # Marks the following function as a LMQL query function
+async def main():  # Asynchronous main function for querying LMQL
     '''lmql
-    "Use wikipedia to search about the following topic:"
-    topic = "Python (programming language)"
-    result = await wikipedia(topic)
-    "take {result} and make it only two sentences\n\n"
-    "[SHORTRESULT]"
-    print(SHORTRESULT)
+    "Use wikipedia to summarize the following topic in three sentences:"
+    # Prompts the model to use the Wikipedia extract to summarize the chosen topic in three sentences
+    topic = "Python (programming language)"  # Sets the topic to "Python (programming language)"
+    summary = await wikipedia(topic)  # Fetches the Wikipedia summary for the topic
+    print(summary)  # Prints the summary result
     '''
 
-await main()
+await main()  # Calls the main function asynchronously to start the process
+
