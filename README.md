@@ -319,13 +319,10 @@ print(results_class())
 ```
 Program Output: 
 ```
-REVIEW: I recently stayed at the Grand Hyatt in New York City
-and was blown away by the luxurious accommodations and impeccable service.
-From the stunning views of the city to the comfortable beds and delicious dining options,
-this hotel exceeded all of my expectations.
+REVIEW: I recently stayed at the Grand Hyatt in New York City and was blown away by the luxurious accommodations and impeccable service.
+From the stunning views of the city to the comfortable beds and delicious dining options, this hotel exceeded all of my expectations.
 SENTIMENT: Good
-REASONING: I chose the sentiment of "good" because the review highlights positive
-aspects of the hotel and overall had a positive experience.
+REASONING: I chose the sentiment of "good" because the review highlights positive aspects of the hotel and overall had a positive experience.
 ```
 
 The above program not only generates a review, but it is also able to use this information to identify the response's underlying sentiment and give a reasoned explanation for this interpretation. 
@@ -349,8 +346,7 @@ print(confidence_percent("What is the most populous country in the world?"))
 ```
 Program Output:
 ```
-ANSWER: As of 2021, the most populous country in the world is China,
-with a population of over 1.4 billion people.,
+ANSWER: As of 2021, the most populous country in the world is China, with a population of over 1.4 billion people.,
 CONFIDENCE: I am 95% certain about my answer.
 ```
 
