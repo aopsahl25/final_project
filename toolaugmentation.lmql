@@ -27,14 +27,13 @@ def function_call(): # Defines a function within the LMQL query
     return MATH, EVAL 
     # Returns the generated math expression and its evaluated result
     '''
-print(function_call())
+#print(function_call())
 # Calls the function_call query and prints its output
 
-# The following query asks the model to output a sentence with as many of one letter as possible,
-# the letter in this case being x.
+# The following query asks the model to output a sentence with as many of the given letter as possible.
 # After generating this sentence, 
-# the program uses Python's count function to count all the xs that appear in the generated sentence.
-# Finally, the program outputs the sentence, as well as the count for how often x appeared.
+# the program uses Python's count() method to count how many times the letter appears in the sentence.
+# Finally, the program outputs the sentence, as well as the count for how many times the letter appeared.
 
 # Example output:
 # SENTENCE: The xylophone player expertly executed a complex melody, 
@@ -42,20 +41,18 @@ print(function_call())
 # COUNT: 6
 
 @lmql.query # Marks this function as an LMQL query definition
-def counting(): # Defines a function within the LMQL query
+def counting(letter): # Defines a function within the LMQL query
     '''lmql # Indicates that the following block uses LMQL syntax
-    "Give me a sentence with as many words including x as possible.\n\n"
-    # Prompt asking the model to generate a sentence containing as many instances of 'x' as possible
+    "Give me a sentence with as many words including {letter} as possible.\n\n"
+    # Prompt asking the model to generate a sentence with as many incidences of the given letter as possible
     "[SENTENCE]"  
     # Placeholder for the generated sentence
-    "How many times does the letter x appear?\n\n"
-    # Asks the model to count how many times the letter "x" appears in the sentence
-    COUNT = SENTENCE.count("x")  
-    # Counts how many times the letter "x" appears in the sentence using Python's `count()` method
+    COUNT = SENTENCE.count(letter)  
+    # Counts how many times the given letter appears in the sentence using Python's `count()` method
     return SENTENCE, COUNT  
-    # Returns both the generated sentence and the count of "x"s in it
+    # Returns both the generated sentence and the count of the given letter
     '''
-print(counting())
+print(counting("x"))
 # Calls the counting query and prints its output
 
 # The following LMQL query asks the model to output a sentence about an event that happened in 2024. 
@@ -79,5 +76,5 @@ def replacing(): # Defines a function within the LMQL query
     return NEW_SENTENCE  
     # Returns the new sentence with the year "2024" replaced by "2025"
     '''
-print(replacing())
+#print(replacing())
 # Calls the replacing query and prints its output
