@@ -492,6 +492,7 @@ LMQL chatbots have two main features. The first is a core chat loop that repeate
 
 For example: 
 ```
+from lmql.lib.chat import message
 @lmql.query()
 def chatbot():
     '''lmql
