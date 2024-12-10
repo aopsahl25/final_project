@@ -26,7 +26,7 @@ def constrained_length(): # Defines a function within the LMQL query
     return JOKE, PUNCHLINE #return the joke and its punchline
     '''
 print(constrained_length())
-# Call the constrained_length query and print its output
+# Calls the constrained_length query and prints its output
 
 # The following LMQL query asks the model to output a packing list for a trip. 
 # The program uses constraints to ensure that items on that list come from a set of variables.
@@ -48,7 +48,7 @@ def choice_from_set(): # Defines a function within the LMQL query
     return list  # Return the final list of selected items
     '''
 print(choice_from_set())
-# Call the choice_from_set query and print its output
+# Calls the choice_from_set query and prints its output
 
 # The following LMQL query asks the model to output a story, 
 # with specific directions on story length and phrases to include.
@@ -70,7 +70,7 @@ def stops_before(): # Defines a function within the LMQL query
     return STORY # Return the generated story text with contraints applied
     '''
 print(stops_before())
-# Call the stops_before query and print its output
+# Calls the stops_before query and prints its output
 
 # The following LMQL query is very similar to the previous one.
 # However, instead of adding a constraint for the story to stop before "The end.",
@@ -92,7 +92,7 @@ def stops_at(): # Defines a function within the LMQL query
     return STORY # Return the generated story text with contraints applied
     '''
 print(stops_at())
-# Call the stops_at query and print its output
+# Calls the stops_at query and prints its output
 
 # The following LMQL query instructs the model to output a number between 1 and 100.
 # The program then implements a number type constraint to ensure that number is an integer.
@@ -109,7 +109,7 @@ def num_constraints():  # Defines a function within the LMQL query
     return N, type(N)  # Returns the generated number and its type (to verify it's an integer)
     '''
 print(num_constraints())  
-# Call the num_constraints query and print its output
+# Calls the num_constraints query and prints its output
 
 # The following LMQL query instructs the model to print the date of a given day in the year.
 # The program uses REGEX constraints to format these dates to be in DD/MM format.
@@ -129,4 +129,4 @@ def regex_constraints():  # Defines the function that contains the LMQL query
     return DATE1, DATE2  # Returns the two dates (for Christmas and New Year's Day) as output
     '''
 print(regex_constraints())  
-# Call the regex_constraints query and print its output
+# Calls the regex_constraints query and prints its output

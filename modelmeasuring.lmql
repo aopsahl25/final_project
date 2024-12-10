@@ -22,7 +22,7 @@ nest_asyncio.apply()
 
 @lmql.query  # Marks this function as an LMQL query definition
 def results_class(): # Defines a function within the LMQL query
-    '''lmql  # Indicates that the following block uses LMQL syntax
+    '''lmql # Indicates that the following block uses LMQL syntax
     "Generate a two-sentence review for a hotel that you recently stayed at.\n\n"
     # Prompt the model to generate a review about a recent hotel stay
     "[REVIEW]"  
@@ -39,7 +39,7 @@ def results_class(): # Defines a function within the LMQL query
     # Return the review, the sentiment classification, and the explanation for the sentiment
     '''
 print(results_class())  
-# Call the results_class query and print its output
+# Calls the results_class query and prints its output
 
 
 # The following LMQL query takes in a given question, generates an answer to the quesiton,
@@ -69,4 +69,4 @@ def confidence_percent(question): # Defines a function within the LMQL query
     # Returns the answer and confidence level
     '''
 print(confidence_percent("How many people are there in the world?"))  
-# Call the confidence_percent query with the given question and print its output
+# Calls the confidence_percent query with the given question and prints its output
