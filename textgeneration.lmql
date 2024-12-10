@@ -39,7 +39,7 @@ def stops_before():
     "[STORY]" where STOPS_BEFORE(STORY, " The end.")
     return STORY
     '''
-#print(stops_before())
+print(stops_before())
 
 @lmql.query()
 def num_constraints():
@@ -59,4 +59,4 @@ def regex_constraints():
     "[DATE2]" where REGEX(DATE2, r"[0-9]{2}/[0-9]{2}")
     return DATE1, DATE2
     '''
-print(regex_constraints())
+#print(regex_constraints())
