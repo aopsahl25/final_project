@@ -319,7 +319,8 @@ print(results_class())
 ```
 Program Output: 
 ```
-REVIEW: I recently stayed at the Grand Hyatt in New York City and was blown away by the luxurious accommodations and impeccable service. From the stunning views of the city to the comfortable beds and delicious dining options, this hotel exceeded all of my expectations.
+REVIEW: I recently stayed at the Grand Hyatt in New York City and was blown away by the luxurious accommodations and impeccable service.
+From the stunning views of the city to the comfortable beds and delicious dining options, this hotel exceeded all of my expectations.
 SENTIMENT: Good
 REASONING: I chose the sentiment of "good" because the review highlights positive aspects of the hotel and overall had a positive experience.
 ```
@@ -345,7 +346,8 @@ print(confidence_percent("What is the most populous country in the world?"))
 ```
 Program Output:
 ```
-As of 2021, the most populous country in the world is China, with a population of over 1.4 billion people., I am 95% certain about my answer.
+ANSWER: As of 2021, the most populous country in the world is China, with a population of over 1.4 billion people.
+CONFIDENCE: I am 95% certain about my answer.
 ```
 
 In this program, the model answers a given question and outputs what percent confident it is in its response. While this is not a statistical, evidence-based measure of accuracy compelted by user, it is still a start in guaging how reliable the response may be (e.g., users can feel more confident in an answer with a score of 95% than a score of 2%).
