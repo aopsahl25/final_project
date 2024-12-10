@@ -11,38 +11,41 @@ def assign(key, value):
 def get(key): 
     return storage.get(key)
 
+# The following program leverages the assign() and get() functions, which exist
+# in the surrounding Python interpreter, to guide the model to both generate and store 
+# key-value pairs of information about a hypothetical person (e.g., name, age, occupation, etc). 
+# The model output is a list of the keys and values that the model has generated and stored, 
+# as well a given key-value pair, which is decided based on user input of a given key.
 
-@lmql.query
-def keyval():
-    '''lmql 
-    "Let's store information about someone. First, choose a name:\n\n\n"
-    "[ANYNAME]"
-    thename = ANYNAME
-    assign("name", thename)
-    "Now, let's choose which city they live in.\n"
-    "[ANYCITY]"
-    assign("city", ANYCITY)
-    "Decide an age for the person. Give only their age as a number.\n\n"
-    "[ANYAGE]"
-    assign("age", ANYAGE)
-    learnname = get("name")
-    learncity = get("city")
-    learnage = get("age")
-    "Now, tell me about their name, where they live, and how old they are\n\n"
-    "[DESCRIPTION]"
-    return learnname, learncity, learnage, DESCRIPTION
+# Example output: 
+# KEYSANDVALUES:
+# KEYS: name, age, occupation, company, salary, education, years_of_experience, skills
+# VALUES: Sarah Smith, 25, Marketing Manager, XYZ Corporation, $60,000, Bachelor's degree in Marketing, 3, Social media marketing, market research, project management
+# KEYVAL: Age: 25
+
+@lmql.query # Marks this function as an LMQL query definition
+def keyvalcomplex(key): # Defines a function that accepts an "event" parameter
+    '''lmql # Indicates that the following block is written in LMQL
+    "Let's store information about a young professional using the assign and get functions.\
+    First, make up information to store information in the assign function. \n\n"
+    # Prompt the model to store information about a young professional using the assign and get functions
+    # that exist in the surrounding Python interpreter
+    "[INFO]"  
+    # Placeholder where the model generates and stores the hypothetical person's information
+    "Return all of the stored keys and values. Return output in this form: KEYS: key1, key2, key3, VALUES: value1, value2, value3.\
+    Only return these words, do not return any information that explains how to get to these words \
+    (e.g., do not output any functions)\n\n"
+     # Instruction to return all keys and values from the stored information, with specific formatting directions
+    "[KEYSANDVALUES]"  
+    # Placeholder where the model outputs the keys and values as per the specified format
+    "Return just the {key} of the person in the format of {key}: Value. \
+    Only return these words, do not return any information that explains how to get to these words \
+    (e.g., do not output any functions)\n\n"
+    # Instruction to extract and return just the value of the requested key, with specific formatting directions
+    "[KEYVAL]" 
+    # Placeholder where the model outputs the requested key-value pair
+    return KEYSANDVALUES, KEYVAL
+    # The function outputs both the full list of keys and values and the specific key-value pair
     '''
-#print(keyval())
-
-@lmql.query
-def keyvalcomplex():
-    '''lmql
-    "Let's store information about someone using the assign and get functions. First, make up information to store in the assign function\n\n"
-    "[INFO]"
-    "return all of the stored keys and values. Return just the words stored in this form: KEYS: key1, key2, key3, VALUES: value1, value2, value3.Only return these words, do not return any information that explains how to get to these words (e.g., do not output any functions) \n\n"
-    "[KEYSANDVALUES]"
-    return KEYSANDVALUES
-    '''
-
-#print(keyvalcomplex())
-
+print(keyvalcomplex("Age"))
+# Calls the keyvalcomplex query with "age" as the chosen key and prints the result 
