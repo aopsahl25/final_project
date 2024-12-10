@@ -111,7 +111,7 @@ def num_constraints():  # Defines a function within the LMQL query
 print(num_constraints())  
 # Call the num_constraints query and print its output
 
-# The following LMQL program instructs the model to print the date of a given day in the year.
+# The following LMQL query instructs the model to print the date of a given day in the year.
 # The program uses REGEX constraints to format these dates to be in DD/MM format.
 # The program output are two dates for important days of the year (Christmas, New Year's Day)
 
