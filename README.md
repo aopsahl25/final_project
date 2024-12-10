@@ -441,9 +441,47 @@ KEYVAL: Age: 25
 ```
 In the above program, the LMQL query uses the assign() and get() functions, which exist in the surrounding Python interpreter, to guide the model to generate and store information about a hypothetical "young professional" (e.g., their name, age, occupation, etc.). The model is then capable of outputting the stored information, both in the form of all the keys and values, as well a given key-value pair which is decided based on user input of a given key. 
 
-### Aync/await Syntax
+### Text Retrieval
 
+Text retrieval using LMQL's `async` and `await` syntax can also be used to augment the reasoning capabilities of the model queried in LMQL programs and guide the model to extract information from specific data sets. This can be accomplished by incorporating the `asyncio` [library](https://docs.python.org/3/library/asyncio.html) into LMQL queries to run Python coroutines that enable the program to pause execution at certain points and allow other tasks to run in the meantime. In the context of text retrieval, this capability can be used to extract information from high-level API URLs and run LMQL queries specifically on that information.  
 
+For example: 
+```
+async def fetch_data(url):
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        return response.json()
+
+async def wikipedia(q):
+    try:
+        # Clean up the query string
+        q = q.strip("\n '.")
+        # Wikipedia API URL
+        url = f"https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles={q}&origin=*"
+        response = await fetch_data(url)
+        pages = response.get("query", {}).get("pages", {})
+        if pages:
+            return list(pages.values())[0].get("extract", "No extract available")[:280]
+        else:
+            return "No results"
+    except Exception as e:
+        return f"An error occurred: {str(e)}"
+
+@lmql.query
+async def main():
+    '''lmql
+    "Use wikipedia to summarize the following topic in three sentences:"
+    topic = "Python (programming language)"
+    summary = await wikipedia(topic)
+    print(summary)
+    '''
+await main()
+```
+Program Output:
+```
+Python is a high-level, general-purpose programming language. Its design philosophy emphasizes code readability with the use of significant indentation.
+```
+As is clear, the above program uses the `aynscio` library with `async` and `await` syntax to construct a Wikipedia API URL, asynchronously fetch data from Wikipedia using the `fetch_data()` function, process the extract, and pass the result from Wikipedia into the LMQL query engine to condense the extract into a two-sentence summary on the chosen topic. This process enables LMQLs programs to incorporate API URLs and high-level text retrieval and then run queries on the extracted information.
 
 
 ## Evaluation
