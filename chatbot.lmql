@@ -1,30 +1,55 @@
-import openai
-import lmql
-import asyncio
-import nest_asyncio
+import openai  # Imports the OpenAI library for interacting with OpenAI's APIs
+import lmql  # Imports the LMQL library for querying language models with logical constraints
+import asyncio  # Imports the asyncio library for writing asynchronous code
+import nest_asyncio  # Imports the nest_asyncio library to allow nested use of the asyncio event loop
 
-nest_asyncio.apply()
+nest_asyncio.apply()  
+# Applies the nest_asyncio patch to allow the current event loop to run nested event loops
+
+# The following LMQL query implements a custom, interactive chatbot that continusouly responds to user input.
+# The program includes a chat loop with an input() function to await user input, tags to disinguish between
+# user and assistant messages, and a @message decorator to ensure internal reasoning is not displayed to the user.
+# The program also has a system prompt statement to instruct the model to answer in a specific way and 
+# an internal prompt statement to guide the model to generate an answer with step-by-step reasoning.
+
+# Example interaction: 
+# Chatbot is ready. Type 'Thanks! Goodbye' to exit.
+# User:
+# Hi! 
+# Assistant:
+# Hello! How can I assist you today?
+# User:
+# How long does it take to fly from Los Angeles to Paris?
+# Assistant:
+# The flight duration from Los Angeles to Paris can vary depending on factors such as the specific departure and arrival airports, the airline, and any layovers. On average, a non-stop flight can take around 10 to 11 hours. However, if there are layovers or connecting flights involved, the total travel time can be longer. It is recommended to check with airlines for the most up-to-date and accurate flight duration information.
+# User:
+# Thanks! Goodbye
+# Goodbye! If you have any more questions in the future, feel free to ask. Have a great day!
 
 from lmql.lib.chat import message
+# Imports the 'message' class from the 'chat' module in the 'lmql.lib' package
 
-
-@lmql.query()
-def chatbot():
-    '''lmql
-    print("Chatbot is ready. Type 'Thanks! Goodbye' to exit.")
-    argmax 
-        "{:system} You are a chatbot serving highly educated people. your ansers can be complicated."
-        while True:
-            print("User:")
-            "{:user} {await input()}"
-            "{:assistant} Think step by step to develop your answer:[REASONING]"
-            "{:assistant} External Answer: [@message ANSWER]"
-            if "Goodbye!" in ANSWER:
+@lmql.query()  # Marks the function as an LMQL query
+def chatbot():  # Defines a chatbot function
+    '''lmql # Indicates that the following block is written in LMQL
+    print("Chatbot is ready. Type 'Thanks! Goodbye' to exit.")  
+    # Prints a welcome message for the chatbot
+    argmax  # Starts the query definition (
+        "{:system} You are a chatbot serving highly educated people. your answers can be complicated."  
+        # Sets system instructions for the chatbot on how to answer questions
+        while True:  # Begins an infinite loop for chatbot interaction
+            print("User:")  # Prompts the user for input
+            "{:user} {await input()}"  # Takes user input asynchronously
+            "{:assistant} Think step by step to develop your answer:[REASONING]"  
+            # Prompts assistant to reason through the answer
+            "{:assistant} External Answer: [@message ANSWER]"  
+            # Sends the reasoning to the message service to generate an answer
+            if "Goodbye!" in ANSWER:  # Breaks the loop if the user says "Goodbye!"
                 break
-            print("Assistant:")
-            print(ANSWER)
-    from "chatgpt"
+            print("Assistant:")  # Prints text to indicate the following response is the assistant's
+            print(ANSWER)  # Prints the generated answer
+    from "chatgpt"  # Pulls a response from a ChatGPT-based model
     '''
 
-result = chatbot()
-print(result.variables["ANSWER"])
+result = chatbot()  # Calls the chatbot function
+print(result.variables["ANSWER"])  # Prints the chatbot's response from the result variable

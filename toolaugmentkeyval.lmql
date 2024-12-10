@@ -1,15 +1,24 @@
-import httpx
-import nest_asyncio
-import asyncio
-import lmql
+import openai  # Imports the OpenAI library for interacting with OpenAI's APIs
+import lmql  # Imports the LMQL library for querying language models with logical constraints
+import asyncio  # Imports the asyncio library for writing asynchronous code
+import nest_asyncio  # Imports the nest_asyncio library to allow nested use of the asyncio event loop
 
-nest_asyncio.apply()
+nest_asyncio.apply()  
+# Applies the nest_asyncio patch to allow the current event loop to run nested event loops
 
-storage = {}
-def assign(key, value): 
-    storage[key] = value; return f'{{{key}: "{value}"}}'
+storage = {}  # Initializes an empty dictionary to store key-value pairs
+
+def assign(key, value):  
+    # Defines a function to assign a value to a key in the storage dictionary
+    storage[key] = value  # Adds or updates the key-value pair in the dictionary
+    return f'{{{key}: "{value}"}}'  
+    # Returns a formatted string representation of the key-value pair
+
 def get(key): 
-    return storage.get(key)
+    # Defines a function to retrieve a value from the storage dictionary by its key
+    return storage.get(key)  
+    # Uses the `get` method to return the value for the key, or None if the key doesn't exist
+
 
 # The following program leverages the assign() and get() functions, which exist
 # in the surrounding Python interpreter, to guide the model to both generate and store 

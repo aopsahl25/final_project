@@ -1,9 +1,10 @@
-import httpx
-import nest_asyncio
-import asyncio
-import lmql
+import openai  # Imports the OpenAI library for interacting with OpenAI's APIs
+import lmql  # Imports the LMQL library for querying language models with logical constraints
+import asyncio  # Imports the asyncio library for writing asynchronous code
+import nest_asyncio  # Imports the nest_asyncio library to allow nested use of the asyncio event loop
 
-nest_asyncio.apply()
+nest_asyncio.apply()  
+# Applies the nest_asyncio patch to allow the current event loop to run nested event loops
 
 # The following program uses the `aynscio` library with async and `await` syntax to construct a Wikipedia API URL,
 # asynchronously fetch data from Wikipedia using the `fetch_data()` function, process the extract, 

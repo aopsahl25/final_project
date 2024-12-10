@@ -1,9 +1,10 @@
-import openai
-import lmql
-import asyncio
-import nest_asyncio
+import openai  # Imports the OpenAI library for interacting with OpenAI's APIs
+import lmql  # Imports the LMQL library for querying language models with logical constraints
+import asyncio  # Imports the asyncio library for writing asynchronous code
+import nest_asyncio  # Imports the nest_asyncio library to allow nested use of the asyncio event loop
 
-nest_asyncio.apply()
+nest_asyncio.apply()  
+# Applies the nest_asyncio patch to allow the current event loop to run nested event loops
 
 # The following LMQL query asks the model to output a joke and a punchline. 
 # The program uses constraints to limit the length of both the joke and the punchline,
