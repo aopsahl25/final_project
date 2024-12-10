@@ -346,7 +346,7 @@ print(confidence_percent("What is the most populous country in the world?"))
 ```
 Program Output:
 ```
-ANSWER: As of 2021, the most populous country in the world is China, with a population of over 1.4 billion people.,
+ANSWER: As of 2021, the most populous country in the world is China, with a population of over 1.4 billion people.
 CONFIDENCE: I am 95% certain about my answer.
 ```
 
