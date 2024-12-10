@@ -29,7 +29,8 @@ def get(key):
 # Example output: 
 # KEYSANDVALUES:
 # KEYS: name, age, occupation, company, salary, education, years_of_experience, skills
-# VALUES: Sarah Smith, 25, Marketing Manager, XYZ Corporation, $60,000, Bachelor's degree in Marketing, 3, Social media marketing, market research, project management
+# VALUES: Sarah Smith, 25, Marketing Manager, XYZ Corporation, $60,000, 
+# Bachelor's degree in Marketing, 3, Social media marketing, market research, project management
 # KEYVAL: Age: 25
 
 @lmql.query # Marks this function as an LMQL query definition
