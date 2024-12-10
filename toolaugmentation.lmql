@@ -5,33 +5,79 @@ import nest_asyncio
 
 nest_asyncio.apply()
 
-@lmql.query
-def function_call():
-    '''lmql
-    "Output a simple math expression for addition. Use real numbers, not variables. \n\n" 
-    "[MATH]" where STOPS_BEFORE(MATH, "=")
-    return MATH, eval(MATH)
+# The following LMQL query asks the model to output a math expression, with some specifications. 
+# The program then generates the expression, 
+# with the constraint to only include the information to the left of the equals sign.
+# Finally, the program outputs the expression, 
+# along with an answer to the expression, which is executed via Python's eval() function. 
+
+# Example output: 
+# MATH: 2 + 3
+# eval(MATH): 5
+
+@lmql.query # Marks this function as an LMQL query definition
+def function_call(): # Defines a function within the LMQL query
+    '''lmql # Indicates that the following block uses LMQL syntax
+    "Output a simple math expression for addition. Use real numbers, not variables. \n\n"  
+    # Prompt asking the model to generate a math expression for addition
+    "[MATH]" where STOPS_BEFORE(MATH, "=")  
+    # Placeholder for the generated math expression, 
+    # with a STOPS_BEFORE constraint to ensure the expression stops before the '=' sign
+    EVAL = eval(MATH)  
+    return MATH, EVAL 
+    # Returns the generated math expression and its evaluated result
     '''
-#print(function_call())
+print(function_call())
+# Calls the function_call query and prints its output
 
+# The following query asks the model to output a sentence with as many of one letter as possible,
+# the letter in this case being x.
+# After generating this sentence, 
+# the program uses Python's count function to count all the xs that appear in the generated sentence.
+# Finally, the program outputs the sentence, as well as the count for how often x appeared.
 
-@lmql.query
-def counting():
-    '''lmql
+# Example output:
+# SENTENCE: The xylophone player expertly executed a complex melody, 
+# showcasing their exceptional dexterity and musicality.
+# COUNT: 6
+
+@lmql.query # Marks this function as an LMQL query definition
+def counting(): # Defines a function within the LMQL query
+    '''lmql # Indicates that the following block uses LMQL syntax
     "Give me a sentence with as many words including x as possible.\n\n"
-    "[SENTENCE]" 
+    # Prompt asking the model to generate a sentence containing as many instances of 'x' as possible
+    "[SENTENCE]"  
+    # Placeholder for the generated sentence
     "How many times does the letter x appear?\n\n"
-    COUNT = SENTENCE.count("x")
-    return SENTENCE, COUNT
+    # Asks the model to count how many times the letter "x" appears in the sentence
+    COUNT = SENTENCE.count("x")  
+    # Counts how many times the letter "x" appears in the sentence using Python's `count()` method
+    return SENTENCE, COUNT  
+    # Returns both the generated sentence and the count of "x"s in it
     '''
-#print(counting())
+print(counting())
+# Calls the counting query and prints its output
 
-@lmql.query
-def replacing():
-    '''lmql
-    "Give me a sentence about how it is the year 2024"
-    "[SENTENCE]"
-    return SENTENCE.replace("2024", "2025")
+# The following LMQL query asks the model to output a sentence about an event that happened in 2024. 
+# After generating the sentence, the program uses the python 'replace()' method
+# to replace the year 2024 with the year 2025 in the sentence. 
+# The program output is the generated sentence, but with 2024 replaced with 2025.
+
+# Example Output:
+# In 2025, scientists discovered a new species of deep-sea fish with bioluminescent features, 
+# providing insight into the diversity of life in the ocean.
+
+@lmql.query # Marks this function as an LMQL query definition
+def replacing(): # Defines a function within the LMQL query
+    '''lmql # Indicates that the following block uses LMQL syntax
+    "Give me a sentence explaining something real that happened in 2024."
+    # Prompt asking the model to generate a sentence describing an event that happened in 2024
+    "[SENTENCE]"  
+    # Placeholder for the generated sentence 
+    NEW_SENTENCE = SENTENCE.replace("2024", "2025")  
+    # Replaces the occurrence of "2024" in the sentence with "2025" using Python's `replace()` method
+    return NEW_SENTENCE  
+    # Returns the new sentence with the year "2024" replaced by "2025"
     '''
-#print(replacing())
-
+print(replacing())
+# Calls the replacing query and prints its output
