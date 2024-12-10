@@ -75,8 +75,8 @@ In terms of query configuration, users can further control query execution by se
 def example3(): 
     '''lmql
     "Q: Name five bird species."
-    "A: [SUM]"
-    return SUM
+    "A: [SPECIES]"
+    return SPECIES
     '''
 print(example3())
 ```
@@ -529,12 +529,35 @@ Thanks! Goodbye
 
 The above program sucessfully implements an interactive chatbot whose answers are tailored to a specific system prompt and that can terminate interaction upon receiving a certain exit input (Thanks! goodbye). The program also includes an additional prompt statement within the assistant tag that instructs the model to use chain-of-thought reasoning in generation. This prompt engineering is implemented with the goal of increasing response accuracy via [step-by-step reasoning](https://www.datacamp.com/tutorial/chain-of-thought-prompting). 
 
+## Topic Interaction
+
+As we have already seen in some of the above examples, LMQL's features often interact, and it is rare for a more complex query to use only one of LMQL's various capabilities. For example, in the previous chatbot implementation, prompt construction within the `assistant` tag was used to improve the chatbot's reasoning process, and thus its answer quality. 
+
+Another example of topic interaction is found in the instance of the `scripted_prompting()` LMQL query function. When discussed in the prompt constuction section, we focused on how this program uses Python control flow with a for loop to control for list length. 
+```
+@lmql.query
+def scripted_prompting(event):
+    '''lmql
+    "Q: Output a list of things to bring to an {event}. Each 'thing' should be only one word. \n"
+    list = []
+    for i in range(5):
+        "[THING]" where STOPS_AT(THING, "\n") 
+        list.append(THING.strip())
+    return list
+    '''
+print(scripted_prompting("school"))
+```
+However, it is also notable that the program uses the `STOPS_AT` constraint to ensure each item in the list stops at a new line character and does not include the "\n" character in the output list. Moreover, this LMQL query function uses Python's `append()` method to add items to the final list, as well as Python's `strip()` method to eliminate extra whitespace from the beginning/end of the strings in the list. In this way, prompt construction, constrained text generation, and tool augmentation all work together to effectively format program output both in terms of length and content, as well as output the list in an efficient way (e.g., using the one-line `append()` function within the for loop to create the list instead of adding further prompting or a more complicated function to append elements to the list). 
+
+These expamples show how feature interaction expands LMQL capabilities and enables the construction of more complicated programs. Indeed, adding program constraints to enforce structure, implementing tool augmentation to drive efficiency, and using prompt construction to improve response accuracy all answer to the LMQL developper's goal of using LMQL to make interactions between the user and language models smoother and more efficient
 
 ## Evaluation
 
 idea - show how chain of thought makes the prompt more accurate, how other ways of illiciting reasoning do not work as well
 
 increased accuracy - strawberry
+
+## about the author?
 
 ## References
 
