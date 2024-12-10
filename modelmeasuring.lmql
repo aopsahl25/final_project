@@ -32,7 +32,7 @@ def results_class(): # Defines a function within the LMQL query
     "A:[SENTIMENT]" where SENTIMENT in set(["Good", "Bad", "Neutral"])  
     # Placeholder for the sentiment, constrained to one of three categories
     "Why did you choose that sentiment?\n\n"
-    # Additional question prompting the model to explain its sentiment classification.
+    # Additional question prompting the model to explain its sentiment classification
     "[REASONING]"  
     # Placeholder for the reasoning behind the sentiment classification.
     return REVIEW, SENTIMENT, REASONING  
