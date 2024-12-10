@@ -6,60 +6,67 @@ import re
 
 nest_asyncio.apply()
 
-@lmql.query
-def model_measuring_good():
-    '''lmql
-    "Review: We had a great stay. Hiking in the mountains was fabulous and the food is really good.\n"
-    "Q: What is the underlying sentiment of this review\n"
-    "A:[ANALYSIS]" where ANALYSIS in ["good", "bad", "neutral"]
+# The following LMQL query generates a review for a hypothetical recent hotel visit.
+# The model then determines the review's sentiment from a set of options (good, bad, neutral),
+# and generates reasoning for choosing that sentiment.
+# Finally, the program outputs the review, the review's underlying sentiment, and the model's reasoning.
+
+# Example output: 
+# REVIEW: I recently stayed at the Grand Hyatt in New York City and was blown away 
+# by the luxurious accommodations and impeccable service. 
+# From the stunning views of the city to the comfortable beds and delicious dining options, 
+# this hotel exceeded all of my expectations,
+# SENTIMENT: Good
+# REASONING: I chose the sentiment of "good" because the review 
+# highlights positive aspects of the hotel and overall had a positive experience.
+
+@lmql.query  # Marks this function as an LMQL query definition
+def results_class(): # Defines a function within the LMQL query
+    '''lmql  # Indicates that the following block uses LMQL syntax
+    "Generate a two-sentence review for a hotel that you recently stayed at.\n\n"
+    # Prompt the model to generate a review about a recent hotel stay
+    "[REVIEW]"  
+    # Placeholder for the model's generated review
+    "Q: What is the underlying sentiment of REVIEW \n"
+    # Follow-up question asking the model to classify the sentiment of the review
+    "A:[SENTIMENT]" where SENTIMENT in set(["Good", "Bad", "Neutral"])  
+    # Placeholder for the sentiment, constrained to one of three categories
     "Why did you choose that sentiment?\n\n"
-    "[REASONING]"
-    return ANALYSIS, REASONING
+    # Additional question prompting the model to explain its sentiment classification.
+    "[REASONING]"  
+    # Placeholder for the reasoning behind the sentiment classification.
+    return REVIEW, SENTIMENT, REASONING  
+    # Return the review, the sentiment classification, and the explanation for the sentiment
     '''
-#print(model_measuring_good())
+print(results_class())  
+# Call the results_class query and print its output
 
-@lmql.query
-def model_measuring_bad():
-    '''lmql
-    "Review: We had a terrible stay. Hiking in the mountains was so cold and windy and the food is dry and too salty.\n"
-    "Q: What is the underlying sentiment of this review\n"
-    "A:[ANALYSIS]" where ANALYSIS in ["good", "bad", "neutral"]
-    "Why did you choose that sentiment?\n\n"
-    "[REASONING]"
-    return ANALYSIS, REASONING
-    '''
-#print(model_measuring_bad())
 
-@lmql.query
-def model_measuring_neutral():
-    '''lmql
-    "Review: We had a fine stay. Hiking in the mountains was okay, nothing special, and the food is mediocre.\n"
-    "Q: What is the underlying sentiment of this review\n"
-    "A:[ANALYSIS]" where ANALYSIS in ["good", "bad", "neutral"]
-    "Why did you choose that sentiment?\n"
-    "[REASONING]"
-    return ANALYSIS, REASONING
-    '''
-#print(model_measuring_neutral())
+# The following LMQL query takes in a given question, generates an answer to the quesiton,
+# and calculates to what extent the model is confident in that answer.
+# The program output is the answer to the quesiton and the model's confidence, measured in percent.
 
-@lmql.query
-def confidence_scores():
-    '''lmql
-    "How tall is Mt. Everest? \n\n"
-    "[ANSWER]"
-    "On a scale of 1 to 100, how confident are you in that answer? \n\n"
-    "[CONFIDENCE]" where INT(CONFIDENCE)
-    return ANSWER, CONFIDENCE
-    '''
-print(confidence_scores())
+# Example Input:
+# How many people are there in the world?
+# Example Output: 
+# ANSWER: As of 2021, the most populous country in the world is China,
+# with a population of over 1.4 billion people.
+# CONFIDENCE: I am 95% certain about my answer.
 
-@lmql.query
-def confidence_percent():
-    '''lmql
-    "What ist the most populous country in the world?\n\n"
-    "[ANSWER]"
-    "What percent confident are you in that answer? \n\n"
-    "[CONFIDENCE]" where INT(CONFIDENCE)
-    return ANSWER, CONFIDENCE
+@lmql.query  # Marks this function as an LMQL query definition
+def confidence_percent(question): # Defines a function within the LMQL query
+    '''lmql  # Indicates the start of the LMQL block, written in LMQL syntax
+    "Q: {question}?\n\n"  
+    # inserts question into query using string interpolation.
+    "A: [ANSWER]"  
+    # Placeholder for the model's answer to the question
+    "What percent confident are you in that answer?\n\n"  
+    # Asks the model to specify its confidence level in percent
+    "[CONFIDENCE]" where INT(CONFIDENCE)  
+    # Placeholder for the confidence level, 
+    # constrained to be an integer using the `INT` constraint.
+    return ANSWER, f"I am {CONFIDENCE}% certain about my answer."  
+    # Returns the answer and confidence level
     '''
-#print(confidence_percent())
+print(confidence_percent("How many people are there in the world?"))  
+# Call the confidence_percent query with the given question and print its output
