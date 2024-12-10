@@ -11,9 +11,9 @@ nest_asyncio.apply()
 # The program outputs a packing list based on that event of choice.
 
 # Example input: 
-# "School"
+# School
 # Example output:
-# "['Backpack', 'Pencil', 'Notebook', 'Lunch', 'Water bottle']"
+# ['Backpack', 'Pencil', 'Notebook', 'Lunch', 'Water bottle']
 
 @lmql.query  # Marks this function as an LMQL query definition.
 def scripted_prompting(event):  # Defines a function that accepts an "event" parameter.
@@ -35,15 +35,15 @@ print(scripted_prompting("school"))
 # The model arrives at this answer using a step-by-step reasoning process as instructed in the internal prompt statement.
  
 # Example input: 
-# "How many tennis balls fit in the Empire State Building?"
+# How many tennis balls fit in the Empire State Building?
 # Example outout: 
-# "First, we need to determine the volume of the Empire State Building. 
+# First, we need to determine the volume of the Empire State Building. 
 # According to the building's official website, the volume is approximately 37 million cubic feet. 
 # Next, we need to determine the volume of a standard tennis ball. 
 # According to the International Tennis Federation, the volume of a tennis ball is approximately 2.5 cubic inches. 
 # Finally, we can calculate the number of tennis balls that can fit in the Empire State Building.
 # We do this by dividing the volume of the building by the volume of a tennis ball. 
-# This gives us an estimated answer of 5.9 billion tennis balls."
+# This gives us an estimated answer of 5.9 billion tennis balls.
 
 @lmql.query  # Marks this function as an LMQL query definition.
 def chain_of_thought(question):  # Defines a function that takes a "question" as input.
@@ -66,16 +66,16 @@ print(chain_of_thought("How many tennis balls fit in the Empire State Building?"
 # This change in prompting shows how the intial answer can differ without embedded reasoning.  
 
 # Example input: 
-# "How many tennis balls fit in the Empire State Building?"
+# How many tennis balls fit in the Empire State Building?
 # Example output: 
-# ANSWER: "It is impossible to accurately determine the number of tennis balls that would fit in the Empire State Building
+# ANSWER: It is impossible to accurately determine the number of tennis balls that would fit in the Empire State Building
 # without knowing the exact dimensions of the building and the size of the tennis balls. 
-# However, it is safe to say that it would be a very large number."
-# REASONING: "The Empire State Building has a volume of 37 million cubic feet and 
+# However, it is safe to say that it would be a very large number.
+# REASONING: The Empire State Building has a volume of 37 million cubic feet and 
 # a standard tennis ball has a volume of 9.4 cubic inches. 
 # Dividing the building's volume by the volume of a single tennis ball gives us approximately 110 million tennis balls. 
 # However, this calculation does not account for the building's structures and objects inside, 
-# so the actual number would likely be significantly less."
+# so the actual number would likely be significantly less.
 
 @lmql.query  # Marks the function as an LMQL query definition.
 def structured_framework(question):  # Defines a function that takes a "question" as input.
@@ -98,7 +98,7 @@ print(structured_framework("How many tennis balls fit in the Empire State Buildi
 # This program's internal prompt statement encourages reasoning by asking the model to explain why it arrived at its answer. 
 
 # Example Input:
-# "How many tennis balls fit in the Empire State Building?"
+# How many tennis balls fit in the Empire State Building?
 # Example output: 
 # ANSWER: It is impossible to accurately determine the number of tennis balls that would fit in the Empire State Building 
 # without knowing the exact dimensions of the building and the size of the tennis balls. 
