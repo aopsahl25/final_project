@@ -200,7 +200,7 @@ The above program outputs an identical story, but this story concludes with the 
 
 ### Number Type Constraints
 
-LMQL also supports number type constraints, which restrict the data type of a generated variable, with the `INT` constraint. 
+LMQL also supports number type constraints, which restrict the data type of a generated variable with the `INT` constraint. This guarantees that numbers stay within a valid range and can be used for further calculations in the program.
 
 For example: 
 ```
@@ -217,7 +217,7 @@ Program Output:
 ```
 47, <class 'int'>
 ```
-The above program enforces that the model cannot generate tokens that are not an integer, which can help ensure that numbers stay within a valid range and that they can be used for further calculations in the program.
+The above program enforces that the model cannot generate tokens that are not an integer, outputting the integer `47` and validating that it is indeed an integer with the `type()` function. 
 
 > <span style="color:gray; opacity:0.7;">**Note:** LMQL currently only supports integer constraints. However, the developpers have announced that support for floating point numbers and other types is planned for future releases.</span>
 
@@ -292,7 +292,7 @@ Program Output:
 ```
 '25/12', '01/01'
 ```
-This program outputs dates in DD/MM format without having to explain to the model what this format means and all of the nuances of its structure.
+This program outputs dates in DD/MM format without the user needing to explain to the model in an internal prompt what this format means and all of the nuances of its structure.
 
 ## Evaluation
 
