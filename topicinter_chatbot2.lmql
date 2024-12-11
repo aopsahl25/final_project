@@ -14,7 +14,6 @@ nest_asyncio.apply()
 # assistant messages are repalced with "!"
 
 # Example Output: 
-# Chatbot is ready. Type 'Thanks! Goodbye' to exit.
 # User:
 # Explain to me why raindows are curved in three sentences.
 # Assistant:
@@ -22,9 +21,6 @@ nest_asyncio.apply()
 # When sunlight enters a raindrop, it is refracted, or bent, at different angles depending on its wavelength! 
 # This causes the different colors of light to spread out and form a spectrum, 
 # with each color emerging at a slightly different angle, resulting in the curved shape of a rainbow!
-# User:
-# Thanks! Goodbye
-# You're welcome! If you have any more questions in the future, feel free to ask! Goodbye!
 
 @lmql.query()  # Marks the function as an LMQL query
 def enthusiastic_chatbot():  # Defines a chatbot function

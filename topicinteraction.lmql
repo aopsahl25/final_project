@@ -106,14 +106,10 @@ print(calendar())
 
 
 # Example Chatbot Interaction:
-# Chatbot is ready. Type 'Thanks! Goodbye' to exit.
 # User:
-# What is the capital of France?
+# Explain why rainbows are curved in three sentences
 # Assistant:
-# The capital of France is Paris.
-# User:
-# Thanks! Goodbye
-# Goodbye! If you have any more questions in the future, feel free to ask.
+# Rainbows are curved because of the way light is refracted and reflected inside raindrops.
 
 @lmql.query()  # Marks the function as an LMQL query
 def one_sentence_chatbot():  # Defines a chatbot function
