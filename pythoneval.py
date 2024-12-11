@@ -1,6 +1,6 @@
-import openai
-from dotenv import load_dotenv
-import os
+import openai  # Imports the OpenAI library for interacting with OpenAI's APIs
+from dotenv import load_dotenv  # Imports the 'load_dotenv' function to load environment variables from a .env file
+import os  # Imports the 'os' module to interact with the operating system (used here for fetching environment variables)
 
 #Load API key and organization ID from .env file
 load_dotenv(dotenv_path='.env')
@@ -70,4 +70,4 @@ response = openai.ChatCompletion.create( # opens a call to the openai API
     temperature=0,  # Adjusts temperature, which controls randomness, to be vert deterministic (as are the LMQl queries)
 )
 # Prints the response
-#print(response['choices'][0]['message']['content'].strip())
+print(response['choices'][0]['message']['content'].strip())
