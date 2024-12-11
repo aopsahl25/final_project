@@ -631,11 +631,19 @@ Although confidence scores are not significant measures of accuracy, it is also 
 
 ### Run time - LMQL query functions vs. Python functions
 
-### LMQL chatbot output versus ChatGPT output
+<img src="file:///Users/ameliaopsahl/Downloads/LMQL%20vs.%20Direct%20API%20Call%20Runtime%20Averages.svg" alt="Alt text" width="300">
 
-## Future Areas of Study
+## Thank You and Future Areas of Study
 
-* Why LMQL queries might have higher confidence scores than direct API calls
+Following this evaluation, there are various topics regarding the effectiveness and efficiency of LMQL queries that I would like to explore further. The following are just a few:
+
+* How would LMQL query runtime change if run in a local instance of a Playground IDE instead of directly from within Python?
+* How might LMQL query runtime differ if run from one of the other models that LMQL supports (e.g., llama.cpp, Azure)?
+* To what extent does tool augmentation reduce runtime compared to exexcuting the task via prompting?
+* How does LMQL chatbot effectiveness and efficiency compare to that of chatbots like ChatGPT or Google Gemini? 
+* Why might LMQL queries have higher confidence scores than direct API calls in Python?
+
+For now though, this section concludes my LMQL tutorial. For further questions, please contact the Author, Amelia Opsahl, @ aopsahl25@cmc.edu. Thanks for reading!
 
 ## References
 
