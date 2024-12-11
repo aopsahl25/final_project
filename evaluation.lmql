@@ -1,9 +1,10 @@
-import openai
-import lmql
-import asyncio
-import nest_asyncio
+import openai  # Imports the OpenAI library for interacting with OpenAI's APIs
+import lmql  # Imports the LMQL library for querying language models with logical constraints
+import asyncio  # Imports the asyncio library for writing asynchronous code
+import nest_asyncio  # Imports the nest_asyncio library to allow nested use of the asyncio event loop
 
-nest_asyncio.apply()
+nest_asyncio.apply()  
+# Applies the nest_asyncio patch to allow the current event loop to run nested event loops
 
 # In the following LMQL query function, the model is asked to calculate a complex mathematical word problem. 
 # In its answer generation, the model is also instructed to use chain-of-thought reasoning to think
@@ -40,7 +41,7 @@ def hard_math(): # Defines a function within the LMQL query
     return REASONEDANSWER, CONFIDENCE
     # Returns the generated answer with reasoning, as well as the model's confidence score
     '''
-print(hard_math())
+#print(hard_math())
 # Calls the hard_math query and prints its output
 
 # In the following LMQL query function, the model is asked to calculate a complex mathematical word problem. 
@@ -48,10 +49,14 @@ print(hard_math())
 # The program output is the model's answer, as well as what percent confident the model is in that answer.
 
 # Example Output: 
-# ANSWER: The first train will have traveled for 30 minutes before the second train departs. 
-# In that time, it will have traveled 30 miles. 
-# The second train will need to travel 240 miles, so it will take 3 hours to reach City A. 
-# Therefore, the two trains will meet at 6:30 PM.
+# ANSWER: The two trains will meet when their combined distance traveled is equal to the distance 
+# between the cities, which is 240 miles. 
+# The first train will have traveled for 30 minutes before the second train departs, 
+# so it will have covered 30 miles. 
+# The second train will have to cover 240 miles - 30 miles = 210 miles to reach the meeting point. 
+# The combined speed of the two trains is 60 miles per hour + 80 miles per hour = 140 miles per hour. 
+# Therefore, it will take 210 miles / 140 miles per hour = 1.5 hours for the two trains to meet. 
+# Since the second train departed at 3:30 PM, they will meet at 3:30 PM + 1.5 hours = 5:00 PM. 
 # CONFIDENCE: I am 100% confident in my answer.
 
 
@@ -61,7 +66,7 @@ def hard_math_no_reason(): # Defines a function within the LMQL query
     "If a train traveling at 60 miles per hour departs from City A at 3:00 PM, \
     and another train traveling at 80 miles per hour departs from City B at 3:30 PM toward City A, \
     and the distance between the cities is 240 miles, at what time will the two trains meet? \
-    Your answer should be no more than four sentences long. \n\n"
+    Your answer should be no more than five sentences long. \n\n"
     # Prompts asking the model to answer a complex question
     "[ANSWER]"
     # Placeholder for the generated answer
