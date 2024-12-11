@@ -78,6 +78,6 @@ def hard_math_no_reason(): # Defines a function within the LMQL query
     # Returns the generated answer, as well as the model's confidence score
     '''
 print(hard_math_no_reason())
-# Calls the hard_math query and prints its output
+# Calls the hard_math_no_reason query and prints its output
 
 
