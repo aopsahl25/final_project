@@ -1,0 +1,53 @@
+import openai  # Imports the OpenAI library for interacting with OpenAI's APIs
+import lmql  # Imports the LMQL library for querying language models with logical constraints
+import asyncio  # Imports the asyncio library for writing asynchronous code
+import nest_asyncio  # Imports the nest_asyncio library to allow nested use of the asyncio event loop
+from lmql.lib.chat import message
+# Imports the 'message' class from the 'chat' module in the 'lmql.lib' package
+
+nest_asyncio.apply()  
+# Applies the nest_asyncio patch to allow the current event loop to run nested event loops
+
+# Topic Interaction - Chatbot and Text Generation Constraints
+# The following LMQL query implements the same custom, interactive chatbot as seen in the chatbot section. 
+# However, within this program the Python replace() method is used such that every "." included in the 
+# assistant messages are repalced with "!"
+
+# Example Output: 
+# Chatbot is ready. Type 'Thanks! Goodbye' to exit.
+# User:
+# Explain to me why raindows are curved in three sentences.
+# Assistant:
+# Rainbows are curved because of the dispersion and refraction of sunlight in raindrops! 
+# When sunlight enters a raindrop, it is refracted, or bent, at different angles depending on its wavelength! 
+# This causes the different colors of light to spread out and form a spectrum, 
+# with each color emerging at a slightly different angle, resulting in the curved shape of a rainbow!
+# User:
+# Thanks! Goodbye
+# You're welcome! If you have any more questions in the future, feel free to ask! Goodbye!
+
+@lmql.query()  # Marks the function as an LMQL query
+def enthusiastic_chatbot():  # Defines a chatbot function
+    '''lmql # Indicates that the following block is written in LMQL
+    print("Chatbot is ready. Type 'Thanks! Goodbye' to exit.")
+    argmax  # Starts the query definition 
+        "{:system} You are a chatbot serving highly educated people. your answers can be complicated."  
+        # Sets system instructions for the chatbot on how to answer questions
+        while True:  # Begins an infinite loop for chatbot interaction
+            print("User:")  # Prompts the user for input
+            "{:user} {await input()}"  # Takes user input asynchronously
+            "{:assistant} Think step by step to develop your answer:[REASONING]"  
+            # Prompts assistant to reason through the answer
+            "{:assistant} External Answer: [@message ANSWER]"
+            # Sends the reasoning to the message service to generate an answer
+            enthusiastic_answer = ANSWER.replace(".","!")
+            # Uses the Python replace() method to modify the generated answer such that all "." are replaced with "!"
+            if "Goodbye" in enthusiastic_answer:  # Breaks the loop if the user says "Goodbye!"
+                break
+            print("Assistant:")  # Prints text to indicate the following response is the assistant's
+            print(enthusiastic_answer)  # Prints the generated answer
+    from "chatgpt"  # Pulls a response from a ChatGPT-based model
+    '''
+
+result1 = enthusiastic_chatbot()  # Calls the chatbot function
+print(result1.variables["ANSWER"]) 
