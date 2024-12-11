@@ -618,6 +618,8 @@ The combined speed of the two trains is 140 miles per hour, so they will meet in
 CONFIDENCE: I am 95% confident in my answer.
 ```
 
+> <span style="color:gray; opacity:0.7;"> **Note:** To see the code used in each of these queries, please refer to the `evaluation.lmql` file for LMQL queries the `pythoneval.py` file for the direct API calls.</span>
+
 When comparing these outputs, the following trends jump out to me: 
 * No matter the prompt used or the method of calling the API, every generated answer is correct. 
 * The prompts that instruct the model to use chain-of-thought reasoning show more structure in their steps (they use words like first, second, finally, etc.), but still every generated answer walks through the problem in a logical, step-by-step manner.
