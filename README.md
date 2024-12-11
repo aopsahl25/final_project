@@ -117,7 +117,7 @@ The above program defines an LMQL query template using the `@lmql.query` decorat
 
 ### Multi-Part Prompting
 
-LMQL also uses multi-part prompt programs to enable enhanced controls over the LLM reasoning process and improve the accuracy of the LLM's output.
+LMQL also uses multi-part prompt programs to enable enhanced controls over the LLM reasoning process.
 
 For example: 
 ```
@@ -553,13 +553,87 @@ These expamples show how feature interaction expands LMQL capabilities and enabl
 
 > <span style="color:gray; opacity:0.7;">**Note:** More examples of feature interaction in LMQL query functions can be found in the `topicinteraction.lmql` file or the `topicinter_chatbot2.lmql` file </span>
 
-## Evaluation
+## LMQL Evaluation
 
-idea - show how chain of thought makes the prompt more accurate, how other ways of illiciting reasoning do not work as well
+LMQL has been described by some as the [Swiss Army Knife](https://medium.com/@abhishekranjandev/lmql-a-deep-dive-into-the-future-of-language-model-interaction-81297cf3ab2c) of language model interaction. Our topic interaction section supported this title of versatility as it showed how LMQL's features can be used together to execute varied programs. However, this section aims to evaluate if LMQL is truly as important for efficiency and accuracy as the 'Swiss Army knife' of LLM interaction is assumed to be. 
 
-increased accuracy - strawberry
+### Prompt construction
 
-## about the author?
+A main feature of LMQL is that it supports multi-part prompt progams, which allow for more user-control over the LLM's reasoning process by asking the model a question and also giving the model instructions on how to reason through it. In this first section of evaluation, we will consider to what extent enhanced control over reasoning impacts the accuracy of the model's response, as well as the model's own confidence in its output. 
+
+We test the impact of multi-part prompting in LMQL queries by asking the model (`gpt-3.5-turbo`) to solve the same complex mathemetical word problem with an LMQL query function with multi-part prompting, an LMQL query function without multi-part prompting, and an API call in Python with multi-part prompting, and an API call in Python without multi-part prompting. 
+
+**Prompt:**
+If a train traveling at 60 miles per hour departs from City A at 3:00 PM, 
+and another train traveling at 80 miles per hour departs from City B at 3:30 PM toward City A, 
+and the distance between the cities is 240 miles, at what time will the two trains meet? 
+**Correct Answer:**
+5:00pm
+
+
+Here is the LMQL query function with multi-part prompting's output: 
+```
+REASONEDANSWER:
+First, we need to find out how long it will take for the second train to catch up to the first train. 
+Since the second train is traveling 20 miles per hour faster, it will take 1.5 hours for it to catch up 
+(240 miles / 20 miles per hour = 1.5 hours). 
+Next, we need to add 1.5 hours to the departure time of the second train (3:30 PM) to find out when the two trains will meet. 
+This gives us a meeting time of 5:00 PM. 
+Since the first train departed at 3:00 PM, it will have been traveling for 2 hours when the two trains meet. 
+Therefore, the two trains will meet at 5:00 PM, 2 hours after the first train departed.
+CONFIDENCE: 100% confident
+```
+
+Here is the LMQL query function without multi-part prompting's output: 
+```
+ANSWER:
+The two trains will meet when their combined distance traveled is equal to the distance between the cities, which is 240 miles. 
+The first train will have traveled for 30 minutes before the second train departs, so it will have covered 30 miles. 
+The second train will have to cover 240 miles - 30 miles = 210 miles to reach the meeting point. 
+The combined speed of the two trains is 60 miles per hour + 80 miles per hour = 140 miles per hour. 
+Therefore, it will take 210 miles / 140 miles per hour = 1.5 hours for the two trains to meet. 
+Since the second train departed at 3:30 PM, they will meet at 3:30 PM + 1.5 hours = 5:00 PM. 
+CONFIDENCE: I am 100% confident in my answer.
+
+```
+
+Here is the direct API call in Python with multi-part prompting's output: 
+```
+ANSWER:
+First, calculate the head start the first train has by multiplying its speed by the time it departed early (60 mph * 0.5 hours = 30 miles).
+Next, subtract the head start from the total distance to find the remaining distance the second train needs to travel (240 miles - 30 miles = 210 miles). 
+Then, calculate the combined speed of both trains (60 mph + 80 mph = 140 mph). 
+Finally, divide the remaining distance by the combined speed to find the time it will take for the two trains to meet (210 miles / 140 mph = 1.5 hours).
+The two trains will meet at 5:00 PM. 
+CONFIDENCE: I am 90% confident in my answer.
+```
+
+Here is the direct API call in Python without multi-part prompting's output: 
+```
+ANSWER:
+The first train will have a 30-minute head start on the second train. 
+In that time, the first train will have traveled 30 miles. 
+This means the remaining distance for the second train to cover is 210 miles. 
+The combined speed of the two trains is 140 miles per hour, so they will meet in 1.5 hours, or at 5:00 PM. 
+CONFIDENCE: I am 95% confident in my answer.
+```
+
+When comparing these outputs, the following trends jump out to me: 
+* No matter the prompt used or the method of calling the API, every generated answer is correct. 
+* The prompts that instruct the model to use chain-of-thought reasoning show more structure in their steps (they use words like first, second, finally, etc.), but still every generated answer walks through the problem in a logical, step-by-step manner.
+* The model was 100% confident when its answer was output in an LMQL query function. But, for its answers generated with a direct API call in Python with and without multi-part prompting, the model was only 90% and 95% confident, respectively.
+
+These trends indicate that the multi-part prompt programs that LMQL boasts may not have a significnat impact on the model's reasoning structure or output accuracy. While these prompts do improve reasoning structure and give users more control over how the model thinks, my evaluation showed that with complex problems, the model will likely use logical reasoning no matter if it is instructed to or not, and the multi-part prompts also may not make much of a difference on the model's output accuracy. 
+
+Although confidence scores are not significant measures of accuracy, it is also interesting that the the model was more confident in its answers output in LMQL queries than in its answers output directly through API calls. An interesting direction of future study would to be explore why this discrpancy occurs. 
+
+### Run time - LMQL query functions vs. Python functions
+
+### LMQL chatbot output versus ChatGPT output
+
+## Future Areas of Study
+
+* Why LMQL queries might have higher confidence scores than direct API calls
 
 ## References
 
