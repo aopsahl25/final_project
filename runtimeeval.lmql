@@ -1,0 +1,202 @@
+import openai  # Imports the OpenAI library for interacting with OpenAI's APIs
+import lmql  # Imports the LMQL library for querying language models with logical constraints
+import asyncio  # Imports the asyncio library for writing asynchronous code
+import nest_asyncio  # Imports the nest_asyncio library to allow nested use of the asyncio event loop
+import time # Imports the 'time' module, which provides various time-related functions
+
+nest_asyncio.apply()  
+# Applies the nest_asyncio patch to allow the current event loop to run nested event loops
+
+# The following programs ask the model a question, output its question, and calculate the run-time of the program.
+
+start = time.time() # Records the current time (in seconds since the epoch) and stores it in the 'start' variable.
+@lmql.query # Marks this function as an LMQL query definition
+def hard_math_no_reason_time(): # Defines a function within the LMQL query
+    '''lmql # Indicates that the following block uses LMQL syntax
+    "If a train traveling at 60 miles per hour departs from City A at 3:00 PM, \
+    and another train traveling at 80 miles per hour departs from City B at 3:30 PM toward City A, \
+    and the distance between the cities is 240 miles, at what time will the two trains meet? \
+    Your answer should be no more than five sentences long. \n\n"
+    # Prompts asking the model to answer a question
+    "[ANSWER]"
+    # Placeholder for the generated answer
+    return ANSWER
+    # Returns the generated answer
+    '''
+print(hard_math_no_reason_time())
+# Calls the hard_math_no_reason_time query and prints its output
+stop = time.time()  # Records the current time after the code execution and stores it in the 'stop' variable.
+print(stop - start)  # Calculates and prints the elapsed time by subtracting the start time from the stop time.
+
+
+start1 = time.time() # Records the current time (in seconds since the epoch) and stores it in the 'start' variable.
+@lmql.query # Marks this function as an LMQL query definition
+def orwell(): # Defines a function within the LMQL query
+    '''lmql # Indicates that the following block uses LMQL syntax
+    "Summarize 1984 by George Orwell. Your answer should be no more than five sentences. \n\n"
+    # Prompts asking the model to answer a question
+    "[ANSWER]"
+    # Placeholder for the generated answer
+    return ANSWER
+    # Returns the generated answer
+    '''
+print(orwell())
+# Calls the orwell query and prints its output
+stop1 = time.time()  # Records the current time after the code execution and stores it in the 'stop' variable.
+print(stop1 - start1)  # Calculates and prints the elapsed time by subtracting the start time from the stop time.
+
+
+start2 = time.time() # Records the current time (in seconds since the epoch) and stores it in the 'start' variable.
+@lmql.query # Marks this function as an LMQL query definition
+def versailles(): # Defines a function within the LMQL query
+    '''lmql # Indicates that the following block uses LMQL syntax
+    "How did the Treaty of Versailles contribute to the rise of World War II, \
+    particularly in terms of its impact on Germany's economy and political climate? \
+    Your answer should be no more than five sentences. \n\n"
+    # Prompts asking the model to answer a question
+    "[ANSWER]"
+    # Placeholder for the generated answer
+    return ANSWER
+    # Returns the generated answer
+    '''
+print(versailles())
+# Calls the versailles query and prints its output
+stop2 = time.time()  # Records the current time after the code execution and stores it in the 'stop' variable.
+print(stop2 - start2)  # Calculates and prints the elapsed time by subtracting the start time from the stop time.
+
+
+start3 = time.time() # Records the current time (in seconds since the epoch) and stores it in the 'start' variable.
+@lmql.query # Marks this function as an LMQL query definition
+def fiction(): # Defines a function within the LMQL query
+    '''lmql # Indicates that the following block uses LMQL syntax
+    "Write a short story about a man who can fly. \
+    Your answer should be no more than five sentences. \n\n"
+    # Prompts asking the model to answer a question
+    "[ANSWER]"
+    # Placeholder for the generated answer
+    return ANSWER
+    # Returns the generated answer
+    '''
+print(fiction())
+# Calls the fiction query and prints its output
+stop3 = time.time()  # Records the current time after the code execution and stores it in the 'stop' variable.
+print(stop3 - start3)  # Calculates and prints the elapsed time by subtracting the start time from the stop time.
+
+
+start4 = time.time() # Records the current time (in seconds since the epoch) and stores it in the 'start' variable.
+@lmql.query # Marks this function as an LMQL query definition
+def trump(): # Defines a function within the LMQL query
+    '''lmql # Indicates that the following block uses LMQL syntax
+    "Analyse why Donald Trump won the 2024 election. \
+    Your answer should be no more than five sentences. \n\n"
+    # Prompts asking the model to answer a question
+    "[ANSWER]"
+    # Placeholder for the generated answer
+    return ANSWER
+    # Returns the generated answer
+    '''
+print(trump())
+# Calls the trump query and prints its output
+stop4 = time.time()  # Records the current time after the code execution and stores it in the 'stop' variable.
+print(stop4 - start4)  # Calculates and prints the elapsed time by subtracting the start time from the stop time.
+
+start5 = time.time() # Records the current time (in seconds since the epoch) and stores it in the 'start' variable.
+@lmql.query # Marks this function as an LMQL query definition
+def tech(): # Defines a function within the LMQL query
+    '''lmql # Indicates that the following block uses LMQL syntax
+    "Imagine a future where quantum computing has revolutionized information \
+    security, medicine, and climate modeling. \
+    Describe the possible social, economic, and ethical impacts of this technology.\
+    Your answer should be no more than five sentences. \n\n"
+    # Prompts asking the model to answer a question
+    "[ANSWER]"
+    # Placeholder for the generated answer
+    return ANSWER
+    # Returns the generated answer
+    '''
+print(tech())
+# Calls the tech query and prints its output
+stop5 = time.time()  # Records the current time after the code execution and stores it in the 'stop' variable.
+print(stop5 - start5)  # Calculates and prints the elapsed time by subtracting the start time from the stop time.
+
+
+start6 = time.time() # Records the current time (in seconds since the epoch) and stores it in the 'start' variable.
+@lmql.query # Marks this function as an LMQL query definition
+def cars(): # Defines a function within the LMQL query
+    '''lmql # Indicates that the following block uses LMQL syntax
+    "A car rental company charges a fixed fee of $50 per day plus $0.20 per mile driven. \
+    If a customer rents a car for 5 days and drives a total of 300 miles, \
+    how much will the customer pay in total for the rental? \
+    Your answer should be no more than five sentences. \n\n"
+    # Prompts asking the model to answer a question
+    "[ANSWER]"
+    # Placeholder for the generated answer
+    return ANSWER
+    # Returns the generated answer
+    '''
+print(cars())
+# Calls the cars query and prints its output
+stop6 = time.time()  # Records the current time after the code execution and stores it in the 'stop' variable.
+print(stop6 - start6)  # Calculates and prints the elapsed time by subtracting the start time from the stop time.
+
+
+start7 = time.time() # Records the current time (in seconds since the epoch) and stores it in the 'start' variable.
+@lmql.query # Marks this function as an LMQL query definition
+def factory(): # Defines a function within the LMQL query
+    '''lmql # Indicates that the following block uses LMQL syntax
+    "A factory produces Type A and Type B products. \
+    Each Type A requires 3 hours of labor and 2 units of material, while each Type B requires 5 hours of labor and 4 units of material. \
+    The factory has 240 hours of labor and 180 units of material. \
+    If the profit from each Type A is $30 and each Type B is $50, \
+    how many of each product should the factory make to maximize its profit? \
+    Your answer should be no more than five sentences."
+    # Prompts asking the model to answer a question
+    "[ANSWER]"
+    # Placeholder for the generated answer
+    return ANSWER
+    # Returns the generated answer
+    '''
+print(factory())
+# Calls the factory query and prints its output
+stop7 = time.time()  # Records the current time after the code execution and stores it in the 'stop' variable.
+print(stop7 - start7)  # Calculates and prints the elapsed time by subtracting the start time from the stop time.
+
+
+start8 = time.time() # Records the current time (in seconds since the epoch) and stores it in the 'start' variable.
+@lmql.query # Marks this function as an LMQL query definition
+def pizza(): # Defines a function within the LMQL query
+    '''lmql # Indicates that the following block uses LMQL syntax
+    "A pizza place sells two sizes of pizzas: small and large. \
+    A small pizza costs $8 and a large pizza costs $12. \
+    If a customer buys 3 small pizzas and 2 large pizzas, how much will the total cost be? \
+    Your answer should be no more than five sentences.\n\n"
+    # Prompts asking the model to answer a question
+    "[ANSWER]"
+    # Placeholder for the generated answer
+    return ANSWER
+    # Returns the generated answer
+    '''
+print(pizza())
+# Calls the pizza query and prints its output
+stop8 = time.time()  # Records the current time after the code execution and stores it in the 'stop' variable.
+print(stop8 - start8)  # Calculates and prints the elapsed time by subtracting the start time from the stop time.
+
+
+start9 = time.time() # Records the current time (in seconds since the epoch) and stores it in the 'start' variable.
+@lmql.query # Marks this function as an LMQL query definition
+def train(): # Defines a function within the LMQL query
+    '''lmql # Indicates that the following block uses LMQL syntax
+    "A train travels at 60 miles per hour for the first 3 hours, \
+    then reduces its speed to 45 miles per hour for the next 2 hours. \
+    How long will it take the train to travel a total of 225 miles?\
+    Your answer should be no more than five sentences.\n\n"
+    # Prompts asking the model to answer a question
+    "[ANSWER]"
+    # Placeholder for the generated answer
+    return ANSWER
+    # Returns the generated answer
+    '''
+print(train())
+# Calls the train query and prints its output
+stop9 = time.time()  # Records the current time after the code execution and stores it in the 'stop' variable.
+print(stop9 - start9)  # Calculates and prints the elapsed time by subtracting the start time from the stop time.
