@@ -1,0 +1,49 @@
+Prompt 0 - (qualitative): 
+“Write a short story about a man who can fly. Your answer should be no more than five sentences.”
+
+Prompt 1 (qualitative): 
+“Summarize 1984 by George Orwell. Your answer should be no more than five sentences.”
+
+Prompt 2 (qualitative): 
+"How did the Treaty of Versailles contribute to the rise of World War II, 
+particularly in terms of its impact on Germany's economy and political climate?
+Your answer should be no more than five sentences.”
+
+Prompt 3 (qualitative): 
+"Analyse why Donald Trump won the 2024 election. Your answer should be no more than five sentences."
+
+Prompt 4 (qualitative): 
+“Imagine a future where quantum computing has revolutionized information security, medicine, and climate modeling. 
+Describe the possible social, economic, and ethical impacts of this technology. 
+Your answer should be no more than five sentences.”
+
+Prompt 5 (quantitative): 
+"If a train traveling at 60 miles per hour departs from City A at 3:00 PM, 
+and another train traveling at 80 miles per hour departs from City B at 3:30 PM toward City A, 
+and the distance between the cities is 240 miles, at what time will the two trains meet? 
+Your answer should be no more than five sentences."
+
+Prompt 6 (quantitative): 
+“A car rental company charges a fixed fee of $50 per day plus $0.20 per mile driven. 
+If a customer rents a car for 5 days and drives a total of 300 miles, 
+how much will the customer pay in total for the rental? 
+Your answer should be no more than five sentences."
+
+Prompt 7 (quantitative): 
+“A factory produces Type A and Type B products. Each Type A requires 3 hours of labor and 2 units of material, 
+while each Type B requires 5 hours of labor and 4 units of material. 
+The factory has 240 hours of labor and 180 units of material. If the profit from each Type A is $30 
+and each Type B is $50, how many of each product should the factory make to maximize its profit? 
+Your answer should be no more than five sentences.”
+
+Prompt 8 (quantitative): 
+“A pizza place sells two sizes of pizzas: small and large. 
+A small pizza costs $8 and a large pizza costs $12. 
+If a customer buys 3 small pizzas and 2 large pizzas, how much will the total cost be? 
+Your answer should be no more than five sentences.”
+
+Prompt 9 (quantitative):
+“A train travels at 60 miles per hour for the first 3 hours, 
+then reduces its speed to 45 miles per hour for the next 2 hours. 
+How long will it take the train to travel a total of 225 miles? 
+Your answer should be no more than five sentences.”
