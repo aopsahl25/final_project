@@ -75,7 +75,7 @@ def hard_math_no_reason(): # Defines a function within the LMQL query
     "[CONFIDENCE]"
     # Placeholder for the generated confidence score
     return ANSWER, CONFIDENCE
-    # Returns the generated answer with reasoning, as well as the model's confidence score
+    # Returns the generated answer, as well as the model's confidence score
     '''
 print(hard_math_no_reason())
 # Calls the hard_math query and prints its output
