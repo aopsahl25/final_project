@@ -47,7 +47,7 @@ print(results_class())
 # The program output is the answer to the quesiton and the model's confidence, measured in percent.
 
 # Example Input:
-# How many people are there in the world?
+# What is the most populous country in the world?
 # Example Output: 
 # ANSWER: As of 2021, the most populous country in the world is China,
 # with a population of over 1.4 billion people.
@@ -68,5 +68,5 @@ def confidence_percent(question): # Defines a function within the LMQL query
     return ANSWER, f"I am {CONFIDENCE}% certain about my answer."  
     # Returns the answer and confidence level
     '''
-print(confidence_percent("How many people are there in the world?"))  
+print(confidence_percent("What is the most populous country in the world?"))  
 # Calls the confidence_percent query with the given question and prints its output
