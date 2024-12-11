@@ -1,0 +1,33 @@
+import openai  # Imports the OpenAI library for interacting with OpenAI's APIs
+import lmql  # Imports the LMQL library for querying language models with logical constraints
+import asyncio  # Imports the asyncio library for writing asynchronous code
+import nest_asyncio  # Imports the nest_asyncio library to allow nested use of the asyncio event loop
+
+nest_asyncio.apply()  
+# Applies the nest_asyncio patch to allow the current event loop to run nested event loops
+
+# Topic Interaction - Prompt Construction and Constrained Text Generation
+# The following program instructs the model to choose a value from a set of numbers that corresponds to
+# many U.S. Presidents that they have been.
+# The program employs multi-part prompting when instructing the prompt to use chain-of-thought reasoning 
+# while generating the answer.  
+# The program also employs a set constraint to ensure 
+# that the model selects its answer from a given set of possible values. 
+# The program output is the model's step-by-step reasoning, as well as its final answer. 
+
+# Example output: 
+# 
+
+@lmql.query
+def multi_part_program():
+    '''lmql 
+    "Q: How many U.S. Presidents have there been?"
+    "A: Let's think step by step about the answer. Your reasoning should only be 3 sentences.\n\n"
+    "[REASONING]"
+    "what is the final answer?"
+    "[ANSWER]" where ANSWER in set([25, 46, 83, 40, 15, 60])
+    return REASONING, ANSWER
+    '''
+print(multi_part_program())
+
+
