@@ -9,7 +9,7 @@ The Language Model Query Language, or LMQL, is a programming language that was d
 
 > <span style="color:gray; opacity:0.7;">For more information on LMQL from its developpers, visit the [LMQL website](https://lmql.ai/) or the SRI Lab's [GitHub repository](https://github.com/eth-sri/lmql) on LMQL.</span>
 
-This tutorial gives a more detailed overview of how LMQL works by walking through how to get started with LMQL, exploring its main features, and evaluating the efectiveness and efficiency of those features in comparison to direct API calls in Python. For follow-up questions about the tutorial or suggestions for improvement, please contact the author, [Amelia Opsahl](mailto:aopsahl25@cmc.edu).
+This tutorial gives a more detailed overview of how LMQL works by walking through how to get started with LMQL, exploring its main features, and evaluating the accuracy and efficiency of those features in comparison to direct API calls in Python. For follow-up questions about the tutorial or suggestions for improvement, please contact the author, [Amelia Opsahl](mailto:aopsahl25@cmc.edu).
 
 ## Understanding LMQL
 
