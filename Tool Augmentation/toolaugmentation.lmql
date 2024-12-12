@@ -14,7 +14,7 @@ nest_asyncio.apply()
 
 # Example output: 
 # MATH: 2 + 3
-# eval(MATH): 5
+# EVAL: 5
 
 @lmql.query # Marks this function as an LMQL query definition
 def function_call(): # Defines a function within the LMQL query
