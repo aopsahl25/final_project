@@ -629,33 +629,33 @@ These trends indicate that the multi-part prompt programs that LMQL boasts may n
 
 Although confidence scores are not significant measures of accuracy, it is also interesting that the the model was more confident in its answers output in LMQL queries than in its answers output directly through API calls. An interesting direction of future study would to be explore why this discrpancy occurs. 
 
-### Run time - LMQL query functions vs. Python functions
+### Run time - LMQL Queries vs. Direct API Calls
 
 In our second section of evaluation, we focus on how LMQL query runtime compares to the runtime of direct API calls from within Python. 
 
-To execute this evaluation, we wrote 10 prompts, five of which were quantitative (e.g., summaring books, commenting on political events), and five of which were qualitative (e.g., answering mathematical word prompts similar to the one seen in our first section of evaluation). 
+To execute this evaluation, we wrote ten prompts, five of which were quantitative (e.g., summarizing books, commenting on political events), and five of which were qualitative (e.g., answering mathematical word prompts similar to the one seen in our first section of evaluation). 
 
-> <span style="color:gray; opacity:0.7;"> **Note:** To see the exact content of each prompt, please refer to the `prompt.txt' file </span>
+> <span style="color:gray; opacity:0.7;"> **Note:** To see each prompt, please refer to the `prompt.txt' file </span>
 
-From here, we ran each prompt through an LMQL query and through a direct API call within Python and calculated their runtimes `time` module. 
+From here, we ran each prompt through an LMQL query and through a direct API call within Python and calculated their runtimes using the `time` module. 
 
-Graph 1, shows below, exhibits the runtime of the query for each prompt for both LMQL queries and direct API calls. 
+Graph 1, shows below, exhibits the runtime for each prompt when run through both LMQL queries and direct API calls. 
 
 <figure>
     <img src="https://github.com/aopsahl25/final_project/blob/main/LMQL%20vs.%20Direct%20API%20Call%20Runtime.svg" width="600" alt="Description of image">
-    <figcaption>Graph 1</figcaption>
+    <figcaption>**Graph 1**</figcaption>
 </figure>
 
 As we can see, the runtime for LMQL queries was longer than the runtime for direct API calls for every qualititative prompt (prompts 5-9), and all but one quantitative prompt (prompts 0-5). Graph 2, shown below, further explains this finding. 
 
 <figure>
     <img src="https://github.com/aopsahl25/final_project/blob/main/LMQL%20vs.%20Direct%20API%20Call%20Runtime%20Averages.svg" width="600" alt="Description of image">
-    <figcaption>Graph 2</figcaption>
+    <figcaption>**Graph 2**</figcaption>
 </figure>
 
-As the graph shows, the overall average runtime, as well as the average quantitative and qualitative runtime, for LMQL queries is longer than those of direct API calls; the average LMQL query runtime was 1.585 seconds (rounded to the nearest thousandth place) while the average API call runtime was 1.150 seconds. The difference is especially large for average run time of quantiative prompts, with a difference of more than half a second. 
+As seen in this figure, the average quantitative and qualitative runtime, and thus the overall average runtime, for LMQL queries is longer than that of direct API calls. The average LMQL query runtime was 1.585 seconds (rounded to the nearest thousandth of a second), while the average API call runtime was 1.150 seconds. This difference in runtime is especially large for average runtime of quantitative prompts, which had a difference of more than half a second in runtime (1.764 second vs. 1.210 seconds). 
 
-This evaluation shows that although LMQl queries do have features that may make user interactability more smooth with LLMs, the queries are less efficient that running API calls within Python without LMQL.
+This evaluation shows that although LMQL does have features that make user interactability with LLMs more smooth (e.g., top-level text prompts and simple chatbot implementation), it is less efficient to run LMQL queries than it is to run direct API calls from within Python.
 
 ## Thank You and Future Areas of Study
 
