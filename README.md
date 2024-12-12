@@ -145,9 +145,9 @@ Finally, we can calculate the number of tennis balls that can fit in the Empire 
 We do this by dividing the volume of the building by the volume of a tennis ball. 
 This gives us an estimated answer of 5.9 billion tennis balls.
 ```
-The above program takes a question as an input and outputs both the answer and the reasoning behind it. The model arrives at its answer by using a step-by-step reasoning process as instructed by the internal prompt statement. This chain-of-thought prompting guides the LLM to think more logically about its answer and, in doing so, output a reasoned response based on existing data. 
+The above program takes a question as an input and outputs both the answer and the reasoning behind it. The model arrives at its answer by using a step-by-step reasoning process as instructed by the internal prompt statement. This chain-of-thought prompting guides the LLM to think more logically about its answer and, in doing so, output a reasoned response that is likely [higher in accuracy](https://www.width.ai/post/chain-of-thought-prompting). 
 
-There are many other ways to encourage the model to follow an intentional reasoning process within the LMQL query. For example, users could modify the internal prompt statement to ask for an answer then ask for the reasoning behind it. Similarly, a user could prompt the model to explain why it arrived at its answer, which would also motivate the model to use reasoning to generate and explain its answer. 
+There are many other ways to encourage the model to follow an intentional reasoning process within the LMQL query. For example, users could modify the internal prompt statement to ask for an answer then ask for the reasoning behind it. Similarly, a user could prompt the model to explain why it arrived at its answer, which would also motivate the model to use reasoning to generate a more accurate response.  
 
 > <span style="color:gray; opacity:0.7;">**Note:** To see more examples of prompt construction as well as more thorough documentation og the code involved in each LMQL query, visit the `Prompt Construction` folder.</span>
 
@@ -303,11 +303,11 @@ With these regex constraints the program can output dates in DD/MM format withou
 
 ## Model Measuring
 
-In addition to features involving the prompting and output of queries, LMQL also allows users to derive classification results and confidence scores from program responses. These capabilities helps to improve model decision making by guiding the program to set unstructured text in the context of structured categories, and also plays a part in evaluating the model's accuracy. 
+In addition to features involving the prompting and output of queries, LMQL also allows users to derive classification results and confidence scores from program responses. These capabilities help to improve model decision making by guiding the program to set unstructured text in the context of structured categories, and also play a part in evaluating the model's accuracy. 
 
 ### Classification Results
 
-Classification results can provide a variety of different categorizations, from classifying career types to food groups to geographical regions. One common use case is employing classification results in sentiment analysis. 
+Classification results, or the model defining an output as belonging to a certain a category, can be applied to various different areas, from classifying careers to food types to geographical regions. One common use case is employing classification results in sentiment analysis. 
 
 For example: 
 ```
@@ -336,7 +336,7 @@ The above program not only generates a review, but it is also able to use this i
 
 ### Confidence Scores
 
-In a more quantitative direction, LMQL queries can output specific measures on how sure they are about their answer. 
+In a more quantitative direction, LMQL queries can output specific measures of how sure they are about their answer. 
 
 For example: 
 ```
@@ -356,16 +356,17 @@ Program Output:
 ANSWER: As of 2021, the most populous country in the world is China, with a population of over 1.4 billion people.
 CONFIDENCE: I am 95% certain about my answer.
 ```
+In this program, the model answers a given question and outputs what percent confident it is in its response. While this is not a statistical measure of accuracy calculated by the user, it is still a start in guaging how reliable the response may be (e.g., users can feel more confident in an answer with a score of 95% than a score of 2%).
 
-In this program, the model answers a given question and outputs what percent confident it is in its response. While this is not a statistical, evidence-based measure of accuracy compelted by user, it is still a start in guaging how reliable the response may be (e.g., users can feel more confident in an answer with a score of 95% than a score of 2%).
+> <span style="color:gray; opacity:0.7;">**Note:** To see more detailed documentation of these LMQL queries used with classification results and confidence scores, visit the `Model Measuring` folder.</span>
 
 ## Tool Augmentation
 
-As mentioned, LMQL can be run locally from within Python and is a superset of the language. This means that LMQL adds new features to Python's functionality, while also maintaining the compatabilities of standard Python code. Thus, LMQL queries can incorporate arbitrary Python constructs to extend LMQL's capabilities and boost query program efficiency.  
+As mentioned, LMQL can be run locally from within Python and it is a superset of the language. This means that LMQL adds new features to Python's functionality, while also maintaining the compatabilities of standard Python code. Thus, LMQL queries can incorporate arbitrary Python constructs to extend its capabilities and boost query program efficiency.  
 
 ### Methods and Functions
 
-One of the simplest ways to include Python constructs in LMQL queries is through the implementation of Python methods (functions associated with an object, that can be called on that object, and that can retrieve information from the object). 
+One of the simplest ways to include Python constructs in LMQL queries is through the implementation of Python methods. Methods are functions associated with an object that can be called on the object and retrieve information from the object. 
 
 For example: 
 ```
@@ -384,8 +385,7 @@ Program Output:
 SENTENCE: The xylophone player expertly executed a complex melody, showcasing their exceptional dexterity and musicality.
 COUNT: 6
 ```
-
-In the above program, the LMQL query uses Python's `count()` method to count how many times a given letter appears in the generated sentence. The ability to implement the `count()` method saves time for users because it allows them to bypass writing a prompt to ask the model to do so. Moreover, it improves the accuracy of the count, as LLMs have been known to struggle with counting [how many times a given letter appears in a word](https://techcrunch.com/2024/08/27/why-ai-cant-spell-strawberry/). 
+In the above program, the LMQL query uses Python's `count()` method to count how many times a given letter appears in the generated sentence. The ability to implement the `count()` method saves time for users because it allows them to bypass writing a prompt to ask the model to perform this count. Moreover, the method improves the accuracy of the count, as LLMs have been known to struggle with counting [how many times a given letter appears in a word](https://techcrunch.com/2024/08/27/why-ai-cant-spell-strawberry/). 
 
 LMQL's incorporation of Python constructs can also include function calls. 
 
@@ -394,7 +394,7 @@ For example:
 @lmql.query 
 def function_call(): 
     '''lmql 
-    "Output a simple math expression for addition. Use real numbers, not variables. \n\n"  
+    "Output a simple math expression for addition. Use real numbers, not variables. \n"  
     "[MATH]" where STOPS_BEFORE(MATH, "=")   
     EVAL = eval(MATH)  
     return MATH, EVAL 
@@ -404,12 +404,11 @@ print(function_call())
 Program Output: 
 ```
 MATH: 2 + 3
-eval(MATH): 5
+EVAL: 5
 ```
+In the above program, the LMQL query leverages Python's `eval() ` function to calculate the generated expression in just one call. This increases efficiency as the function eliminates the need to write additional prompting to solve the expression. Compared to the model's output, it is also more certain that the `eval()` function will be able to solve the expression correctly.
 
-In the above program, the LMQL query leverages Python's `eval() ` function to calculate the generated expression in just one call. This increases efficiency as the function eliminates the need to write additional prompting to solve the expression. Compared to the model's output, it is also more certain that the `eval()` function will be able to solve the expression correctly, especially if the expression were more complicated.
-
-### Key-Value Stores
+### Surrounding Functions
 
 LMQL can also access the surrounding Python interpreter. A practical application of this capability is to use functions defined outside of the LMQL query.
 
@@ -446,11 +445,13 @@ KEYS: name, age, occupation, company, salary, education, years_of_experience, sk
 VALUES: Sarah Smith, 25, Marketing Manager, XYZ Corporation, $60,000, Bachelor's degree in Marketing, 3, Social media marketing, market research, project management
 KEYVAL: Age: 25
 ```
-In the above program, the LMQL query uses the assign() and get() functions, which exist in the surrounding Python interpreter, to guide the model to generate and store information about a hypothetical "young professional" (e.g., their name, age, occupation, etc.). The model is then capable of outputting the stored information, both in the form of all the keys and values, as well a given key-value pair which is decided based on user input of a given key. 
+In the above program, the LMQL query uses the `assign()` and `get()` functions, which exist in the surrounding Python interpreter, to guide the model to generate and store information about a hypothetical "young professional" (e.g., their name, age, occupation, etc.). The model is then capable of outputting the stored information, both by listing all of the keys and values, as well as outputting a key-value pair which is decided based on user input of a given key. 
 
 ### Text Retrieval
 
-Text retrieval using LMQL's `async` and `await` syntax can also be used to augment the reasoning capabilities of the model queried in LMQL programs and guide the model to extract information from specific data sets. This can be accomplished by incorporating the `asyncio` [library](https://docs.python.org/3/library/asyncio.html) into LMQL queries to run Python coroutines that enable the program to pause execution at certain points and allow other tasks to run in the meantime. In the context of text retrieval, this capability can be used to extract information from high-level API URLs and run LMQL queries specifically on that information.  
+Text retrieval using Python's `async` and `await` syntax can also be used to augment the reasoning capabilities of the model queried in LMQL programs and guide the model to extract information from specific data sets. This can be accomplished by incorporating the `asyncio` [library](https://docs.python.org/3/library/asyncio.html) into LMQL queries to run Python coroutines that enable the program to pause execution at certain points and allow other tasks to run in the meantime. In the context of text retrieval, this capability can be used to extract information from high-level API URLs and run LMQL queries specifically on that information. 
+
+> <span style="color:gray; opacity:0.7;">**Note:** API URLs are web addresses used to access and interact with the functionalities of an API. They define the location where an API can be accessed on the web, often including specific endpoints that correspond to different operations or resources. An API URL typically consists of the base URL (which points to the server hosting the API) followed by a path that specifies the particular service or data being requested.</span>
 
 For example: 
 ```
@@ -486,16 +487,17 @@ await main()
 ```
 Program Output:
 ```
-Python is a high-level, general-purpose programming language.
-Its design philosophy emphasizes code readability with the use of significant indentation.
+Python is a high-level, general-purpose programming language. Its design philosophy emphasizes code readability with the use of significant indentation.
 ```
-As is clear, the above program uses the `aynscio` library with `async` and `await` syntax to construct a Wikipedia API URL, asynchronously fetch data from Wikipedia using the `fetch_data()` function, process the extract, and pass the result from Wikipedia into the LMQL query engine to condense the extract into a two-sentence summary on the chosen topic. This process enables LMQLs programs to incorporate API URLs and high-level text retrieval and then run queries on the extracted information.
+The above program uses the `aynscio` library with `async` and `await` syntax to construct a Wikipedia API URL, asynchronously fetch data from Wikipedia using the `fetch_data()` function, and process the extract. From here, the result is passed from Wikipedia into the LMQL query engine to condense the extract into a two-sentence summary on the chosen topic. This process enables LMQLs programs to incorporate API URLs and high-level text retrieval and then run queries on the extracted information.
+
+> <span style="color:gray; opacity:0.7;">**Note:** To see more detailed documentation on the code used with tool augmentation and LMQL queries, visit the `Tool Augmentation` folder.</span>
 
 ## Custom Chatbot
 
-LMQL has the capability to build a custom, interactive chatbot that continusouly responds to user input in just a couple of lines of code. Chat applications are one of the most common use cases for LLMs, and LMQL provides simple libary support to build this popular tool directly from within a Python environment. 
+LMQL has the capability to build a custom, interactive chatbot in only a few lines of code. Chat applications are one of the most common use cases for LLMs, and LMQL provides simple libary support to implement this popular tool directly from within a Python environment. 
 
-LMQL chatbots have two main features. The first is a core chat loop that repeatedly calls an `input()` function to await and process user input. The loop also includes tags to designate user and assistant messages and a `@message` decorator function to ensure that intermediate reasoning is kept internal and only the output of the decaroator variable will be displayed to ther user. The other main feature is the chatbot system prompt, which allows users to instruct the model to respond in a specific way or for a specific audience (e.g., more or less educated audience). 
+The code behind LMQL chatbots has two main features. The first is a core chat loop that repeatedly calls an `input()` function to await and process user input. The loop also includes tags to designate user and assistant messages and a `@message` decorator function to ensure that intermediate reasoning is kept internal. The other main feature is the chatbot system prompt, which allows users to instruct the model to respond in a specific way or for a specific audience (e.g., more or less educated audience, younger or older audience, etc.). 
 
 For example: 
 ```
@@ -517,6 +519,8 @@ def chatbot():
             print(ANSWER)
     from "chatgpt"
     '''
+result = chatbot()
+print(result.variables["ANSWER"])
 ```
 Example chatbot interaction: 
 ```
@@ -534,13 +538,15 @@ Thanks! Goodbye
  Goodbye! If you have any more questions in the future, feel free to ask. Have a great day!
 ```
 
-The above program sucessfully implements an interactive chatbot whose answers are tailored to a specific system prompt and that can terminate interaction upon receiving a certain exit input (Thanks! goodbye). The program also includes an additional prompt statement within the assistant tag that instructs the model to use chain-of-thought reasoning in generation. This prompt engineering is implemented with the goal of increasing response accuracy via [step-by-step reasoning](https://www.datacamp.com/tutorial/chain-of-thought-prompting). 
+The above program sucessfully implements an interactive chatbot whose answers are tailored to a specific system prompt and that can exit the interaction upon receiving a certain input. The program also includes an additional prompt statement within the assistant tag that instructs the model to use chain-of-thought reasoning in generation to improve response accuracy. 
 
-## Topic Interaction
+> <span style="color:gray; opacity:0.7;">**Note:** To see the full code and detailed documentation on how the LMQL chatbot works, visit the `Chatbot` folder.</span>
 
-As we have already seen in some of the above examples, LMQL's features often interact, and it is rare for a more complex query to use only one of LMQL's various capabilities. For example, in the previous chatbot implementation, prompt construction within the `assistant` tag was used to improve the chatbot's reasoning process, and thus its answer quality. 
+## Feature Interaction
 
-Another example of topic interaction is found in the instance of the `scripted_prompting()` LMQL query function. When discussed in the prompt constuction section, we focused on how this program uses Python control flow with a for loop to control for list length. 
+LMQL's features often interact, and it is rare for a more complex query to use only one of LMQL's various capabilities. This can be seen already in the examples that we have shown. For example, in the previous chatbot implementation, multi-part prompt construction within the `assistant` tag was used to encourage chain-of-thought reasoning, and thus improve the quality of the model's answer. 
+
+Another example of feature interaction within LMQL is seen in the `scripted_prompting()` LMQL query function. When discussed in the prompt constuction section, we focused on how this program uses Python control flow with a for loop to control for list length. 
 ```
 @lmql.query
 def scripted_prompting(event):
@@ -556,9 +562,9 @@ print(scripted_prompting("school"))
 ```
 However, it is also notable that the program uses the `STOPS_AT` constraint to ensure each item in the list stops at a new line character and does not include the "\n" character in the output list. Moreover, this LMQL query function uses Python's `append()` method to add items to the final list, as well as Python's `strip()` method to eliminate extra whitespace from the beginning/end of the strings in the list. In this way, prompt construction, constrained text generation, and tool augmentation all work together to effectively format program output both in terms of length and content, as well as output the list in an efficient way (e.g., using the one-line `append()` function within the for loop to create the list instead of adding further prompting or a more complicated function to append elements to the list). 
 
-These expamples show how feature interaction expands LMQL capabilities and enables the construction of more complicated programs. Indeed, adding program constraints to enforce structure, implementing tool augmentation to drive efficiency, and using prompt construction to improve response accuracy all answer to the LMQL developper's goal of using LMQL to make interactions between the user and language models smoother and more efficient.
+These expamples show how feature interaction expands LMQL's capabilities and enables the construction of more complicated programs. Indeed, adding program constraints to enforce structure, implementing tool augmentation to drive efficiency, and using prompt construction to improve response accuracy all answer to the LMQL developpers' goal of using LMQL to streamline interactions between the user and language models.
 
-> <span style="color:gray; opacity:0.7;">**Note:** More examples of feature interaction in LMQL query functions can be found in the `topicinteraction.lmql` file or the `topicinter_chatbot2.lmql` file </span>
+> <span style="color:gray; opacity:0.7;">**Note:** More examples of feature interaction in LMQL query functions can be found in the `Feature Interaction` folder. </span>
 
 ## LMQL Evaluation
 
