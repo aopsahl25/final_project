@@ -16,13 +16,13 @@ This tutorial gives a more detailed overview of how LMQL works by walking throug
 An LMQL query is formatted very similary to a standard Python program. However, in an LMQL query top-level strings are interpreted as query strings that are passed to an LLM. For example:
 ```
 @lmql.query
-def example():
+def example0():
     '''lmql 
-    "Q:How tall is the empire state building?"
+    "Q:How tall is the Empire State Building?"
     "A: [ANSWER]"
     return ANSWER
     '''
-print(example())
+print(example0())
 ```
 Program Output: 
 ```
@@ -33,7 +33,7 @@ In this example, the model is asked to output how tall the Empire State Buidling
 @lmql.query
 def example1():
     '''lmql 
-    "Q:How tall is the empire state building? Give me just the height in feet without any other informaiton."
+    "Q:How tall is the Empire State Building? Give me just the height in feet without any other informaiton."
     "A: [ANSWER]"
     return ANSWER
     '''
@@ -85,10 +85,16 @@ Program Output:
 4. Hummingbird
 5. Pigeon
 ```
+The last step of integration for LMQL is configuring the API credentials for the API being called in the LMQL query. This tutorial uses an OpenAI model (`chat-3.5-turbo`, specifically), and to do so one must either define the `OPENAI_API_KEY` environment variable within the `.lmql` file being used or store the API key and the user's OpenAI organization ID in an `api.env` file in the following format:
+```
+openai-org: <org identifier>
+openai-secret: <api secret>
+```
+In order to avoid leaking the user's API key and risking malicious users exploiting the API key with excessive requests (which could be very expensive for the user), we recommend the latter solution as it decreases the likelihood that API key information will accidentally be posted publically. 
 
 ## Prompt Construction
 
-### Basic Features
+### Core Capabilities
 
 LMQL uses string interpolation (a technique in which variables are embedded directly into a string) and expressive Python control flows (e.g., loops, conditions, and function calls) to facilitate dynamic prompting and allow for increased structure in the model's output. 
 
@@ -110,11 +116,11 @@ Program output:
 ```
 ['Backpack', 'Pencil', 'Notebook', 'Lunch', 'Water bottle']
 ```
-The above program defines an LMQL query template using the `@lmql.query` decorator. The program then uses a Python control flow with a for loop to control for list length. The program also uses string interpolation to allow the user to decide the event for which the packing list is being made. In doing so, the program's prompting process is more interactive and its output increases in structure.
+The above program defines an LMQL query template using the `@lmql.query` decorator. The program then uses a Python control flow with a for loop to control for list length. The program also uses string interpolation to allow the user to decide the event for which the packing list is being made. These features allow the program's prompting process to be more interactive and for its output to have more structure.
 
 ### Multi-Part Prompting
 
-LMQL also uses multi-part prompt programs to enable enhanced controls over the LLM reasoning process.
+LMQL also has multi-part prompt program capabilities to enable enhanced controls over the LLM reasoning process.
 
 For example: 
 ```
@@ -139,9 +145,11 @@ Finally, we can calculate the number of tennis balls that can fit in the Empire 
 We do this by dividing the volume of the building by the volume of a tennis ball. 
 This gives us an estimated answer of 5.9 billion tennis balls.
 ```
-The above program takes a question as an input and outputs both the answer and the reasoning behind it. The model arrives at its answer by using a step-by-step reasoning process as instructed in the internal prompt statement. This chain-of-thought prompting guides the LLM to think more logically about its answer and, in doing so, output a reasoned response based on existing data. 
+The above program takes a question as an input and outputs both the answer and the reasoning behind it. The model arrives at its answer by using a step-by-step reasoning process as instructed by the internal prompt statement. This chain-of-thought prompting guides the LLM to think more logically about its answer and, in doing so, output a reasoned response based on existing data. 
 
-There are many other ways to encourage the model to follow an intentional reasoning process within the LMQL query. For example, users could modify the internal prompt statement to ask for an answer then ask for the reasoning behind it. Similarly, a user could prompt the model to explain why it arrived at its answer, which would also motivate the model to reevaluate its initial answer and its accuracy.  
+There are many other ways to encourage the model to follow an intentional reasoning process within the LMQL query. For example, users could modify the internal prompt statement to ask for an answer then ask for the reasoning behind it. Similarly, a user could prompt the model to explain why it arrived at its answer, which would also motivate the model to use reasoning to generate and explain its answer. 
+
+> <span style="color:gray; opacity:0.7;">**Note:** To see more examples of prompt construction as well as more thorough documentation og the code involved in each LMQL query, visit the `Prompt Construction` folder.</span>
 
 ## Constrained Text Generation
 
