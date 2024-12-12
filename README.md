@@ -631,7 +631,7 @@ Although confidence scores are not significant measures of accuracy, it is also 
 
 ### Run time - LMQL query functions vs. Python functions
 
-<img src="Downloads/LMQL Direct API Call Runtime Averages.svg" alt="Alt text" width="300">
+![graph](/Desktop/LMQL_vs._Direct_API_Call_Runtime_Averages.svg)
 
 ## Thank You and Future Areas of Study
 
