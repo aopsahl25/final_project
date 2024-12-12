@@ -34,7 +34,7 @@ print(constrained_length())
 # The program output is a list including the variables from which the model could choose.
 
 # Example output: 
-# ['Sunscreen', 'Bathing Suit', 'Towel', 'Towel']
+# ['Sunscreen', 'Bathing Suit', 'Towel', 'Volleyball']
 
 @lmql.query # Marks this function as an LMQL query definition
 def choice_from_set(): # Defines a function within the LMQL query
