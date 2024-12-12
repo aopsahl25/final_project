@@ -21,7 +21,7 @@ nest_asyncio.apply()
 # User:
 # How long does it take to fly from Los Angeles to Paris?
 # Assistant:
-# The flight duration from Los Angeles to Paris can vary depending on factors 
+# The flight duration from Los Angeles to Paris can vary depending on factors
 # such as the specific departure and arrival airports, the airline, and any layovers. 
 # On average, a non-stop flight can take around 10 to 11 hours. 
 # However, if there are layovers or connecting flights involved, the total travel time can be longer. 
@@ -39,7 +39,7 @@ def chatbot():  # Defines a chatbot function
     print("Chatbot is ready. Type 'Thanks! Goodbye' to exit.")  
     # Prints a welcome message for the chatbot
     argmax  # Starts the query definition 
-        "{:system} You are a chatbot serving highly educated people. your answers can be complicated."  
+        "{:system} You are a chatbot serving highly educated people. Your answers can be complicated."  
         # Sets system instructions for the chatbot on how to answer questions
         while True:  # Begins an infinite loop for chatbot interaction
             print("User:")  # Prompts the user for input
