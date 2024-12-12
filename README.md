@@ -564,7 +564,7 @@ However, it is also notable that the program uses the `STOPS_AT` constraint to e
 
 These expamples show how feature interaction expands LMQL's capabilities and enables the construction of more complicated programs. Indeed, adding program constraints to enforce structure, implementing tool augmentation to drive efficiency, and using prompt construction to improve response accuracy all answer to the LMQL developpers' goal of using LMQL to streamline interactions between the user and language models.
 
-> <span style="color:gray; opacity:0.7;">**Note:** More examples of feature interaction in LMQL query functions can be found in the `Feature Interaction` folder. </span>
+> <span style="color:gray; opacity:0.7;">**Note:** Five more examples of feature interaction in LMQL query functions that are not incldued in the `README` file can be found in the `Feature Interaction` folder. </span>
 
 ## LMQL Evaluation
 
