@@ -33,7 +33,7 @@ In this example, the model is asked to output how tall the Empire State Buidling
 @lmql.query
 def example1():
     '''lmql 
-    "Q:How tall is the Empire State Building? Give me just the height in feet without any other informaiton."
+    "Q:How tall is the Empire State Building? Give me just the height in feet without any other information."
     "A: [ANSWER]"
     return ANSWER
     '''
