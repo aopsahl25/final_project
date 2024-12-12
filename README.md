@@ -7,9 +7,9 @@
 
 The Language Model Query Language, or LMQL, is a programming language that was designed with the express purpose of language model interaction. LMQL was developed by the SRI Lab at ETH Zürich and aims to make interactions between the user and language models smoother and more efficient. LMQL is unique in that it combines traditional programming with the ability to call large lanuage models (LLMs) in a user's code, allowing for the integration of LLM interaction natively at the level of program code. 
 
-> <span style="color:gray; opacity:0.7;">For more information on LMQL from its developpers, users can visit the [LMQL website](https://lmql.ai/) or the SRI Lab's [GitHub repository](https://github.com/eth-sri/lmql) on LMQL.</span>
+> <span style="color:gray; opacity:0.7;">For more information on LMQL from its developpers, visit the [LMQL website](https://lmql.ai/) or the SRI Lab's [GitHub repository](https://github.com/eth-sri/lmql) on LMQL.</span>
 
-This tutorial gives a more detailed overview of LMQL works, walks through how to get started with LMQL, explores its main features, and evaluates the efectiveness and efficiency of those features in comparison to those of an LLM used without LMQL. For follow-up questions about the tutorial or suggestions for improvement, please contact the author, [Amelia Opsahl](mailto:aopsahl25@cmc.edu).
+This tutorial gives a more detailed overview of how LMQL works by walking through how to get started with LMQL, exploring its main features, and evaluating the efectiveness and efficiency of those features in comparison to direct API calls in Python. For follow-up questions about the tutorial or suggestions for improvement, please contact the author, [Amelia Opsahl](mailto:aopsahl25@cmc.edu).
 
 ## Understanding LMQL
 
@@ -28,7 +28,7 @@ Program Output:
 ```
 The Empire State Building is 1,454 feet (443.2 meters) tall.
 ```
-This scenario shows how an LMQL query containing both traditional algorithmic logic and LLM calls can be used to automatically complete template variables like `ANSWER`. Moreover, LMQL queries can leverage natural language prompting to allow for more personalzied outputs to program variables and enhanced model reasoning capabilities. For example:
+In this example, the model is asked to output how tall the Empire State Buidling by completing the variable `ANSWER`. This scenario shows how an LMQL query containing both traditional algorithmic logic and an LLM call can be used to automatically generate values for template variables such as this. Moreover, LMQL queries can leverage natural language prompting to allow for more personalzied outputs to program variables and enhanced model reasoning capabilities. For example:
 ```
 @lmql.query
 def example1():
@@ -43,18 +43,15 @@ Program Output:
 ```
 1,454 feet.
 ```
-Here, we see how algorithmic logic, LLM behavior, and prompt engineering can all come together in LMQL programs to fine-tune program output and efficiently handle complex queries.
-
+Here, we see how algorithmic logic, LLM behavior, and prompt engineering can all come together in LMQL queries to fine-tune program output and efficiently handle complex queries.
 
 ## Getting started - LMQL Installation
 
-LMQL can be installed locally on a user's personal computer. This tutorial will walk through example LMQL queries that are run locally from within Python. 
-
-> <span style="color:gray; opacity:0.7;">**Note:** LMQL can also be used via a local instance of a playground IDE. Using the playground instance requires the installation of Node.js, which can be done by following the instructions on the [Node.js](https://nodejs.org/en/download/package-manage) website.</span>
+LMQL can be installed locally on a user's personal computer or used via a local instance of a playground IDE. Using the playground instance requires the installation of Node.js, which can be done by following the instructions on the [Node.js](https://nodejs.org/en/download/package-manage) website. It is important to remember that the playground instance is a possibility for running LMQL, but from now on this tutorial focus on LMQL queries that are implemented and executed directly from within Python. 
 
 To use LMQL in Python, users can import the `lmql` package, run query code with `lmql.run`, or use a decorator `@lmql.query` for LMQL query functions. This tutorial will use the `@lmql.query` decorator for Pyton integration. The `lmql.run` function is favorable in that it allows users to directly run a string of LMQL code without having to define a function, but this tutorial uses the decorator because of its included support for accessing the surrounding Python environment.
 
-As seen earlier, the `@lmql.query` decorator uses a piece of LMQL code as a Python function, which can then be called from a user's existing code:
+As seen in previous examples, the `@lmql.query` decorator uses a piece of LMQL code as a Python function, which can then be called from a user's existing code:
 ```
 @lmql.query
 def example2(): 
@@ -69,7 +66,7 @@ Program Output:
 ```
 7
 ```
-In terms of query configuration, users can further control query execution by setting the model, decoder, logging parameters, etc. for the query. For example, the following code would override the model and decoder specified in the query program and communicate whether to print verbose logging outputs during execution (e.g., LLM inference parameters). 
+In terms of configuration, users can further control query execution by setting the model, decoder, logging parameters, etc. for a given query. For example, the following code would override the default model and decoder specified in the query program and communicate whether to print additional logging outputs during execution (e.g., LLM inference parameters). 
 ```
 @lmql.query(model = lmql.model("chatgpt"), decoder = "argmax", verbose=False)
 def example3(): 
