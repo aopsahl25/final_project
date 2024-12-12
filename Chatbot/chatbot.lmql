@@ -38,7 +38,7 @@ def chatbot():  # Defines a chatbot function
     '''lmql # Indicates that the following block is written in LMQL
     print("Chatbot is ready. Type 'Thanks! Goodbye' to exit.")  
     # Prints a welcome message for the chatbot
-    argmax  # Starts the query definition (
+    argmax  # Starts the query definition 
         "{:system} You are a chatbot serving highly educated people. your answers can be complicated."  
         # Sets system instructions for the chatbot on how to answer questions
         while True:  # Begins an infinite loop for chatbot interaction
