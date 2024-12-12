@@ -639,18 +639,18 @@ To execute this evaluation, we wrote ten prompts, five of which were quantitativ
 
 From here, we ran each prompt through an LMQL query and through a direct API call within Python and calculated their runtimes using the `time` module. 
 
-Graph 1, shows below, exhibits the runtime for each prompt when run through both LMQL queries and direct API calls. 
+[Graph 1](https://github.com/aopsahl25/final_project/blob/main/LMQL%20vs.%20Direct%20API%20Call%20Runtime.svg), shows below, exhibits the runtime for each prompt when run through both LMQL queries and direct API calls. 
 
 <figure>
     <img src="https://github.com/aopsahl25/final_project/blob/main/LMQL%20vs.%20Direct%20API%20Call%20Runtime.svg" width="600" alt="Description of image">
-    <figcaption>**Graph 1**</figcaption>
+    <figcaption>Graph 1</figcaption>
 </figure>
 
-As we can see, the runtime for LMQL queries was longer than the runtime for direct API calls for every qualititative prompt (prompts 5-9), and all but one quantitative prompt (prompts 0-5). Graph 2, shown below, further explains this finding. 
+As we can see, the runtime for LMQL queries was longer than the runtime for direct API calls for every qualititative prompt (prompts 5-9), and all but one quantitative prompt (prompts 0-5). [Graph 2](https://github.com/aopsahl25/final_project/blob/main/LMQL%20vs.%20Direct%20API%20Call%20Runtime%20Averages.svg), shown below, further explains this finding. 
 
 <figure>
     <img src="https://github.com/aopsahl25/final_project/blob/main/LMQL%20vs.%20Direct%20API%20Call%20Runtime%20Averages.svg" width="600" alt="Description of image">
-    <figcaption>**Graph 2**</figcaption>
+    <figcaption>Graph 2</figcaption>
 </figure>
 
 As seen in this figure, the average quantitative and qualitative runtime, and thus the overall average runtime, for LMQL queries is longer than that of direct API calls. The average LMQL query runtime was 1.585 seconds (rounded to the nearest thousandth of a second), while the average API call runtime was 1.150 seconds. This difference in runtime is especially large for average runtime of quantitative prompts, which had a difference of more than half a second in runtime (1.764 second vs. 1.210 seconds). 
