@@ -632,12 +632,15 @@ Although confidence scores are not significant measures of accuracy, it is also 
 ### Run time - LMQL query functions vs. Python functions
 
 <div align="center">
-![Graph 1](https://github.com/aopsahl25/final_project/blob/main/LMQL%20vs.%20Direct%20API%20Call%20Runtime%20Averages.svg_
+  <img src="https://github.com/aopsahl25/final_project/blob/main/LMQL%20vs.%20Direct%20API%20Call%20Runtime.svg" alt="Alt text" width="300">
+  <h4> Graph 1 </h4>
 </div>
 
 <div align="center">
-![Graph 2](https://github.com/aopsahl25/final_project/blob/main/LMQL%20vs.%20Direct%20API%20Call%20Runtime%20Averages.svg)
+  <img src="(https://github.com/aopsahl25/final_project/blob/main/LMQL%20vs.%20Direct%20API%20Call%20Runtime%20Averages.svg)" alt="Alt text" width="300">
+  <h4> Graph 2 </h4>
 </div>
+
 ## Thank You and Future Areas of Study
 
 Following this evaluation, there are various topics regarding the effectiveness and efficiency of LMQL queries that I would like to explore further. The following are just a few:
