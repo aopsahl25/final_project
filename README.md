@@ -519,6 +519,8 @@ def chatbot():
             print(ANSWER)
     from "chatgpt"
     '''
+result = chatbot()
+print(result.variables["ANSWER"])
 ```
 Example chatbot interaction: 
 ```
