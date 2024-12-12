@@ -568,21 +568,18 @@ These expamples show how feature interaction expands LMQL's capabilities and ena
 
 ## LMQL Evaluation
 
-LMQL has been described by some as the [Swiss Army Knife](https://medium.com/@abhishekranjandev/lmql-a-deep-dive-into-the-future-of-language-model-interaction-81297cf3ab2c) of language model interaction. Our topic interaction section supported this title of versatility as it showed how LMQL's features can be used together to execute varied programs. However, this section aims to evaluate if LMQL is truly as important for efficiency and accuracy as the 'Swiss Army knife' of LLM interaction is assumed to be. 
+LMQL has been described as the [Swiss Army Knife](https://medium.com/@abhishekranjandev/lmql-a-deep-dive-into-the-future-of-language-model-interaction-81297cf3ab2c) of language model interaction, meaning that is is versatile and multifunctional. Our examples so far have supported this diversity in features and prompts that LMQL queries can exectute. However, this section aims to evaluate the actual effectiveness and efficiency of some of these features.
 
 ### Prompt construction
 
-A main feature of LMQL is that it supports multi-part prompt progams, which allow for more user-control over the LLM's reasoning process by asking the model a question and also giving the model instructions on how to reason through it. In this first section of evaluation, we will consider to what extent enhanced control over reasoning impacts the accuracy of the model's response, as well as the model's own confidence in its output. 
+A main feature of LMQL is that it supports multi-part prompt progams, which allow for more user-control over the LLM's reasoning process. In this first section of evaluation, we will consider to what extent enhanced control over reasoning impacts the accuracy of the model's response, as well as the model's own confidence in its output. 
 
-We test the impact of multi-part prompting in LMQL queries by asking the model (`gpt-3.5-turbo`) to solve the same complex mathemetical word problem with an LMQL query function with multi-part prompting, an LMQL query function without multi-part prompting, and an API call in Python with multi-part prompting, and an API call in Python without multi-part prompting. 
+We test the impact of multi-part prompting in LMQL queries by asking the model (`gpt-3.5-turbo`) to solve the same complex mathemetical word problem with an LMQL query function with multi-part prompting, an LMQL query function without multi-part prompting, and a direct API call with multi-part prompting, and a direct API call without multi-part prompting. Both API calls are run from within Python.
 
 **Prompt:**
-If a train traveling at 60 miles per hour departs from City A at 3:00 PM, 
-and another train traveling at 80 miles per hour departs from City B at 3:30 PM toward City A, 
-and the distance between the cities is 240 miles, at what time will the two trains meet? 
+If a train traveling at 60 miles per hour departs from City A at 3:00 PM, and another train traveling at 80 miles per hour departs from City B at 3:30 PM toward City A, and the distance between the cities is 240 miles, at what time will the two trains meet? 
 **Correct Answer:**
 5:00pm
-
 
 Here is the LMQL query function with multi-part prompting's output: 
 ```
@@ -596,6 +593,7 @@ Since the first train departed at 3:00 PM, it will have been traveling for 2 hou
 Therefore, the two trains will meet at 5:00 PM, 2 hours after the first train departed.
 CONFIDENCE: 100% confident
 ```
+It's answer is **5:00pm**, and it's confidence is **100%**.
 
 Here is the LMQL query function without multi-part prompting's output: 
 ```
@@ -607,10 +605,11 @@ The combined speed of the two trains is 60 miles per hour + 80 miles per hour = 
 Therefore, it will take 210 miles / 140 miles per hour = 1.5 hours for the two trains to meet. 
 Since the second train departed at 3:30 PM, they will meet at 3:30 PM + 1.5 hours = 5:00 PM. 
 CONFIDENCE: I am 100% confident in my answer.
-
 ```
 
-Here is the direct API call in Python with multi-part prompting's output: 
+It's answer is **5:00pm**, and it's confidence is **100%**
+
+Here is the direct API call with multi-part prompting's output: 
 ```
 ANSWER:
 First, calculate the head start the first train has by multiplying its speed by the time it departed early (60 mph * 0.5 hours = 30 miles).
@@ -621,6 +620,8 @@ The two trains will meet at 5:00 PM.
 CONFIDENCE: I am 90% confident in my answer.
 ```
 
+It's answer is **5:00pm**, and it's confidence is **90%**
+
 Here is the direct API call in Python without multi-part prompting's output: 
 ```
 ANSWER:
@@ -630,15 +631,16 @@ This means the remaining distance for the second train to cover is 210 miles.
 The combined speed of the two trains is 140 miles per hour, so they will meet in 1.5 hours, or at 5:00 PM. 
 CONFIDENCE: I am 95% confident in my answer.
 ```
+It's answer is **5:00pm**, and it's confidence is **95%**
 
-> <span style="color:gray; opacity:0.7;"> **Note:** To see the code used in each of these queries, please refer to the `evaluation.lmql` file for LMQL queries the `pythoneval.py` file for the direct API calls.</span>
+> <span style="color:gray; opacity:0.7;"> **Note:** To see the code used in each of these queries, please refer to the `evaluation.lmql` file for the LMQL queries and the `pythoneval.py` file for the direct API calls. Both files can be found in the `Evaluation` folder. </span>
 
-When comparing these outputs, the following trends jump out to me: 
+When comparing these outputs, the following trends jump out: 
 * No matter the prompt used or the method of calling the API, every generated answer is correct. 
 * The prompts that instruct the model to use chain-of-thought reasoning show more structure in their steps (they use words like first, second, finally, etc.), but still every generated answer walks through the problem in a logical, step-by-step manner.
-* The model was 100% confident when its answer was output in an LMQL query function. But, for its answers generated with a direct API call in Python with and without multi-part prompting, the model was only 90% and 95% confident, respectively.
+* The model was 100% confident when its answers were output in an LMQL query function. But, for answers generated with a direct API call in Python, the model was only 90%-95% confident.
 
-These trends indicate that the multi-part prompt programs that LMQL boasts may not have a significnat impact on the model's reasoning structure or output accuracy. While these prompts do improve reasoning structure and give users more control over how the model thinks, my evaluation showed that with complex problems, the model will likely use logical reasoning no matter if it is instructed to or not, and the multi-part prompts also may not make much of a difference on the model's output accuracy. 
+These trends indicate that multi-part prompt programs may not have a significant impact on the model's reasoning structure or output accuracy. While multi-part prompts do impact the format of model reasoning and give users more control over how the model thinks, my evaluation showed that with complex problems, the model will likely use logical reasoning no matter if it is instructed to or not, and the multi-part prompts, at least in this scenario, made no difference for the model's output accuracy. 
 
 Although confidence scores are not significant measures of accuracy, it is also interesting that the the model was more confident in its answers output in LMQL queries than in its answers output directly through API calls. An interesting direction of future study would to be explore why this discrpancy occurs. 
 
@@ -646,13 +648,13 @@ Although confidence scores are not significant measures of accuracy, it is also 
 
 In our second section of evaluation, we focus on how LMQL query runtime compares to the runtime of direct API calls from within Python. 
 
-To execute this evaluation, we wrote ten prompts, five of which were quantitative (e.g., summarizing books, commenting on political events), and five of which were qualitative (e.g., answering mathematical word prompts similar to the one seen in our first section of evaluation). 
+To execute this evaluation, we wrote ten prompts, five of which were quantitative (e.g., summarizing books, commenting on political events), and five of which were qualitative (e.g., answering mathematical word prompts similar to the one seen in the first section of evaluation). 
 
-> <span style="color:gray; opacity:0.7;"> **Note:** To see each prompt, please refer to the `prompt.txt' file </span>
+> <span style="color:gray; opacity:0.7;"> **Note:** To see each prompt, please refer to the `prompt.txt` file in the `Evaluation` folder </span>
 
 From here, we ran each prompt through an LMQL query and through a direct API call within Python and calculated their runtimes using the `time` module. 
 
-[Graph 1](https://github.com/aopsahl25/final_project/blob/main/LMQL%20vs.%20Direct%20API%20Call%20Runtime.svg), shows below, exhibits the runtime for each prompt when run through both LMQL queries and direct API calls. 
+[Graph 1](https://github.com/aopsahl25/final_project/blob/main/LMQL%20vs.%20Direct%20API%20Call%20Runtime.svg), shown below, exhibits the runtime for each prompt when run through both LMQL queries and direct API calls. 
 
 <figure>
     <img src="https://github.com/aopsahl25/final_project/blob/main/LMQL%20vs.%20Direct%20API%20Call%20Runtime.svg" width="600" alt="Description of image">
@@ -666,13 +668,13 @@ As we can see, the runtime for LMQL queries was longer than the runtime for dire
     <figcaption>Graph 2</figcaption>
 </figure>
 
-As seen in this figure, the average quantitative and qualitative runtime, and thus the overall average runtime, for LMQL queries is longer than that of direct API calls. The average LMQL query runtime was 1.585 seconds (rounded to the nearest thousandth of a second), while the average API call runtime was 1.150 seconds. This difference in runtime is especially large for average runtime of quantitative prompts, which had a difference of more than half a second in runtime (1.764 second vs. 1.210 seconds). 
+As seen in this figure, the average quantitative and qualitative runtime, and thus the overall average runtime, for LMQL queries is longer than that of direct API calls. The average LMQL query runtime was 1.585 seconds (rounded to the nearest thousandth of a second), while the average API call runtime was only 1.150 seconds. This difference in runtime is especially large for quantitative prompts, which had a difference of more than half a second in average runtime (1.764 second vs. 1.210 seconds). 
 
-This evaluation shows that although LMQL does have features that make user interactability with LLMs more smooth (e.g., top-level text prompts and simple chatbot implementation), it is less efficient to run LMQL queries than it is to run direct API calls from within Python.
+This evaluation shows that although LMQL does have features that make user interactability with LLMs more smooth (e.g., top-level strings as query strings, text constraints, and simple chatbot implementation), it may be less efficient to run LMQL queries than it is to run direct API calls from within Python.
 
-## Thank You and Future Areas of Study
+## Future Areas of Study
 
-Following this evaluation, there are various topics regarding the effectiveness and efficiency of LMQL queries that I would like to explore further. The following are just a few:
+Following this evaluation, there are various topics regarding the effectiveness and efficiency of LMQL queries that we would like to explore further. The following are just a few:
 
 * How would LMQL query runtime change if run in a local instance of a Playground IDE instead of directly from within Python?
 * How might LMQL query runtime differ if run from one of the other models that LMQL supports (e.g., llama.cpp, Azure)?
