@@ -250,7 +250,7 @@ Program Output:
 ```
 The above program creates a packing list for a trip based on a given set of possible values with the `set` constraint.
 
-### Character Length
+### Length
 
 Just as in Python, the `len` function can be used in an LMQL query to add constraints to the length of a variable at the character or token level. This ensures that an output is not any longer or shorter than desired, and can also help to guide the model to be more succinct or elaborative in its response. 
 
@@ -449,7 +449,7 @@ In the above program, the LMQL query uses the `assign()` and `get()` functions, 
 
 ### Text Retrieval
 
-Text retrieval using Python's `async` and `await` syntax can also be used to augment the reasoning capabilities of the model queried in LMQL programs and guide the model to extract information from specific data sets. This can be accomplished by incorporating the `asyncio` [library](https://docs.python.org/3/library/asyncio.html) into LMQL queries to run Python coroutines that enable the program to pause execution at certain points and allow other tasks to run in the meantime. In the context of text retrieval, this capability can be used to extract information from high-level API URLs and run LMQL queries specifically on that information. 
+Text retrieval using `async` and `await` syntax can also be used to augment the reasoning capabilities of the model queried in LMQL programs and guide the model to extract information from specific data sets. This can be accomplished by incorporating the `asyncio` [library](https://docs.python.org/3/library/asyncio.html) into LMQL queries to run Python coroutines that enable the program to pause execution at certain points and allow other tasks to run in the meantime. In the context of text retrieval, this capability can be used to extract information from high-level API URLs and run LMQL queries specifically on that information. 
 
 > <span style="color:gray; opacity:0.7;">**Note:** API URLs are web addresses used to access and interact with the functionalities of an API. They define the location where an API can be accessed on the web, often including specific endpoints that correspond to different operations or resources. An API URL typically consists of the base URL (which points to the server hosting the API) followed by a path that specifies the particular service or data being requested.</span>
 
@@ -560,7 +560,7 @@ def scripted_prompting(event):
     '''
 print(scripted_prompting("school"))
 ```
-However, it is also notable that the program uses the `STOPS_AT` constraint to ensure each item in the list stops at a new line character and does not include the "\n" character in the output list. Moreover, this LMQL query function uses Python's `append()` method to add items to the final list, as well as Python's `strip()` method to eliminate extra whitespace from the beginning/end of the strings in the list. In this way, prompt construction, constrained text generation, and tool augmentation all work together to effectively format program output both in terms of length and content, as well as output the list in an efficient way (e.g., using the one-line `append()` function within the for loop to create the list instead of adding further prompting or a more complicated function to append elements to the list). 
+However, it is also notable that the program uses the `STOPS_AT` constraint to ensure each item in the list stops at a new line character and does not include the `\n` character in the output list. Moreover, this LMQL query function uses Python's `append()` method to add items to the final list, as well as Python's `strip()` method to eliminate extra whitespace from the beginning/end of the strings in the list. In this way, prompt construction, constrained text generation, and tool augmentation all work together to effectively format program output both in terms of length and content, as well as output the list in an efficient way (e.g., using the one-line `append()` function within the for loop to create the list instead of adding further prompting or a more complicated function to append elements to the list). 
 
 These expamples show how feature interaction expands LMQL's capabilities and enables the construction of more complicated programs. Indeed, adding program constraints to enforce structure, implementing tool augmentation to drive efficiency, and using prompt construction to improve response accuracy all answer to the LMQL developpers' goal of using LMQL to streamline interactions between the user and language models.
 
