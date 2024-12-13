@@ -274,7 +274,7 @@ Why couldn't the bicycle stand up by itself?, Because it was two-tired.
 
 The above program uses the `len` function to restrict the length of the joke to be less than ten words and ensure that the punchline for the joke is more than one word. A similar program could be executed at the character level to restrict the amount of characters included in the output by removing `TOKENS` as an argument in the `len` function. 
 
-> <span style="color:gray; opacity:0.7;">**Note:** Token length constraints are cheaper to enforce than character length constraints. This is because character length constraints require detokenization and masking, so their character level-length checks are more expesnive than simple length checks on tokenized outputs.</span>
+> <span style="color:gray; opacity:0.7;">**Note:** Token length constraints are cheaper to enforce than character length constraints. This is because character length constraints require detokenization and masking, so their character level-length checks are more expensive than simple length checks on tokenized outputs.</span>
 
 ### Regex Constraints
 
