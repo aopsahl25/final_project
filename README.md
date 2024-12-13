@@ -507,7 +507,7 @@ def chatbot():
     '''lmql
     print("Chatbot is ready. Type 'Thanks! Goodbye' to exit.")
     argmax 
-        "{:system} You are a chatbot serving highly educated people. Your ansers can be complicated."
+        "{:system} You are a chatbot serving highly educated people. Your answers can be complicated."
         while True:
             print("User:")
             "{:user} {await input()}"
