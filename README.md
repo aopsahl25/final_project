@@ -224,7 +224,7 @@ Program Output:
 ```
 The above program enforces that the model generate a number of type integer, outputs the integer `47`, and validates that the output is indeed an integer with the `type()` function. 
 
-> <span style="color:gray; opacity:0.7;">**Note:** LMQL currently only supports integer constraints. However, the developpers have announced that support for floating point numbers and other types is planned for future releases.</span>
+> <span style="color:gray; opacity:0.7;">**Note:** LMQL currently only supports integer constraints. However, the developers have announced that support for floating point numbers and other types is planned for future releases.</span>
 
 ### Choice From Set
 
