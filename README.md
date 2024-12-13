@@ -314,7 +314,7 @@ For example:
 @lmql.query
 def results_class():
     '''lmql
-    "Generate a two-sentence review for a hotel that you recently stayed at.\n\n"
+    "Generate a two-sentence review for a hotel that you recently stayed at.\n"
     "[REVIEW]"
     "Q: What is the underlying sentiment of REVIEW \n"
     "A:[SENTIMENT]" where SENTIMENT in set(["Good", "Bad", "Neutral"])
