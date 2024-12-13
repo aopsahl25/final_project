@@ -28,7 +28,7 @@ Program Output:
 ```
 The Empire State Building is 1,454 feet (443.2 meters) tall.
 ```
-In this example, the model is asked to output how tall the Empire State Buidling by completing the variable `ANSWER`. This scenario shows how an LMQL query containing both traditional algorithmic logic and an LLM call can be used to automatically generate values for template variables such as this. Moreover, LMQL queries can leverage natural language prompting to allow for more personalzied outputs to program variables and enhanced model reasoning capabilities. For example:
+In this example, the model is asked to output how tall the Empire State Buidling by completing the variable `ANSWER`. This scenario shows how an LMQL query containing both traditional algorithmic logic and an LLM call can be used to automatically generate values for template variables such as this. Moreover, LMQL queries can leverage natural language prompting to allow for more personalized outputs to program variables and enhanced model reasoning capabilities. For example:
 ```
 @lmql.query
 def example1():
