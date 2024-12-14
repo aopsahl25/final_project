@@ -396,7 +396,7 @@ def function_call():
     '''lmql 
     "Output a simple math expression for addition. Use real numbers, not variables. \n"  
     "[MATH]" where STOPS_BEFORE(MATH, "=")   
-    EVAL = eval(MATH)  
+    EVAL = ast.literal_eval(MATH)  
     return MATH, EVAL 
     '''
 print(function_call())
@@ -406,7 +406,9 @@ Program Output:
 MATH: 2 + 3
 EVAL: 5
 ```
-In the above program, the LMQL query leverages Python's `eval() ` function to calculate the generated expression in just one call. This increases efficiency as the function eliminates the need to write additional prompting to solve the expression. Compared to the model's output, it is also more certain that the `eval()` function will be able to solve the expression correctly.
+In the above program, the LMQL query leverages Python's `ast.literal_eval()` function to safely calculate the generated expression in just one call. This increases efficiency as the function eliminates the need to write additional prompting to solve the expression. Compared to the model's output, it is also more certain that the `ast.literal_eval()` function will be able to solve the expression correctly.
+
+> <span style="color:gray; opacity:0.7;">**Note:** We use Python's `ast.literal_eval()` function instead of Python's `eval()` function because the `ast.literal_eval()` function in Python safely evaluates a string as a Python literal (e.g., numbers, strings, tuples, lists, dicts) while rejecting potentially dangerous expressions, such as executing arbitrary code. Unlike `eval()`, which can execute malicious commands if improperly handled, `ast.literal_eval()` only parses valid literals, reducing the risk of code injection or unintended behavior. This makes it a safer choice for handling untrusted or external input. </span>
 
 ### Surrounding Functions
 
