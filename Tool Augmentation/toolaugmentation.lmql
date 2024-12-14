@@ -24,7 +24,8 @@ def function_call(): # Defines a function within the LMQL query
     "[MATH]" where STOPS_BEFORE(MATH, "=")  
     # Placeholder for the generated math expression, 
     # with a STOPS_BEFORE constraint to ensure the expression stops before the '=' sign
-    EVAL = eval(MATH)  
+    EVAL = ast.literal_eval(MATH)  
+    # evaluates the expression and stores the answer in the EVAL variable
     return MATH, EVAL 
     # Returns the generated math expression and its evaluated result
     '''
