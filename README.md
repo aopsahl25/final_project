@@ -5,11 +5,11 @@
   <h2> Exploring an emerging programming language for large language models </h2>
 </div>
 
-The Language Model Query Language, or LMQL, is a programming language that was designed with the express purpose of language model interaction. LMQL was developed by the SRI Lab at ETH Zürich and aims to make interactions between the user and language models smoother and more efficient. LMQL is unique in that it combines traditional programming with the ability to call large lanuage models (LLMs) in a user's code, allowing for the integration of LLM interaction natively at the level of program code. 
+The Language Model Query Language, or LMQL, is a programming language that was designed with the express purpose of language model interaction. LMQL was developed by the Secure, Reliable, Intelligent Lab at ETH Zürich and aims to make interactions between the user and language models smoother and more efficient. LMQL is unique in that it combines traditional programming with the ability to call large lanuage models (LLMs) in a user's code, allowing for the integration of LLM interaction natively at the level of program code. 
 
 > <span style="color:gray; opacity:0.7;">For more information on LMQL from its developpers, visit the [LMQL website](https://lmql.ai/) or the SRI Lab's [GitHub repository](https://github.com/eth-sri/lmql) on LMQL.</span>
 
-This tutorial gives a more detailed overview of how LMQL works by walking through how to get started with LMQL, exploring its main features, and evaluating the efectiveness and efficiency of those features in comparison to direct API calls in Python. For follow-up questions about the tutorial or suggestions for improvement, please contact the author, [Amelia Opsahl](mailto:aopsahl25@cmc.edu).
+This tutorial gives a more detailed overview of how LMQL works by walking through how to get started with LMQL, exploring its main features, and evaluating the accuracy and efficiency of those features in comparison to direct API calls in Python. For follow-up questions about the tutorial or suggestions for improvement, please contact the author, [Amelia Opsahl](mailto:aopsahl25@cmc.edu).
 
 ## Understanding LMQL
 
@@ -28,12 +28,12 @@ Program Output:
 ```
 The Empire State Building is 1,454 feet (443.2 meters) tall.
 ```
-In this example, the model is asked to output how tall the Empire State Buidling by completing the variable `ANSWER`. This scenario shows how an LMQL query containing both traditional algorithmic logic and an LLM call can be used to automatically generate values for template variables such as this. Moreover, LMQL queries can leverage natural language prompting to allow for more personalzied outputs to program variables and enhanced model reasoning capabilities. For example:
+In this example, the model is asked to output how tall the Empire State Buidling by completing the variable `ANSWER`. This scenario shows how an LMQL query containing both traditional algorithmic logic and an LLM call can be used to automatically generate values for template variables such as this. Moreover, LMQL queries can leverage natural language prompting to allow for more personalized outputs to program variables and enhanced model reasoning capabilities. For example:
 ```
 @lmql.query
 def example1():
     '''lmql 
-    "Q:How tall is the Empire State Building? Give me just the height in feet without any other informaiton."
+    "Q:How tall is the Empire State Building? Give me just the height in feet without any other information."
     "A: [ANSWER]"
     return ANSWER
     '''
@@ -224,7 +224,7 @@ Program Output:
 ```
 The above program enforces that the model generate a number of type integer, outputs the integer `47`, and validates that the output is indeed an integer with the `type()` function. 
 
-> <span style="color:gray; opacity:0.7;">**Note:** LMQL currently only supports integer constraints. However, the developpers have announced that support for floating point numbers and other types is planned for future releases.</span>
+> <span style="color:gray; opacity:0.7;">**Note:** LMQL currently only supports integer constraints. However, the developers have announced that support for floating point numbers and other types is planned for future releases.</span>
 
 ### Choice From Set
 
@@ -250,7 +250,7 @@ Program Output:
 ```
 The above program creates a packing list for a trip based on a given set of possible values with the `set` constraint.
 
-### Character Length
+### Length
 
 Just as in Python, the `len` function can be used in an LMQL query to add constraints to the length of a variable at the character or token level. This ensures that an output is not any longer or shorter than desired, and can also help to guide the model to be more succinct or elaborative in its response. 
 
@@ -272,9 +272,9 @@ Program Output:
 Why couldn't the bicycle stand up by itself?, Because it was two-tired.
 ```
 
-The above program uses the `len` function to restrict the length of the joke to be less than ten words and ensure that the punchline for the joke is more than one word. A similar program could be executed at the character level to restrict the amount of charcaters included in the output by removing `TOKENS` as an argument in the `len` function. 
+The above program uses the `len` function to restrict the length of the joke to be less than ten words and ensure that the punchline for the joke is more than one word. A similar program could be executed at the character level to restrict the amount of characters included in the output by removing `TOKENS` as an argument in the `len` function. 
 
-> <span style="color:gray; opacity:0.7;">**Note:** Token length constraints are cheaper to enforce than character length constraints. This is because character length constraints require detokenization and masking, so their character level-length checks are more expesnive than simple length checks on tokenized outputs.</span>
+> <span style="color:gray; opacity:0.7;">**Note:** Token length constraints are cheaper to enforce than character length constraints. This is because character length constraints require detokenization and masking, so their character level-length checks are more expensive than simple length checks on tokenized outputs.</span>
 
 ### Regex Constraints
 
@@ -314,7 +314,7 @@ For example:
 @lmql.query
 def results_class():
     '''lmql
-    "Generate a two-sentence review for a hotel that you recently stayed at.\n\n"
+    "Generate a two-sentence review for a hotel that you recently stayed at.\n"
     "[REVIEW]"
     "Q: What is the underlying sentiment of REVIEW \n"
     "A:[SENTIMENT]" where SENTIMENT in set(["Good", "Bad", "Neutral"])
@@ -396,7 +396,7 @@ def function_call():
     '''lmql 
     "Output a simple math expression for addition. Use real numbers, not variables. \n"  
     "[MATH]" where STOPS_BEFORE(MATH, "=")   
-    EVAL = eval(MATH)  
+    EVAL = ast.literal_eval(MATH)  
     return MATH, EVAL 
     '''
 print(function_call())
@@ -406,7 +406,9 @@ Program Output:
 MATH: 2 + 3
 EVAL: 5
 ```
-In the above program, the LMQL query leverages Python's `eval() ` function to calculate the generated expression in just one call. This increases efficiency as the function eliminates the need to write additional prompting to solve the expression. Compared to the model's output, it is also more certain that the `eval()` function will be able to solve the expression correctly.
+In the above program, the LMQL query leverages Python's `ast.literal_eval()` function to safely calculate the generated expression in just one call. This increases efficiency as the function eliminates the need to write additional prompting to solve the expression. Compared to the model's output, it is also more certain that the `ast.literal_eval()` function will be able to solve the expression correctly.
+
+> <span style="color:gray; opacity:0.7;">**Note:** We use Python's `ast.literal_eval()` function instead of Python's `eval()` function because the `ast.literal_eval()` function in Python safely evaluates a string as a Python literal (e.g., numbers, strings, tuples, lists, dicts) while rejecting potentially dangerous expressions, such as executing arbitrary code. Unlike `eval()`, which can execute malicious commands if improperly handled, `ast.literal_eval()` only parses valid literals, reducing the risk of code injection or unintended behavior. This makes it a safer choice for handling untrusted or external input. </span>
 
 ### Surrounding Functions
 
@@ -449,7 +451,7 @@ In the above program, the LMQL query uses the `assign()` and `get()` functions, 
 
 ### Text Retrieval
 
-Text retrieval using Python's `async` and `await` syntax can also be used to augment the reasoning capabilities of the model queried in LMQL programs and guide the model to extract information from specific data sets. This can be accomplished by incorporating the `asyncio` [library](https://docs.python.org/3/library/asyncio.html) into LMQL queries to run Python coroutines that enable the program to pause execution at certain points and allow other tasks to run in the meantime. In the context of text retrieval, this capability can be used to extract information from high-level API URLs and run LMQL queries specifically on that information. 
+Text retrieval using `async` and `await` syntax can also be used to augment the reasoning capabilities of the model queried in LMQL programs and guide the model to extract information from specific data sets. This can be accomplished by incorporating the `asyncio` [library](https://docs.python.org/3/library/asyncio.html) into LMQL queries to run Python coroutines that enable the program to pause execution at certain points and allow other tasks to run in the meantime. In the context of text retrieval, this capability can be used to extract information from high-level API URLs and run LMQL queries specifically on that information. 
 
 > <span style="color:gray; opacity:0.7;">**Note:** API URLs are web addresses used to access and interact with the functionalities of an API. They define the location where an API can be accessed on the web, often including specific endpoints that correspond to different operations or resources. An API URL typically consists of the base URL (which points to the server hosting the API) followed by a path that specifies the particular service or data being requested.</span>
 
@@ -507,7 +509,7 @@ def chatbot():
     '''lmql
     print("Chatbot is ready. Type 'Thanks! Goodbye' to exit.")
     argmax 
-        "{:system} You are a chatbot serving highly educated people. Your ansers can be complicated."
+        "{:system} You are a chatbot serving highly educated people. Your answers can be complicated."
         while True:
             print("User:")
             "{:user} {await input()}"
@@ -560,29 +562,26 @@ def scripted_prompting(event):
     '''
 print(scripted_prompting("school"))
 ```
-However, it is also notable that the program uses the `STOPS_AT` constraint to ensure each item in the list stops at a new line character and does not include the "\n" character in the output list. Moreover, this LMQL query function uses Python's `append()` method to add items to the final list, as well as Python's `strip()` method to eliminate extra whitespace from the beginning/end of the strings in the list. In this way, prompt construction, constrained text generation, and tool augmentation all work together to effectively format program output both in terms of length and content, as well as output the list in an efficient way (e.g., using the one-line `append()` function within the for loop to create the list instead of adding further prompting or a more complicated function to append elements to the list). 
+However, it is also notable that the program uses the `STOPS_AT` constraint to ensure each item in the list stops at a new line character and does not include the `\n` character in the output list. Moreover, this LMQL query function uses Python's `append()` method to add items to the final list, as well as Python's `strip()` method to eliminate extra whitespace from the beginning/end of the strings in the list. In this way, prompt construction, constrained text generation, and tool augmentation all work together to effectively format program output both in terms of length and content, as well as output the list in an efficient way (e.g., using the one-line `append()` function within the for loop to create the list instead of adding further prompting or a more complicated function to append elements to the list). 
 
 These expamples show how feature interaction expands LMQL's capabilities and enables the construction of more complicated programs. Indeed, adding program constraints to enforce structure, implementing tool augmentation to drive efficiency, and using prompt construction to improve response accuracy all answer to the LMQL developpers' goal of using LMQL to streamline interactions between the user and language models.
 
-> <span style="color:gray; opacity:0.7;">**Note:** More examples of feature interaction in LMQL query functions can be found in the `Feature Interaction` folder. </span>
+> <span style="color:gray; opacity:0.7;">**Note:** Five more examples of feature interaction in LMQL query functions that are not incldued in the `README` file can be found in the `Feature Interaction` folder. </span>
 
 ## LMQL Evaluation
 
-LMQL has been described by some as the [Swiss Army Knife](https://medium.com/@abhishekranjandev/lmql-a-deep-dive-into-the-future-of-language-model-interaction-81297cf3ab2c) of language model interaction. Our topic interaction section supported this title of versatility as it showed how LMQL's features can be used together to execute varied programs. However, this section aims to evaluate if LMQL is truly as important for efficiency and accuracy as the 'Swiss Army knife' of LLM interaction is assumed to be. 
+LMQL has been described as the [Swiss Army Knife](https://medium.com/@abhishekranjandev/lmql-a-deep-dive-into-the-future-of-language-model-interaction-81297cf3ab2c) of language model interaction, meaning that is is versatile and multifunctional. Our examples so far have supported this diversity in features and prompts that LMQL queries can exectute. However, this section aims to evaluate the actual effectiveness and efficiency of some of these features.
 
 ### Prompt construction
 
-A main feature of LMQL is that it supports multi-part prompt progams, which allow for more user-control over the LLM's reasoning process by asking the model a question and also giving the model instructions on how to reason through it. In this first section of evaluation, we will consider to what extent enhanced control over reasoning impacts the accuracy of the model's response, as well as the model's own confidence in its output. 
+A main feature of LMQL is that it supports multi-part prompt progams, which allow for more user-control over the LLM's reasoning process. In this first section of evaluation, we will consider to what extent enhanced control over reasoning impacts the accuracy of the model's response, as well as the model's own confidence in its output. 
 
-We test the impact of multi-part prompting in LMQL queries by asking the model (`gpt-3.5-turbo`) to solve the same complex mathemetical word problem with an LMQL query function with multi-part prompting, an LMQL query function without multi-part prompting, and an API call in Python with multi-part prompting, and an API call in Python without multi-part prompting. 
+We test the impact of multi-part prompting in LMQL queries by asking the model (`gpt-3.5-turbo`) to solve the same complex mathemetical word problem with an LMQL query function with multi-part prompting, an LMQL query function without multi-part prompting, and a direct API call with multi-part prompting, and a direct API call without multi-part prompting. Both API calls are run from within Python.
 
 **Prompt:**
-If a train traveling at 60 miles per hour departs from City A at 3:00 PM, 
-and another train traveling at 80 miles per hour departs from City B at 3:30 PM toward City A, 
-and the distance between the cities is 240 miles, at what time will the two trains meet? 
+If a train traveling at 60 miles per hour departs from City A at 3:00 PM, and another train traveling at 80 miles per hour departs from City B at 3:30 PM toward City A, and the distance between the cities is 240 miles, at what time will the two trains meet? 
 **Correct Answer:**
 5:00pm
-
 
 Here is the LMQL query function with multi-part prompting's output: 
 ```
@@ -596,6 +595,7 @@ Since the first train departed at 3:00 PM, it will have been traveling for 2 hou
 Therefore, the two trains will meet at 5:00 PM, 2 hours after the first train departed.
 CONFIDENCE: 100% confident
 ```
+It's answer is **5:00pm**, and it's confidence is **100%**.
 
 Here is the LMQL query function without multi-part prompting's output: 
 ```
@@ -607,10 +607,11 @@ The combined speed of the two trains is 60 miles per hour + 80 miles per hour = 
 Therefore, it will take 210 miles / 140 miles per hour = 1.5 hours for the two trains to meet. 
 Since the second train departed at 3:30 PM, they will meet at 3:30 PM + 1.5 hours = 5:00 PM. 
 CONFIDENCE: I am 100% confident in my answer.
-
 ```
 
-Here is the direct API call in Python with multi-part prompting's output: 
+It's answer is **5:00pm**, and it's confidence is **100%**
+
+Here is the direct API call with multi-part prompting's output: 
 ```
 ANSWER:
 First, calculate the head start the first train has by multiplying its speed by the time it departed early (60 mph * 0.5 hours = 30 miles).
@@ -621,6 +622,8 @@ The two trains will meet at 5:00 PM.
 CONFIDENCE: I am 90% confident in my answer.
 ```
 
+It's answer is **5:00pm**, and it's confidence is **90%**
+
 Here is the direct API call in Python without multi-part prompting's output: 
 ```
 ANSWER:
@@ -630,15 +633,16 @@ This means the remaining distance for the second train to cover is 210 miles.
 The combined speed of the two trains is 140 miles per hour, so they will meet in 1.5 hours, or at 5:00 PM. 
 CONFIDENCE: I am 95% confident in my answer.
 ```
+It's answer is **5:00pm**, and it's confidence is **95%**
 
-> <span style="color:gray; opacity:0.7;"> **Note:** To see the code used in each of these queries, please refer to the `evaluation.lmql` file for LMQL queries the `pythoneval.py` file for the direct API calls.</span>
+> <span style="color:gray; opacity:0.7;"> **Note:** To see the code used in each of these queries, please refer to the `evaluation.lmql` file for the LMQL queries and the `pythoneval.py` file for the direct API calls. Both files can be found in the `Evaluation` folder. </span>
 
-When comparing these outputs, the following trends jump out to me: 
+When comparing these outputs, the following trends jump out: 
 * No matter the prompt used or the method of calling the API, every generated answer is correct. 
 * The prompts that instruct the model to use chain-of-thought reasoning show more structure in their steps (they use words like first, second, finally, etc.), but still every generated answer walks through the problem in a logical, step-by-step manner.
-* The model was 100% confident when its answer was output in an LMQL query function. But, for its answers generated with a direct API call in Python with and without multi-part prompting, the model was only 90% and 95% confident, respectively.
+* The model was 100% confident when its answers were output in an LMQL query function. But, for answers generated with a direct API call in Python, the model was only 90%-95% confident.
 
-These trends indicate that the multi-part prompt programs that LMQL boasts may not have a significnat impact on the model's reasoning structure or output accuracy. While these prompts do improve reasoning structure and give users more control over how the model thinks, my evaluation showed that with complex problems, the model will likely use logical reasoning no matter if it is instructed to or not, and the multi-part prompts also may not make much of a difference on the model's output accuracy. 
+These trends indicate that multi-part prompt programs may not have a significant impact on the model's reasoning structure or output accuracy. While multi-part prompts do impact the format of model reasoning and give users more control over how the model thinks, my evaluation showed that with complex problems, the model will likely use logical reasoning no matter if it is instructed to or not, and the multi-part prompts, at least in this scenario, made no difference for the model's output accuracy. 
 
 Although confidence scores are not significant measures of accuracy, it is also interesting that the the model was more confident in its answers output in LMQL queries than in its answers output directly through API calls. An interesting direction of future study would to be explore why this discrpancy occurs. 
 
@@ -646,33 +650,33 @@ Although confidence scores are not significant measures of accuracy, it is also 
 
 In our second section of evaluation, we focus on how LMQL query runtime compares to the runtime of direct API calls from within Python. 
 
-To execute this evaluation, we wrote ten prompts, five of which were quantitative (e.g., summarizing books, commenting on political events), and five of which were qualitative (e.g., answering mathematical word prompts similar to the one seen in our first section of evaluation). 
+To execute this evaluation, we wrote ten prompts, five of which were quantitative (e.g., summarizing books, commenting on political events), and five of which were qualitative (e.g., answering mathematical word prompts similar to the one seen in the first section of evaluation). 
 
-> <span style="color:gray; opacity:0.7;"> **Note:** To see each prompt, please refer to the `prompt.txt' file </span>
+> <span style="color:gray; opacity:0.7;"> **Note:** To see each prompt, please refer to the `prompt.txt` file in the `Evaluation` folder </span>
 
 From here, we ran each prompt through an LMQL query and through a direct API call within Python and calculated their runtimes using the `time` module. 
 
-[Graph 1](https://github.com/aopsahl25/final_project/blob/main/LMQL%20vs.%20Direct%20API%20Call%20Runtime.svg), shows below, exhibits the runtime for each prompt when run through both LMQL queries and direct API calls. 
+[Graph 1](https://github.com/aopsahl25/final_project/blob/main/Images/LMQL%20vs.%20Direct%20API%20Call%20Runtime.svg), shown below, exhibits the runtime for each prompt when run through both LMQL queries and direct API calls. 
 
 <figure>
-    <img src="https://github.com/aopsahl25/final_project/blob/main/LMQL%20vs.%20Direct%20API%20Call%20Runtime.svg" width="600" alt="Description of image">
+    <img src="https://github.com/aopsahl25/final_project/blob/main/Images/LMQL%20vs.%20Direct%20API%20Call%20Runtime.svg" width="600" alt="Description of image">
     <figcaption>Graph 1</figcaption>
 </figure>
 
-As we can see, the runtime for LMQL queries was longer than the runtime for direct API calls for every qualititative prompt (prompts 5-9), and all but one quantitative prompt (prompts 0-5). [Graph 2](https://github.com/aopsahl25/final_project/blob/main/LMQL%20vs.%20Direct%20API%20Call%20Runtime%20Averages.svg), shown below, further explains this finding. 
+As we can see, the runtime for LMQL queries was longer than the runtime for direct API calls for every qualititative prompt (prompts 5-9), and all but one quantitative prompt (prompts 0-5). [Graph 2](https://github.com/aopsahl25/final_project/blob/main/Images/LMQL%20vs.%20Direct%20API%20Call%20Runtime%20Averages.svg), shown below, further explains this finding. 
 
 <figure>
-    <img src="https://github.com/aopsahl25/final_project/blob/main/LMQL%20vs.%20Direct%20API%20Call%20Runtime%20Averages.svg" width="600" alt="Description of image">
+    <img src="https://github.com/aopsahl25/final_project/blob/main/Images/LMQL%20vs.%20Direct%20API%20Call%20Runtime%20Averages.svg" width="600" alt="Description of image">
     <figcaption>Graph 2</figcaption>
 </figure>
 
-As seen in this figure, the average quantitative and qualitative runtime, and thus the overall average runtime, for LMQL queries is longer than that of direct API calls. The average LMQL query runtime was 1.585 seconds (rounded to the nearest thousandth of a second), while the average API call runtime was 1.150 seconds. This difference in runtime is especially large for average runtime of quantitative prompts, which had a difference of more than half a second in runtime (1.764 second vs. 1.210 seconds). 
+As seen in this figure, the average quantitative and qualitative runtime, and thus the overall average runtime, for LMQL queries is longer than that of direct API calls. The average LMQL query runtime was 1.585 seconds (rounded to the nearest thousandth of a second), while the average API call runtime was only 1.150 seconds. This difference in runtime is especially large for quantitative prompts, which had a difference of more than half a second in average runtime (1.764 second vs. 1.210 seconds). 
 
-This evaluation shows that although LMQL does have features that make user interactability with LLMs more smooth (e.g., top-level text prompts and simple chatbot implementation), it is less efficient to run LMQL queries than it is to run direct API calls from within Python.
+This evaluation shows that although LMQL does have features that make user interactability with LLMs more smooth (e.g., top-level strings as query strings, text constraints, and simple chatbot implementation), it may be less efficient to run LMQL queries than it is to run direct API calls from within Python.
 
-## Thank You and Future Areas of Study
+## Future Areas of Study
 
-Following this evaluation, there are various topics regarding the effectiveness and efficiency of LMQL queries that I would like to explore further. The following are just a few:
+Following this evaluation, there are various topics regarding the effectiveness and efficiency of LMQL queries that we would like to explore further. The following are just a few:
 
 * How would LMQL query runtime change if run in a local instance of a Playground IDE instead of directly from within Python?
 * How might LMQL query runtime differ if run from one of the other models that LMQL supports (e.g., llama.cpp, Azure)?
